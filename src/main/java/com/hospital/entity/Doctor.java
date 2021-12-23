@@ -9,7 +9,6 @@ public class Doctor {
     public String dOffice;      // 医生所在科室
     public String dTitle;       // 医生职称（只能为专家或普通）
     public String dSkill ;      // 医生的擅长简介
-    public Integer isRegisitered; // 医生是否被挂号（（0代表未被挂号，1代表已被挂号），默认为0
 
     public Integer getDoctorId() {
         return doctorId;
@@ -65,13 +64,5 @@ public class Doctor {
 
     public void setdSkill(String dSkill) {
         this.dSkill = dSkill;
-    }
-
-    public Integer getIsRegisitered() {
-        return isRegisitered;
-    }
-
-    public void setIsRegisitered(Integer isRegisitered) {
-        this.isRegisitered = isRegisitered;
     }
 }
