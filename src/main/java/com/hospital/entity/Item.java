@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.hospital.entity;
 
 // 药品、医学检查
 public class Item {

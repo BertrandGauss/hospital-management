@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.hospital.entity;
 
 // 挂号
 public class Registration {

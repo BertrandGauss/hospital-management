@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.hospital.entity;
 
 // 预约
 public class Order {

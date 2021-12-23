@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.hospital.entity;
 
 // 医生
 public class Doctor {
