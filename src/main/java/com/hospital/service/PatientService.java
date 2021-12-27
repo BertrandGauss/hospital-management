@@ -25,6 +25,7 @@ public class PatientService {
         return id;
 
     }
+
     //注册
     public JSONObject register(Patient patient){
         Integer re=idnumberisregister(patient.getpIdentificationNum());
@@ -48,6 +49,37 @@ public class PatientService {
         JSONObject json = new JSONObject();
 
         json.put("msg","注册成功");
+        json.put("code",0);
+        return json;
+
+    }
+
+    //登陆
+    public JSONObject login(Patient patient){
+        String telephone=patient.getpPhone();
+
+        String pw=MD5Util.md5(patient.getpPassword());
+        String passw=patientMapper.selectpwbyphone(telephone);
+
+        System.out.println("pw"+pw);
+        System.out.println("paw"+passw);
+
+        if(passw==null){
+            System.out.println("paw"+passw);
+            JSONObject json = new JSONObject();
+            json.put("msg","该用户不存在");
+            json.put("code",1);
+            return json;
+        }
+        else if(!pw.equals(passw)){
+            JSONObject json = new JSONObject();
+            json.put("msg","密码错误");
+            json.put("code",2);
+            return json;
+        }
+        JSONObject json = new JSONObject();
+
+        json.put("msg","登录成功");
         json.put("code",0);
         return json;
 
