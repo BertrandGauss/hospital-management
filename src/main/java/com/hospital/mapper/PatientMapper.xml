@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.PatientMapper">
+
+    <insert id="add"  parameterType="com.hospital.mapper.PatientMapper" useGeneratedKeys="true" keyProperty="patientId">
+        INSERT INTO patient (pUsername,pPassword,pIdentificationNum,pName,pGender,pAge,pOccupation,pPhone,pAddress) VALUES (#{pUsername},#{pPassword},#{pIdentificationNum},#{pName},#{pGender},#{pAge},#{pOccupation},#{pPhone},#{pAddress})
+    </insert>
+
+    <select id="selectByIdentificationNum" resultType="java.lang.Integer" >
+        SELECT patientId FROM patient WHERE pIdentificationNum = #{pIdentificationNum}
+    </select>
+
+    <select id="selectidbyphone" resultType="java.lang.Integer" >
+        SELECT patientId FROM patient WHERE pPhone = #{pPhone}
+    </select>
+
+
+
+</mapper>
