@@ -8,7 +8,7 @@ public class Patient {
     public String pIdentificationNum; // 患者身份证号
     public String pName;          // 患者姓名
     public String pGender;        // 患者性别（F代表女性，M代表男性）
-    public String pAge;           // 患者年龄
+    public Integer pAge;          // 患者年龄
     public String pOccupation;    // 患者职业
     public String pPhone;         // 患者联系电话
     public String pAddress;       // 患者家庭住址
@@ -64,11 +64,11 @@ public class Patient {
         this.pGender = pGender;
     }
 
-    public String getpAge() {
+    public Integer getpAge() {
         return pAge;
     }
 
-    public void setpAge(String pAge) {
+    public void setpAge(Integer pAge) {
         this.pAge = pAge;
     }
 

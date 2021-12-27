@@ -38,7 +38,7 @@ CREATE TABLE `Patient`(
 	`pIdentificationNum` varchar(18) not null default '',
 	`pName` varchar(32) not null default '',
 	`pGender` varchar(1),
-	`pAge` varchar(3),
+	`pAge` int,
 	`pOccupation` varchar(32),
 	`pPhone` varchar(11),
 	`pAddress` varchar(100),

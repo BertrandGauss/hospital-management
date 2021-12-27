@@ -20,9 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ce4c3d4-b1d5-45db-8524-d26d9f555a14" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hospital/entity/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hospital/entity/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/hospitalDatabase.sql" beforeDir="false" afterPath="$PROJECT_DIR$/doc/hospitalDatabase.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hospital/entity/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hospital/entity/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +49,14 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -70,7 +71,9 @@
       <workItem from="1640230474939" duration="2980000" />
       <workItem from="1640245747527" duration="609000" />
       <workItem from="1640247097096" duration="633000" />
-      <workItem from="1640247767293" duration="72000" />
+      <workItem from="1640247767293" duration="498000" />
+      <workItem from="1640248278734" duration="47000" />
+      <workItem from="1640616075112" duration="208000" />
     </task>
     <servers />
   </component>
@@ -98,9 +101,9 @@
       <screen x="0" y="0" width="1440" height="929" />
     </state>
     <state x="501" y="220" key="FileChooserDialogImpl/0.0.1440.929@0.0.1440.929" timestamp="1640247567550" />
-    <state x="222" y="79" key="SettingsEditor" timestamp="1640247670778">
+    <state x="222" y="79" key="SettingsEditor" timestamp="1640616282059">
       <screen x="0" y="0" width="1440" height="929" />
     </state>
-    <state x="222" y="79" key="SettingsEditor/0.0.1440.929@0.0.1440.929" timestamp="1640247670778" />
+    <state x="222" y="79" key="SettingsEditor/0.0.1440.929@0.0.1440.929" timestamp="1640616282059" />
   </component>
 </project>
