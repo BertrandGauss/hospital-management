@@ -96,4 +96,10 @@ public class PatientService {
         patientMapper.update(patient);
     }
 
+    //修改用户密码
+    public void updatepatientpw(Integer patientId, String pPassword ){
+        //给密码加密
+        String pw = MD5Util.md5(pPassword);
+        patientMapper.updatepw(patientId, pw);
+    }
 }

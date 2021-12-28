@@ -25,8 +25,14 @@
 
     <update id="update" parameterType="com.hospital.entity.Patient">
         UPDATE patient
-        SET pUsername=#{pUsername} , pIdentificationNum=#{pIdentificationNum} , pName = #{pName},pAge = #{pAge} , pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
-        WHERE patiendId=#{patiendId}
+        SET pUsername=#{pUsername} , pName = #{pName}, pAge = #{pAge} , pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
+        WHERE patientId=#{patientId}
+    </update>
+
+    <update id="updatepw" parameterType="com.hospital.entity.Patient">
+        UPDATE patient
+        SET pPassword=#{pPassword}
+        WHERE patientId=#{patientId}
     </update>
 
 

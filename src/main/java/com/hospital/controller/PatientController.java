@@ -59,15 +59,26 @@ public class PatientController {
         return json;
     }
 
-    //显示用户信息
+    //更新用户信息
     @RequestMapping(value = "/updatepatientinfo",method = {RequestMethod.POST})
-    private JSONObject updatePatientInfo(Patient patient){
+    private JSONObject updatePatientInfo(@RequestBody Patient patient){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         patient.setPatientId(id);
         patientService.updatepatientinfo(patient);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","更新用户信息成功");
+        return json;
+    }
+
+    //修改
+    @RequestMapping(value = "/updatepatientpw",method = {RequestMethod.POST})
+    private JSONObject updatePatientpw(@RequestBody Patient patient){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        patientService.updatepatientpw(id,patient.getpPassword());
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","修改用户密码成功");
         return json;
     }
 
