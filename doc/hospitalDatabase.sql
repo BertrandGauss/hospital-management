@@ -116,6 +116,7 @@ DROP TABLE IF EXISTS `Recipe`;
 CREATE TABLE Recipe (
 	`recipeId` bigint auto_increment,
 	`doctorId` bigint,
+	`patientId` bigint,
 	`itemId` bigint,
 	`recipeName` varchar(32),
 	`dosage` varchar(32),
@@ -129,6 +130,7 @@ CREATE TABLE Recipe (
 	`remains` int,
 	`haveDone` int not null default 0,
 	primary key(`recipeId`),
-	CONSTRAINT fk_doctor_recipe_did FOREIGN KEY(`doctorId`) REFERENCES `DoctorId`(`doctorId`),
+	CONSTRAINT fk_doctor_recipe_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
+	CONSTRAINT fk_patient_recipe_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
 	CONSTRAINT fk_item_recipe_iid FOREIGN KEY(`itemId`) REFERENCES `Item`(`itemId`)
 );
