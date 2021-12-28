@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import com.hospital.entity.Patient;
 import com.hospital.utils.MD5Util;
 
+import javax.annotation.Resource;
+
 @Service
 public class PatientService {
-    @Autowired
+    @Resource
     private PatientMapper patientMapper;
 
     public  Integer idnumberisregister(String pIdentificationNum){
@@ -102,4 +104,5 @@ public class PatientService {
         String pw = MD5Util.md5(pPassword);
         patientMapper.updatepw(patientId, pw);
     }
+    
 }
