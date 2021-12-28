@@ -1,14 +1,16 @@
 package com.hospital.entity;
 
+import java.util.Date;
+
 // 病历
 public class History {
-    public Integer historyId;      // 病历ID
-    public Integer patientId;      // 患者ID
-    public String clinicType;      // 就诊类型
-    public String diseaseDate;     // 发病日期，格式形如XXXX-XX-XX
-    public String drugAllergyHis;  // 药敏史
-    public String chiefComplaint;  // 主诉
-    public String presentIllness;  // 现病史
+    private Integer historyId;      // 病历ID
+    private Integer patientId;      // 患者ID
+    private String clinicType;      // 就诊类型
+    private Date diseaseDate;       // 发病日期，格式形如XXXX-XX-XX
+    private String drugAllergyHis;  // 药敏史
+    private String chiefComplaint;  // 主诉
+    private String presentIllness;  // 现病史
 
     public Integer getHistoryId() {
         return historyId;
@@ -34,11 +36,11 @@ public class History {
         this.clinicType = clinicType;
     }
 
-    public String getDiseaseDate() {
+    public Date getDiseaseDate() {
         return diseaseDate;
     }
 
-    public void setDiseaseDate(String diseaseDate) {
+    public void setDiseaseDate(Date diseaseDate) {
         this.diseaseDate = diseaseDate;
     }
 

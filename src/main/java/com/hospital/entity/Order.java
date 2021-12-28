@@ -2,12 +2,13 @@ package com.hospital.entity;
 
 // 预约
 public class Order {
-    public Integer orderId;     // 预约ID
-    public Integer patientId;   // 患者ID
-    public String oType;        // 预约类型（只能为专家预约或科室预约）
-    public String oTime;        // 预约时段
-    public Integer oNum;        // 预约号（例如1,2…）
-    public Integer isValid;     // 预约是否有效（0代表无效，1代表有效）
+    private Integer orderId;     // 预约ID
+    private Integer patientId;   // 患者ID
+    private Integer doctorId;    // 医生ID可以为空
+    private String department;   // 预约科室
+    private String oType;        // 预约类型（只能为专家预约或科室预约）
+    private String oTime;        // 预约时段
+    private Integer isValid;     // 预约是否有效（0代表无效，1代表有效）
 
     public Integer getOrderId() {
         return orderId;
@@ -25,6 +26,22 @@ public class Order {
         this.patientId = patientId;
     }
 
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId){
+        this.doctorId = doctorId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public String getoType() {
         return oType;
     }
@@ -39,14 +56,6 @@ public class Order {
 
     public void setoTime(String oTime) {
         this.oTime = oTime;
-    }
-
-    public Integer getoNum() {
-        return oNum;
-    }
-
-    public void setoNum(Integer oNum) {
-        this.oNum = oNum;
     }
 
     public Integer getIsValid() {

@@ -17,5 +17,11 @@ public interface PatientMapper {
 
     void update(Patient patient);
 
+    String selectPasswdById(Integer patientId);
+
     void updatepw(@Param("patientId") Integer patientId, @Param("pPassword") String pPassword);
+
+    Integer showcancleorder(Integer patientId);
+
+    Integer selectBlacklist(Integer patientId);
 }

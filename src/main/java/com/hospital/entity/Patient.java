@@ -2,19 +2,19 @@ package com.hospital.entity;
 
 // 病人
 public class Patient {
-    public Integer patientId;     // 患者ID
-    public String pUsername;      // 患者登录用户名
-    public String pPassword;      // 患者登录密码
-    public String pIdentificationNum; // 患者身份证号
-    public String pName;          // 患者姓名
-    public String pGender;        // 患者性别（F代表女性，M代表男性）
-    public Integer pAge;          // 患者年龄
-    public String pOccupation;    // 患者职业
-    public String pPhone;         // 患者联系电话
-    public String pAddress;       // 患者家庭住址
-    public Integer isOrder;       // 是否预约（0代表未预约，1代表已预约）
-    public Integer orderTimes;    // 预约次数
-    public Integer isInBlacklist; // 是否在黑名单（0代表不在，1代表在）
+    private Integer patientId;     // 患者ID
+    private String pUsername;      // 患者登录用户名
+    private String pPassword;      // 患者登录密码
+    private String pIdentificationNum; // 患者身份证号
+    private String pName;          // 患者姓名
+    private String pGender;        // 患者性别（F代表女性，M代表男性）
+    private Integer pAge;          // 患者年龄
+    private String pOccupation;    // 患者职业
+    private String pPhone;         // 患者联系电话
+    private String pAddress;       // 患者家庭住址
+    private Integer isOrder;       // 是否预约（0代表未预约，1代表已预约）
+    private Integer orderTimes;    // 取消预约次数
+    private Integer isInBlacklist; // 是否在黑名单（0代表不在，1代表在）
 
     public Integer getPatientId() {
         return patientId;

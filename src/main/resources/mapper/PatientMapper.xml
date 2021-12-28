@@ -23,6 +23,10 @@
         SELECT * FROM patient WHERE patientId = #{patiendId}
     </select>
 
+    <select id="selectPasswdById" resultType="java.lang.String" >
+        SELECT pPassword FROM patient WHERE patientId = #{patiendId}
+    </select>
+
     <update id="update" parameterType="com.hospital.entity.Patient">
         UPDATE patient
         SET pUsername=#{pUsername} , pName = #{pName}, pAge = #{pAge} , pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
@@ -35,5 +39,11 @@
         WHERE patientId=#{patientId}
     </update>
 
+    <select id="showcancleorder" resultType="java.lang.Integer" >
+        SELECT orderTimes FROM patient WHERE patientId = #{patiendId}
+    </select>
 
+    <select id="selectBlacklist" resultType="java.lang.Integer" >
+        SELECT isInBlacklist FROM patient WHERE patientId = #{patiendId}
+    </select>
 </mapper>
