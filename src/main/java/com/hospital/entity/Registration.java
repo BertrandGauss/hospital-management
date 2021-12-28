@@ -2,10 +2,10 @@ package com.hospital.entity;
 
 // 挂号
 public class Registration {
-    public Integer registrationId;  // 挂号ID
-    public Integer patientId;       // 患者ID
-    public Integer doctorId;        // 医生ID
-    public String rNum;             // 排队号（例如1,v1...）
+    private Integer registrationId;  // 挂号ID
+    private Integer patientId;       // 患者ID
+    private Integer doctorId;        // 医生ID
+    private String rNum;             // 排队号（例如1,v1...）
 
     public Integer getRegistrationId() {
         return registrationId;

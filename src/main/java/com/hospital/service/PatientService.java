@@ -86,5 +86,37 @@ public class PatientService {
 
     }
 
+    //显示用户信息
+    public Patient showpatientinfo(Integer patiendId){
+        Patient patient = patientMapper.selectbyid(patiendId);
+        return patient;
+    }
+
+    //更新用户信息
+    public void updatepatientinfo(Patient patient){
+        patientMapper.update(patient);
+    }
+
+    public JSONObject updatepatientpasswd(Integer id,String old_pw,String new_pw){
+        JSONObject json = new JSONObject();
+        String origin_pw=patientMapper.selectPasswdById(id);
+        String pw=MD5Util.md5(old_pw);
+
+        if(!origin_pw.equals(pw)){
+            json.put("code",1);System.out.println("旧密码错误");
+            json.put("msg","旧密码输入错误");
+        }
+        else{
+            patientMapper.updatepw(id,MD5Util.md5(new_pw));
+            json.put("code",0);
+            json.put("msg","成功修改密码");
+        }
+        return json;
+    }
+
+    //显示
+    public Integer showdanger(Integer patientId ){
+       return  patientMapper.showcancleorder(patientId);
+    }
 
 }

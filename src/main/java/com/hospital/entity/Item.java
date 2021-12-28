@@ -2,13 +2,13 @@ package com.hospital.entity;
 
 // 药品、医学检查
 public class Item {
-    public Integer itemId;     // 条项ID
-    public Integer tag;        // 区分药品和医学检查（0代表药品，1代表医学检查）
-    public String itemName;    // 药品/医学检查（例如核磁共振，CT等）名称
-    public String price;       // 药品/医学检查单价
-    public String usage;       // 用法
-    public Integer remains;    // 药品库存量/医学检查剩余可做次数
-    public Integer haveDone;   // 是否做过医学检查/使用过药品（0代表否，1代表是）
+    private Integer itemId;     // 条项ID
+    private Integer tag;        // 区分药品和医学检查（0代表药品，1代表医学检查）
+    private String itemName;    // 药品/医学检查（例如核磁共振，CT等）名称
+    private String price;       // 药品/医学检查单价
+    private String usage;       // 用法
+    private Integer remains;    // 药品库存量/医学检查剩余可做次数
+    private Integer haveDone;   // 是否做过医学检查/使用过药品（0代表否，1代表是）
 
     public Integer getItemId() {
         return itemId;

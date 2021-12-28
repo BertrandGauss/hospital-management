@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.OrderMapper">
+
+    <insert id="add"  parameterType="com.hospital.mapper.OrderMapper" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO order (patientId,doctorId,department,oType,oTime,isValid) VALUES (#{patientId},#{doctorId},#{department},#{oType},#{oTime},1)
+    </insert>
+
+    <select id="selectbyId" resultType="com.hospital.entity.Order" >
+        SELECT * FROM order WHERE patiendId = #{patiendId}
+    </select>
+
+    <select id="countOrderNumberZ" resultType="java.lang.Integer" >
+        SELECT COUNT(*) FROM order WHERE doctorId = #{doctorId} AND department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid==1
+    </select>
+
+    <select id="countOrderNumber" resultType="java.lang.Integer" >
+        SELECT COUNT(*) FROM order WHERE  department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid==1
+    </select>
+
+</mapper>

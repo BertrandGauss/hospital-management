@@ -2,13 +2,13 @@ package com.hospital.entity;
 
 // 医生
 public class Doctor {
-    public Integer doctorId;    // 医生ID
-    public String dUsername;    // 医生登录用户名
-    public String dPassword;    // 医生登录密码
-    public String dName;        // 医生姓名
-    public String dOffice;      // 医生所在科室
-    public String dTitle;       // 医生职称（只能为专家或普通）
-    public String dSkill ;      // 医生的擅长简介
+    private Integer doctorId;    // 医生ID
+    private String dUsername;    // 医生登录用户名
+    private String dPassword;    // 医生登录密码
+    private String dName;        // 医生姓名
+    private String dOffice;      // 医生所在科室
+    private String dTitle;       // 医生职称（只能为专家或普通）
+    private String dSkill ;      // 医生的擅长简介
 
     public Integer getDoctorId() {
         return doctorId;

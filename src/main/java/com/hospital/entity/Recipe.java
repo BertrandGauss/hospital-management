@@ -2,14 +2,14 @@ package com.hospital.entity;
 
 // 处方
 public class Recipe {
-    public Integer recipeId;    // 处方ID
-    public Integer doctorId;    // 医生ID
-    public Integer itemId;      // 条项ID
-    public String dosage;       // 用量
-    public String units;        // 单位
-    public String frequency;    // 频率
-    public String days;         // 天数
-    public String skinTestRes;  // 皮试结果
+    private Integer recipeId;    // 处方ID
+    private Integer doctorId;    // 医生ID
+    private Integer itemId;      // 条项ID
+    private String dosage;       // 用量
+    private String units;        // 单位
+    private String frequency;    // 频率
+    private String days;         // 天数
+    private String skinTestRes;  // 皮试结果
 
     public Integer getRecipeId() {
         return recipeId;
