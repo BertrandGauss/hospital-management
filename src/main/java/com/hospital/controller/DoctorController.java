@@ -19,13 +19,4 @@ public class DoctorController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    // 医生注册
-    @RequestMapping(value = "/register",method = {RequestMethod.POST})
-    private JSONObject register(@RequestBody Patient patient){
-        JSONObject json = new JSONObject();
-        json= patientService.register(patient);
-        System.out.println(json.get("msg"));
-        return json;
-    }
-
 }
