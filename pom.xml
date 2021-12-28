@@ -16,8 +16,8 @@
         </configuration>
     </plugin>
 
-    <groupId>healthCare</groupId>
-    <artifactId>health</artifactId>
+    <groupId>com</groupId>
+    <artifactId>hospital</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>

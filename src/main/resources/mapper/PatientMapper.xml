@@ -15,6 +15,8 @@
         SELECT patientId FROM patient WHERE pPhone = #{pPhone}
     </select>
 
-
+    <select id="selectpwbyphone" resultType="java.lang.String" >
+        SELECT pPassword FROM patient WHERE pPhone = #{pPhone}
+    </select>
 
 </mapper>
