@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.DoctorMapper">
+
+    <select id="showOffice" resultType="java.lang.String" >
+        SELECT dOffice
+        FROM doctor
+        WHERE doctorId = #{doctorId}
+    </select>
+
+    <select id="showPatientInfo" resultType="com.hospital.entity.PatientVo" >
+        SELECT pName,pGender,pAge,pOccupation,pPhone,pAddress
+        FROM patient
+        WHERE pIdentificationNum = #{pIdentificationNum};
+    </select>
+
+
+    <insert id="editCaseHistory1" parameterType="com.hospital.mapper.DoctorMapper" useGeneratedKeys="true" keyProperty="historyId">
+        INSERT INTO History (pName,pGender,pAge,pOccupation,pPhone,pAddress)
+        VALUES (#{pName},#{pGender},#{pAge},#{pOccupation},#{pPhone},#{pAddress});
+    </insert>
+
+    <update id="editClinicType">
+        UPDATE history
+        SET clinicType = #{clinicType}
+        WHERE historyId = #{historyId};
+    </update>
+
+    <update id="editDiseaseDate">
+        UPDATE history
+        SET diseaseDate = #{diseaseDate}
+        WHERE historyId = #{historyId};
+    </update>
+
+    <update id="editDrugAllergyHis">
+        UPDATE history
+        SET drugAllergyHis = #{drugAllergyHis}
+        WHERE historyId = #{historyId};
+    </update>
+
+    <update id="editChiefComplaint">
+        UPDATE history
+        SET chiefComplaint = #{chiefComplaint}
+        WHERE historyId = #{historyId};
+    </update>
+
+    <update id="editPresentIllness">
+        UPDATE history
+        SET presentIllness = #{presentIllness}
+        WHERE historyId = #{historyId};
+    </update>
+
+    <update id="getRecipe">
+        UPDATE recipe
+        SET presentIllness = #{presentIllness}
+        WHERE historyId = #{historyId};
+    </update>
+
+</mapper>

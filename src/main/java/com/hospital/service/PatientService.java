@@ -2,14 +2,15 @@ package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.mapper.PatientMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hospital.entity.Patient;
 import com.hospital.utils.MD5Util;
 
+import javax.annotation.Resource;
+
 @Service
 public class PatientService {
-    @Autowired
+    @Resource
     private PatientMapper patientMapper;
 
     public  Integer idnumberisregister(String pIdentificationNum){
