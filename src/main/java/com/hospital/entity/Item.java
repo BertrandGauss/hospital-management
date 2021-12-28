@@ -1,14 +1,16 @@
 package com.hospital.entity;
 
-// 药品、医学检查
+import java.util.Date;
+
+// 医学检查
 public class Item {
-    private Integer itemId;     // 条项ID
-    private Integer tag;        // 区分药品和医学检查（0代表药品，1代表医学检查）
-    private String itemName;    // 药品/医学检查（例如核磁共振，CT等）名称
-    private String price;       // 药品/医学检查单价
-    private String usage;       // 用法
-    private Integer remains;    // 药品库存量/医学检查剩余可做次数
-    private Integer haveDone;   // 是否做过医学检查/使用过药品（0代表否，1代表是）
+    private Integer itemId;          // 医学检查项目ID
+    private String illnessSummary;   // 病情摘要
+    private String checkArea;        // 检查部位
+    private String notice;           // 注意事项
+    private Date checkTime;          // 检查时间
+    private String checkRes;         // 检查结果
+    private String opinion;          // 总结意见
 
     public Integer getItemId() {
         return itemId;
@@ -18,51 +20,51 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public Integer getTag() {
-        return tag;
+    public String getIllnessSummary() {
+        return illnessSummary;
     }
 
-    public void setTag(Integer tag) {
-        this.tag = tag;
+    public void setIllnessSummary(String illnessSummary) {
+        this.illnessSummary = illnessSummary;
     }
 
-    public String getItemName() {
-        return itemName;
+    public Date getCheckTime() {
+        return checkTime;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
     }
 
-    public String getPrice() {
-        return price;
+    public String getCheckArea() {
+        return checkArea;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setCheckArea(String checkArea) {
+        this.checkArea = checkArea;
     }
 
-    public String getUsage() {
-        return usage;
+    public String getNotice() {
+        return notice;
     }
 
-    public void setUsage(String usage) {
-        this.usage = usage;
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
-    public Integer getRemains() {
-        return remains;
+    public String getCheckRes() {
+        return checkRes;
     }
 
-    public void setRemains(Integer remains) {
-        this.remains = remains;
+    public void setCheckRes(String checkRes) {
+        this.checkRes = checkRes;
     }
 
-    public Integer getHaveDone() {
-        return haveDone;
+    public String getOpinion() {
+        return opinion;
     }
 
-    public void setHaveDone(Integer haveDone) {
-        this.haveDone = haveDone;
+    public void setOpinion(String opinion) {
+        this.opinion = opinion;
     }
 }

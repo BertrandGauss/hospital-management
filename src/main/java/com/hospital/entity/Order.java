@@ -4,7 +4,7 @@ package com.hospital.entity;
 public class Order {
     private Integer orderId;     // 预约ID
     private Integer patientId;   // 患者ID
-    private Integer doctorId;    // 医生ID可以为空
+    private Integer doctorId;    // 医生ID
     private String department;   // 预约科室
     private String oType;        // 预约类型（只能为专家预约或科室预约）
     private String oTime;        // 预约时段
