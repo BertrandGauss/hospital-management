@@ -11,4 +11,8 @@ public interface PatientMapper {
     Integer selectidbyphone(String pPhone);
 
     String selectpwbyphone(String pPhone);
+
+    Patient selectbyid(Integer patientId);
+
+    void update(Patient patient);
 }

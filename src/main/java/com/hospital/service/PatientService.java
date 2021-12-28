@@ -85,5 +85,15 @@ public class PatientService {
 
     }
 
+    //显示用户信息
+    public Patient showpatientinfo(Integer patiendId){
+        Patient patient = patientMapper.selectbyid(patiendId);
+        return patient;
+    }
+
+    //更新用户信息
+    public void updatepatientinfo(Patient patient){
+        patientMapper.update(patient);
+    }
 
 }

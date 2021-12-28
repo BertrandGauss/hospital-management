@@ -19,4 +19,15 @@
         SELECT pPassword FROM patient WHERE pPhone = #{pPhone}
     </select>
 
+    <select id="selectbyid" resultType="com.hospital.entity.Patient" >
+        SELECT * FROM patient WHERE patientId = #{patiendId}
+    </select>
+
+    <update id="update" parameterType="com.hospital.entity.Patient">
+        UPDATE patient
+        SET pUsername=#{pUsername} , pIdentificationNum=#{pIdentificationNum} , pName = #{pName},pAge = #{pAge} , pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
+        WHERE patiendId=#{patiendId}
+    </update>
+
+
 </mapper>
