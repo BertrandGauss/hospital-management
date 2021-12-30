@@ -5,9 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Order;
 import com.hospital.mapper.OrderMapper;
 import com.hospital.mapper.PatientMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.time.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -20,16 +27,29 @@ public class OrderService {
     public JSONObject addOrder(Order order){
         Integer isInBlackList = patientMapper.selectBlacklist(order.getPatientId());
         JSONObject json = new JSONObject();
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DAY_OF_MONTH, 1);// 今天+1天
+        Date tomorrow = c.getTime();
+
+        order.setoDate(tomorrow);
+
+        if(orderMapper.selectbyorderTime(order.getPatientId())!=null){
+            json.put("msg","您今日已有预约");
+            json.put("code",1);
+            return json;
+        }
         if(isInBlackList==1){
             json.put("msg","您已被拉入黑名单");
-            json.put("code",1);
+            json.put("code",2);
             return json;
         }
         if(order.getoType()=="专家预约"){
             Integer orderNum = orderMapper.countOrderNumberZ(order);
             if(orderNum>=5){
                 json.put("msg","专家预约号不足");
-                json.put("code",2);
+                json.put("code",3);
                 return json;
             }
         }
@@ -37,7 +57,7 @@ public class OrderService {
             Integer orderNum = orderMapper.countOrderNumber(order);
             if(orderNum>=10){
                 json.put("msg","科室预约号不足");
-                json.put("code",3);
+                json.put("code",4);
                 return json;
             }
         }
@@ -50,5 +70,33 @@ public class OrderService {
     public List<Order> showallOrder(Integer patientId){
         List<Order> orders = orderMapper.selectbyId(patientId);
         return orders;
+    }
+
+    public JSONObject cancleOrder(Integer patientId, Integer orderId){
+        JSONObject json = new JSONObject();
+        if (orderMapper.selectValid(patientId, orderId)==0){
+            json.put("msg","该预约是无效预约");
+            json.put("code",1);
+            return  json;
+        }
+        orderMapper.deleteValid(patientId, orderId);
+        //取消预约次数加一
+        patientMapper.updateorderTimes(patientId);
+        if(patientMapper.showcancleorder(patientId)>=20){//取消次数大于上限
+            patientMapper.updateBlacklist(patientId);//把患者拉入黑名单
+        }
+        json.put("msg","取消预约成功");
+        json.put("code",0);
+        return json;
+    }
+
+    //按时间检测预约是否时效
+    @Scheduled(cron = "0 0 */1 * * ?")  //每小时检测一次
+    public void checkOrder(){
+        Date today = new Date();
+        System.out.println("today"+today);
+        Time time =Time.valueOf(LocalTime.now());
+
+        orderMapper.updateisValid(today, time);
     }
 }

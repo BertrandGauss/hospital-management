@@ -22,16 +22,17 @@ public class OrderController {
     private HttpServletRequest httpServletRequest;
 
     //进行预约
-    @RequestMapping(value = "/register",method = {RequestMethod.POST})
-    private JSONObject register(@RequestBody Order order){
+    @RequestMapping(value = "/startorder",method = {RequestMethod.POST})
+    private JSONObject startorder(@RequestBody Order order){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         order.setPatientId(id);
+        System.out.println(order.getDoctorId());
         JSONObject json = new JSONObject();
         json= orderService.addOrder(order);
         return json;
     }
 
-    //显示预约信息
+    //显示预约记录
     @RequestMapping(value = "/showallorder",method = {RequestMethod.GET})
     private JSONObject showallOrder(){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
@@ -42,6 +43,15 @@ public class OrderController {
         json.put("code",0);
         json.put("data",orders);
         json.put("msg","返回预约信息成功");
+        return json;
+    }
+
+    //取消预约
+    @RequestMapping(value = "/cancleorder",method = {RequestMethod.POST})
+    private JSONObject cancleOrder(@RequestBody Order order){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        order.setPatientId(id);
+        JSONObject json = orderService.cancleOrder(order.getPatientId(), order.getOrderId());
         return json;
     }
 }

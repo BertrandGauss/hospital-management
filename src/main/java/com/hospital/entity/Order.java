@@ -1,5 +1,8 @@
 package com.hospital.entity;
 
+import java.sql.Time;
+import java.util.Date;
+
 // 预约
 public class Order {
     private Integer orderId;     // 预约ID
@@ -7,7 +10,8 @@ public class Order {
     private Integer doctorId;    // 医生ID
     private String department;   // 预约科室
     private String oType;        // 预约类型（只能为专家预约或科室预约）
-    private String oTime;        // 预约时段
+    private Date oDate;          //预约日期
+    private Time oTime;          // 预约时段
     private Integer isValid;     // 预约是否有效（0代表无效，1代表有效）
 
     public Integer getOrderId() {
@@ -50,11 +54,19 @@ public class Order {
         this.oType = oType;
     }
 
-    public String getoTime() {
+    public Date getoDate() {
+        return oDate;
+    }
+
+    public void setoDate(Date oDate) {
+        this.oDate = oDate;
+    }
+
+    public Time getoTime() {
         return oTime;
     }
 
-    public void setoTime(String oTime) {
+    public void setoTime(Time oTime) {
         this.oTime = oTime;
     }
 

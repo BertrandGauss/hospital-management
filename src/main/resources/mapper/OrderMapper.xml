@@ -4,19 +4,36 @@
 <mapper namespace="com.hospital.mapper.OrderMapper">
 
     <insert id="add"  parameterType="com.hospital.mapper.OrderMapper" useGeneratedKeys="true" keyProperty="orderId">
-        INSERT INTO order (patientId,doctorId,department,oType,oTime,isValid) VALUES (#{patientId},#{doctorId},#{department},#{oType},#{oTime},1)
+        INSERT INTO `order` (patientId,doctorId,department,oDate,oType,oTime,isValid) VALUES (#{patientId},#{doctorId},#{department},#{oDate},#{oType},#{oTime},1)
     </insert>
 
     <select id="selectbyId" resultType="com.hospital.entity.Order" >
-        SELECT * FROM order WHERE patiendId = #{patiendId}
+        SELECT * FROM `order` WHERE patientId = #{patientId}
     </select>
 
     <select id="countOrderNumberZ" resultType="java.lang.Integer" >
-        SELECT COUNT(*) FROM order WHERE doctorId = #{doctorId} AND department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid==1
+        SELECT COUNT(*) FROM `order` WHERE doctorId = #{doctorId} AND department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid=1
     </select>
 
     <select id="countOrderNumber" resultType="java.lang.Integer" >
-        SELECT COUNT(*) FROM order WHERE  department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid==1
+        SELECT COUNT(*) FROM `order` WHERE  department = #{department} AND oType = #{oType} AND oTime = #{oTime} AND isValid=1
     </select>
 
+    <select id="selectValid" resultType="java.lang.Integer" >
+        SELECT isValid FROM `order`  WHERE  patientId = #{patientId} AND orderId = #{orderId}
+    </select>
+
+    <delete id="deleteValid" >
+        DELETE FROM `order` WHERE patientId=#{patientId} AND OrderId = #{orderId}
+    </delete>
+
+    <update id="updateisValid" >
+        UPDATE `order`
+        SET isValid=0
+        WHERE oTime &lt;= #{oTime} AND oDate &lt;= #{oDate}
+    </update>
+
+    <select id="selectbyorderTime" resultType="java.lang.Integer" >
+        SELECT orderId FROM `order`  WHERE  patientId = #{patientId} AND isValid=1
+    </select>
 </mapper>
