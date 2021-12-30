@@ -21,6 +21,7 @@ CREATE TABLE `Doctor`(
 	`dUsername` varchar(32) not null,
 	`dPassword` varchar(32) not null,
 	`dName` varchar(32) not null default '',
+	`dIdentificationNum` varchar(18) not null default '',
 	`dOffice` varchar(32) not null default '',
 	`dTitle` varchar(32),
 	`dSkill` varchar(100),
@@ -84,6 +85,7 @@ DROP TABLE IF EXISTS `History`;
 CREATE TABLE `History` (
 	`historyId` bigint auto_increment,
 	`patientId` bigint,
+	`pIdentificationNum` varchar(18) not null default '',
 	`clinicType` varchar(32),
 	`diseaseDate` date,
 	`diagnosis` varchar(32),

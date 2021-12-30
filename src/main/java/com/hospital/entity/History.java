@@ -6,6 +6,7 @@ import java.util.Date;
 public class History {
     public Integer historyId;      // 病历ID
     public Integer patientId;      // 患者ID
+    public String pIdentificationNum;  // 患者身份证号
     public String clinicType;      // 就诊类型
     public Date diseaseDate;       // 发病日期，格式形如XXXX-XX-XX
     public String diagnosis;       // 诊断
