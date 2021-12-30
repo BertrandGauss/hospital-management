@@ -34,6 +34,6 @@
     </update>
 
     <select id="selectbyorderTime" resultType="java.lang.Integer" >
-        SELECT orderId FROM `order`  WHERE  patientId = #{patientId} AND oDate = #{oDate} + 1
+        SELECT orderId FROM `order`  WHERE  patientId = #{patientId} AND isValid=1
     </select>
 </mapper>
