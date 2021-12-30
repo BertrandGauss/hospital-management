@@ -61,24 +61,18 @@ public class PatientService {
 
         String pw=MD5Util.md5(patient.getpPassword());
         String passw=patientMapper.selectpwbyphone(telephone);
-
-        System.out.println("pw"+pw);
-        System.out.println("paw"+passw);
-
+        JSONObject json = new JSONObject();
         if(passw==null){
-            System.out.println("paw"+passw);
-            JSONObject json = new JSONObject();
             json.put("msg","该用户不存在");
             json.put("code",1);
+
             return json;
-        }
-        else if(!pw.equals(passw)){
-            JSONObject json = new JSONObject();
+        }else if(!pw.equals(passw)){
             json.put("msg","密码错误");
             json.put("code",2);
+
             return json;
         }
-        JSONObject json = new JSONObject();
 
         json.put("msg","登录成功");
         json.put("code",0);
@@ -103,7 +97,7 @@ public class PatientService {
         String pw=MD5Util.md5(old_pw);
 
         if(!origin_pw.equals(pw)){
-            json.put("code",1);System.out.println("旧密码错误");
+            json.put("code",1);
             json.put("msg","旧密码输入错误");
         }
         else{
