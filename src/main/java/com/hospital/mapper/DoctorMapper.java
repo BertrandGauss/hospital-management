@@ -1,29 +1,23 @@
 package com.hospital.mapper;
 
 import com.hospital.entity.*;
+import org.apache.ibatis.annotations.Param;
+
+import javax.print.Doc;
 
 public interface DoctorMapper {
-    // 显示科室
-    String showOffice(Integer doctorId);
+    void add(Doctor doctor);         // 注册，增加医生信息
 
-    // 查询患者主要信息
-    PatientVo showPatientInfo(String pIdentificationNum);
+    String selectpwbydid(String did);  // 根据医生身份证号查找密码
 
-    // 编辑病历
-    void editCaseHistory1(PatientVo patientVo);
-    void editClinicType(String clinicType, Integer historyId);
-    void editDiseaseDate(String diseaseDate, Integer historyId);
-    void editDrugAllergyHis(String drugAllergyHis, Integer historyId);
-    void editChiefComplaint(String chiefComplaint, Integer historyId);
-    void editPresentIllness(String presentIllness, Integer historyId);
+    String selectpwbyid(Integer doctorId); // 根据医生ID查找密码
 
-    // 开处方
-    void getRecipe (RecipeVo recipeVo);
+    Doctor selectbyid(Integer doctorId);  // 根据医生ID查询医生所有信息
 
-    // 开检查检验单
-    void produceCheck (Item item);
+    Integer selectByIdentificationNum(String did); // 根据医生身份证号查看是否登录
 
-    // 根据病人身份证号，查看病历
-    History viewCaseHistory(String pIdentificationNum);
+    void update(Doctor doctor); // 更新医生信息
+
+    void updatepw(@Param("doctorId") Integer doctor, @Param("dPassword") String dPassword);
 
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.HistoryMapper">
+    <select id="showdept" resultType="java.lang.String" >
+        SELECT dOffice
+        FROM doctor
+        WHERE doctorId = #{doctorId};
+    </select>
+
+    <select id="getidBypid" resultType="java.lang.Integer">
+        SELECT patientId
+        FROM patient
+        WHERE pIdentificationNum = #{pIdentificationNum};
+    </select>
+
+    <insert id="orginateid"  parameterType="com.hospital.mapper.HistoryMapper" useGeneratedKeys="true" keyProperty="historyId">
+        INSERT INTO history (patientId)
+        VALUES (#{patientId});
+    </insert>
+
+    <select id="getPatientinfo" resultType="com.hospital.entity.Patient" >
+        SELECT pName, pGender, pAge, pOccupation, pPhone, pAddress, pIdentificationNum
+        FROM patient
+        WHERE patientId = #{patientId}
+    </select>
+
+    <insert id="edit"  parameterType="com.hospital.mapper.HistoryMapper" useGeneratedKeys="true" keyProperty="historyId">
+        INSERT INTO history(pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+        VALUES (#{pIdentificationNum}, #{clinicType}, #{diseaseDate}, #{diagnosis}, #{drugAllergyHis},#{chiefComplaint}, #{presentIllness});
+    </insert>
+
+    <select id="showAllHisByPid" resultType="com.hospital.entity.History">
+        SELECT *
+        FROM history
+        WHERE pIdentificationNum = #{pIdentificationNum};
+    </select>
+</mapper>

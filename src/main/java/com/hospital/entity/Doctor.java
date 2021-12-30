@@ -6,9 +6,18 @@ public class Doctor {
     private String dUsername;    // 医生登录用户名
     private String dPassword;    // 医生登录密码
     private String dName;        // 医生姓名
+    private String dIdentificationNum;  // 医生身份证号
     private String dOffice;      // 医生所在科室
     private String dTitle;       // 医生职称（只能为专家或普通）
     private String dSkill ;      // 医生的擅长简介
+
+    public String getdIdentificationNum() {
+        return dIdentificationNum;
+    }
+
+    public void setdIdentificationNum(String dIdentificationNum) {
+        this.dIdentificationNum = dIdentificationNum;
+    }
 
     public Integer getDoctorId() {
         return doctorId;
