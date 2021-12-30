@@ -24,4 +24,9 @@ public interface PatientMapper {
     Integer showcancleorder(Integer patientId);
 
     Integer selectBlacklist(Integer patientId);
+
+    void updateorderTimes(Integer patientId);
+
+    void  updateBlacklist(Integer patientId);
+
 }

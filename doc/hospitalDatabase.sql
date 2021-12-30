@@ -58,7 +58,8 @@ CREATE TABLE `Order`(
 	`department` varchar(32),
 	`doctorId` bigint,
 	`oType` varchar(10),
-	`oTime` varchar(32),
+	`oDate` date,
+	`oTime` time,
 	`isValid` int not null default 1,
 	primary key(`orderId`),
 	CONSTRAINT fk_patient_order_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
