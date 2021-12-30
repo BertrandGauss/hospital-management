@@ -32,7 +32,7 @@ public class HistoryController {
     }
 
     // 根据患者身份证号获取病历中患者相关信息
-    @RequestMapping(value = "/getpatientIinfobypid",method = {RequestMethod.POST})
+    @RequestMapping(value = "/getpatientinfobypid",method = {RequestMethod.POST})
     private JSONObject getPatientInfoByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Patient patientinfo = historyService.originatebypid(pIdentificationNum);
         JSONObject json = new JSONObject();

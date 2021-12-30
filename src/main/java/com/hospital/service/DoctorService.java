@@ -2,14 +2,11 @@ package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Doctor;
-import com.hospital.entity.Patient;
-import com.hospital.entity.PatientVo;
 import com.hospital.mapper.DoctorMapper;
 import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.print.Doc;
 
 @Service
 public class DoctorService {
