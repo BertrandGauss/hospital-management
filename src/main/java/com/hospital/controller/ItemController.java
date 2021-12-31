@@ -56,14 +56,4 @@ public class ItemController {
         json.put("msg","检查单开具完成");
         return json;
     }
-
-
-
-    private Integer itemId;          // 医学检查项目ID
-    private String illnessSummary;   // 病情摘要
-    private String checkArea;        // 检查部位
-    private String notice;           // 注意事项
-    private Date checkTime;          // 检查时间
-    private String checkRes;         // 检查结果
-    private String opinion;          // 总结意见
 }

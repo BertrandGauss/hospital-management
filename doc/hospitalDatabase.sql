@@ -67,16 +67,16 @@ CREATE TABLE `Order`(
 );
 
 -- ----------------------------
--- Table structure for Regisitration
+-- Table structure for Registration
 -- ----------------------------
-DROP TABLE IF EXISTS `Regisitration`;
-CREATE TABLE Regisitration (
-	`regisitrationId` bigint auto_increment,
+DROP TABLE IF EXISTS `Registration`;
+CREATE TABLE Registration (
+	`registrationId` bigint auto_increment,
 	`patientId` bigint,
 	`doctorId` bigint,
 	`rNum` varchar(32),
-	primary key(`regisitrationId`),
-	CONSTRAINT fk_patient_regisitration_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
+	primary key(`registrationId`),
+	CONSTRAINT fk_patient_registration_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
 );
 
 -- ----------------------------
@@ -103,37 +103,52 @@ CREATE TABLE `History` (
 DROP TABLE IF EXISTS `Item`;
 CREATE TABLE `Item` (
 	`itemId` bigint auto_increment,
+	`patientId` bigint,
+	`doctorId` bigint,
+	`itemName` varchar(32),
+	`itemPrice` double,
+    `skinTestRes` varchar(32),
+    `itemHaveDone` int not null default 0,
+    `havePay` int not null default 0,
 	`illnessSummary` varchar(100),
 	`checkArea` varchar(32),
 	`notice` varchar(100),
 	`checkTime` date,
 	`checkRes` varchar(100),
 	`opinion` varchar(100),
-	primary key(`itemId`)
+	primary key(`itemId`),
+	CONSTRAINT fk_patient_item_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
 );
 
 -- ----------------------------
--- Table structure for Recipe
+-- Table structure for Medicine
 -- ----------------------------
-DROP TABLE IF EXISTS `Recipe`;
-CREATE TABLE Recipe (
-	`recipeId` bigint auto_increment,
+DROP TABLE IF EXISTS `Medicine`;
+CREATE TABLE `Medicine` (
+	`medicineId` bigint auto_increment,
+	`medName` varchar(32),
+	`remains` int,
+	primary key(`medicineId`)
+);
+
+-- ----------------------------
+-- Table structure for Record
+-- ----------------------------
+DROP TABLE IF EXISTS `Record`;
+CREATE TABLE `Record` (
+	`recordId` bigint auto_increment,
+	`medicineId` bigint,
 	`doctorId` bigint,
 	`patientId` bigint,
-	`itemId` bigint,
-	`recipeName` varchar(32),
-	`dosage` varchar(32),
+	`dosage` int,
 	`units` varchar(10),
 	`frequency` varchar(10),
 	`days` int,
 	`usage` varchar(32),
-	`price` varchar(10),
-	`totalPrice` varchar(32),
-	`skinTestRes` varchar(32),
-	`remains` int,
-	`haveDone` int not null default 0,
-	primary key(`recipeId`),
-	CONSTRAINT fk_doctor_recipe_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
-	CONSTRAINT fk_patient_recipe_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
-	CONSTRAINT fk_item_recipe_iid FOREIGN KEY(`itemId`) REFERENCES `Item`(`itemId`)
+	`medPrice` double,
+	`medHaveDone` int not null default 0,
+    `havePay` int not null default 0,
+	primary key(`recordId`),
+	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
+	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medicineId`) REFERENCES `Medicine`(`medicineId`)
 );
