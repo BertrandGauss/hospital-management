@@ -14,19 +14,22 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/recipe")
 public class RecipeController {
+
     @Autowired
     private RecipeService recipeService;
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    // 开处方
-    @RequestMapping(value = "/addrecipe", method = {RequestMethod.POST})
-    private JSONObject addRecipe(@RequestBody Recipe recipe){
-        recipeService.addRecipe(recipe);
-        JSONObject json = new JSONObject();
-        json.put("code", 0);
-        json.put("msg","处方开具成功");
-        System.out.println(json.get("msg"));
-        return json;
-    }
+//    // 开处方
+//    @RequestMapping(value = "/addrecipe", method = {RequestMethod.POST})
+//    private JSONObject addRecipe(@RequestBody Recipe recipe){
+//        Integer pId = (Integer) httpServletRequest.getSession().getAttribute("Patient");
+//        recipe.setPatientId(pId);
+//        recipeService.addRecipe(recipe);
+//        JSONObject json = new JSONObject();
+//        json.put("code", 0);
+//        json.put("msg","处方开具成功");
+//        System.out.println(json.get("msg"));
+//        return json;
+//    }
 }

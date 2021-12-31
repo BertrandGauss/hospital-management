@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS `Medicine`;
 CREATE TABLE `Medicine` (
 	`medName` varchar(32),
 	`remains` int,
-	primary key(`medName`)
+	primary key(`medName`)/
 );
 -- ----------------------------
 -- Records of medicine

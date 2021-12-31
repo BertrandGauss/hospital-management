@@ -10,10 +10,10 @@
 <!--    </insert>-->
 
     <insert id="add" parameterType="com.hospital.mapper.RecipeMapper" useGeneratedKeys="true" keyProperty="recipeId">
-        INSERT INTO recipe (doctorId, recipeName, dosage, units, frequency,
-                    days, `usage`, price, totalPrice, department, skinTestRes)
-        VALUES (#{doctorId}, #{recipeName}, #{dosage}, #{units}, #{frequency},
-                    #{days}, #{usage}, #{price}, #{totalPrice}, #{department}, #{skinTestRes});
+        INSERT INTO recipe (doctorId, patientId, recipeName, dosage, units, frequency,
+                    days, `usage`, price, totalPrice)
+        VALUES (#{doctorId},#{patientId}, #{recipeName}, #{dosage}, #{units}, #{frequency},
+                    #{days}, #{usage}, #{price}, #{totalPrice});
     </insert>
 
 </mapper>

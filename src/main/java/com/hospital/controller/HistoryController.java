@@ -35,6 +35,8 @@ public class HistoryController {
     @RequestMapping(value = "/getpatientinfobypid",method = {RequestMethod.POST})
     private JSONObject getPatientInfoByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Patient patientinfo = historyService.originatebypid(pIdentificationNum);
+        //把患者Id保存在session中
+        this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
         JSONObject json = new JSONObject();
         json.put("data", patientinfo);
         json.put("code",0);
