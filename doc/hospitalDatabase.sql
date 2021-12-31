@@ -125,10 +125,9 @@ CREATE TABLE `Item` (
 -- ----------------------------
 DROP TABLE IF EXISTS `Medicine`;
 CREATE TABLE `Medicine` (
-	`medicineId` bigint auto_increment,
 	`medName` varchar(32),
 	`remains` int,
-	primary key(`medicineId`)
+	primary key(`medName`)
 );
 
 -- ----------------------------
@@ -137,7 +136,7 @@ CREATE TABLE `Medicine` (
 DROP TABLE IF EXISTS `Record`;
 CREATE TABLE `Record` (
 	`recordId` bigint auto_increment,
-	`medicineId` bigint,
+	`medName` varchar(32),
 	`doctorId` bigint,
 	`patientId` bigint,
 	`dosage` int,
@@ -150,5 +149,5 @@ CREATE TABLE `Record` (
     `havePay` int not null default 0,
 	primary key(`recordId`),
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
-	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medicineId`) REFERENCES `Medicine`(`medicineId`)
+	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );
