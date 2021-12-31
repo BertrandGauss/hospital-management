@@ -177,7 +177,7 @@ public class ExpenseService {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            json.put("code",0);
+            json.put("code",4);
             json.put("msg","支付失败");
         }
         return json;
