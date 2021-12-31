@@ -129,6 +129,12 @@ CREATE TABLE `Medicine` (
 	`remains` int,
 	primary key(`medName`)
 );
+-- ----------------------------
+-- Records of medicine
+-- ----------------------------
+INSERT INTO `medicine` VALUES ('穿心莲内酯滴丸', '20');
+INSERT INTO `medicine` VALUES ('连花清瘟胶囊', '15');
+INSERT INTO `medicine` VALUES ('阿莫西林', '10');
 
 -- ----------------------------
 -- Table structure for Record
