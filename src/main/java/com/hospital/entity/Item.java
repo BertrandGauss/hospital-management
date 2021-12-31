@@ -6,6 +6,7 @@ import java.util.Date;
 public class Item {
     private Integer itemId;          // 医学检查项目ID
     private String illnessSummary;   // 病情摘要
+    private String department;       // 执行科室
     private String checkArea;        // 检查部位
     private String notice;           // 注意事项
     private Date checkTime;          // 检查时间
@@ -66,5 +67,13 @@ public class Item {
 
     public void setOpinion(String opinion) {
         this.opinion = opinion;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

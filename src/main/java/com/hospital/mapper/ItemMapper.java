@@ -1,5 +1,7 @@
 package com.hospital.mapper;
 
-public interface ItemMapper {
+import com.hospital.entity.Item;
 
+public interface ItemMapper {
+    void addCheckItem(Item item);
 }
