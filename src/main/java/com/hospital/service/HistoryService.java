@@ -28,8 +28,16 @@ public class HistoryService {
         return pinfo;
     }
 
+    // 返回患者相关信息
+    public Patient patientInfo(Integer patientId){
+        Patient pinfo = historyMapper.getPatientinfo(patientId);      // 获得患者其他相关信息
+        return pinfo;
+    }
+
     // 编辑病历
-    public void updatecasehis(History history) {
+    public void editcasehis(History history) {
+        Patient pinfo = historyMapper.getPatientinfo(history.getPatientId());
+        history.setpIdentificationNum(pinfo.getpIdentificationNum());
         historyMapper.edit(history);
     }
 

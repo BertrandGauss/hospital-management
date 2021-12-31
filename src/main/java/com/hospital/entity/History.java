@@ -4,15 +4,15 @@ import java.util.Date;
 
 // 病历
 public class History {
-    public Integer historyId;      // 病历ID
-    public Integer patientId;      // 患者ID
-    public String pIdentificationNum;  // 患者身份证号
-    public String clinicType;      // 就诊类型
-    public Date diseaseDate;       // 发病日期，格式形如XXXX-XX-XX
-    public String diagnosis;       // 诊断
-    public String drugAllergyHis;  // 药敏史
-    public String chiefComplaint;  // 主诉
-    public String presentIllness;  // 现病史
+    private Integer historyId;      // 病历ID
+    private Integer patientId;      // 患者ID
+    private String pIdentificationNum;  // 患者身份证号
+    private String clinicType;      // 就诊类型
+    private Date diseaseDate;       // 发病日期，格式形如XXXX-XX-XX
+    private String diagnosis;       // 诊断
+    private String drugAllergyHis;  // 药敏史
+    private String chiefComplaint;  // 主诉
+    private String presentIllness;  // 现病史
 
     public Integer getHistoryId() {
         return historyId;
@@ -28,6 +28,14 @@ public class History {
 
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
+    }
+
+    public String getpIdentificationNum() {
+        return pIdentificationNum;
+    }
+
+    public void setpIdentificationNum(String pIdentificationNum) {
+        this.pIdentificationNum = pIdentificationNum;
     }
 
     public String getClinicType() {

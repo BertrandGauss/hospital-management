@@ -111,6 +111,7 @@ CREATE TABLE `Item` (
     `itemHaveDone` int not null default 0,
     `havePay` int not null default 0,
 	`illnessSummary` varchar(100),
+	`department`  varchar(32),
 	`checkArea` varchar(32),
 	`notice` varchar(100),
 	`checkTime` date,
@@ -127,7 +128,7 @@ DROP TABLE IF EXISTS `Medicine`;
 CREATE TABLE `Medicine` (
 	`medName` varchar(32),
 	`remains` int,
-	primary key(`medName`)/
+	primary key(`medName`)
 );
 -- ----------------------------
 -- Records of medicine

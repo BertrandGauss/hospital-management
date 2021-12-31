@@ -45,9 +45,11 @@ public class HistoryController {
     }
 
     // 编辑病历
-    @RequestMapping(value = "/updatecasehis",method = {RequestMethod.POST})
-    private JSONObject updateCaseHis(@RequestBody History history){
-        historyService.updatecasehis(history);
+    @RequestMapping(value = "/editcasehis",method = {RequestMethod.POST})
+    private JSONObject editcasehis(@RequestBody History history){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("Patient");
+        history.setPatientId(id);
+        historyService.editcasehis(history);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","病历编辑完成");

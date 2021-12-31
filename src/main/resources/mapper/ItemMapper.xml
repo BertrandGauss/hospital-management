@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.mapper.ItemMapper">
     <insert id="addCheckItem" parameterType="com.hospital.mapper.ItemMapper" useGeneratedKeys="true" keyProperty="itemId">
-        INSERT INTO item(illnessSummary, department, checkArea, notice,
+        INSERT INTO item(patientId,doctorId,itemName,itemPrice,skinTestRes,illnessSummary, department, checkArea, notice,
                         checkTime, checkRes, opinion)
-        VALUES (#{illnessSummary}, #{department}, #{checkArea}, #{notice},
+        VALUES (#{patientId},#{doctorId},#{itemName},#{itemPrice},#{skinTestRes},#{illnessSummary}, #{department}, #{checkArea}, #{notice},
                 #{checkTime}, #{checkRes}, #{opinion});
     </insert>
 </mapper>
