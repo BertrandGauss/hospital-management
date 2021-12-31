@@ -149,13 +149,15 @@ public class ExpenseService {
         );
         //设置请求参数
         AlipayTradeRefundRequest alipayRequest = new AlipayTradeRefundRequest();
-
+        //生成订单号
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String orderSn = simpleDateFormat.format(Calendar.getInstance().getTime());
         //商户订单号，后台可以写一个工具类生成一个订单号，必填
-        String out_trade_no = new String("20210210211025");
+        String out_trade_no = orderSn;
         //支付宝交易号，后台可以写一个工具类生成一个订单号，必填
         String trade_no  = new String("2021021022001468560501398642");
         //付款金额，从前台获取，必填
-        String refund_amount = new String("10.50");
+        String refund_amount = prices.toString();
         //订单名称/标题，可自定义
         String subject = new String("支付宝沙箱测试");
         alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
