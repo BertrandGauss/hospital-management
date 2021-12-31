@@ -90,6 +90,11 @@ public class OrderService {
         return json;
     }
 
+    public List<Order> searchOrder(Integer patientId, Date startDate,Date endDate){
+        List<Order> orders = orderMapper.selectbydate(patientId,startDate,endDate);
+        return  orders;
+    }
+
     //按时间检测预约是否时效
     @Scheduled(cron = "0 0 */1 * * ?")  //每小时检测一次
     public void checkOrder(){

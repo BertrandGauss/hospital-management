@@ -4,6 +4,7 @@ package com.hospital.entity;
 public class Recipe {
     private Integer recipeId;    // 处方ID
     private Integer doctorId;    // 医生ID
+    private Integer patientId;   // 患者ID
     private Integer itemId;      // 医学检查项目ID
     private String recipeName;    // 药品/医学检查（例如核磁共振，CT等）名称
     private String dosage;       // 用量
@@ -18,6 +19,14 @@ public class Recipe {
 
     private Integer remains;    // 药品库存量/医学检查剩余可做次数
     private Integer haveDone;   // 是否做过医学检查/使用过药品（0代表否，1代表是）
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
 
     public Integer getItemId() {
         return itemId;

@@ -4,13 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Order;
 import com.hospital.entity.Patient;
 import com.hospital.service.OrderService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -52,6 +51,18 @@ public class OrderController {
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         order.setPatientId(id);
         JSONObject json = orderService.cancleOrder(order.getPatientId(), order.getOrderId());
+        return json;
+    }
+
+    //查询一段时间内的预约记录
+    @RequestMapping(value = "/searchorder",method = {RequestMethod.POST})
+    private  JSONObject searchOrder(@RequestParam("startDate") Date startDate, @Param("endDate") Date endDate){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        List<Order> orders = orderService.searchOrder(id, startDate,endDate);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","查询预约记录成功");
+        json.put("data",orders);
         return json;
     }
 }
