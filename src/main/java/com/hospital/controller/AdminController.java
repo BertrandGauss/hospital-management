@@ -1,9 +1,7 @@
 package com.hospital.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hospital.entity.Doctor;
-import com.hospital.entity.Patient;
-import com.hospital.entity.SomeRecipe;
+import com.hospital.entity.*;
 import com.hospital.service.AdminService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +53,29 @@ public class AdminController {
         return json;
     }
 
-    // 退费审核
+    // 显示患者所有已缴费的项目和药品清单（根据患者身份证号）
+    @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.GET})
+    private JSONObject showPayedRecipe(@RequestParam("pIdentificationNum") String pIdentificationNum){
+        Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
+        List<Recipe> recipes = adminService.showPayedRecipe(patientId);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", recipes);
+        json.put("msg","患者所有已缴费的项目和药品清单显示完成");
+        return json;
+    }
+
+    // 对患者已缴费的项目和药品确认进行/使用完成
+    @RequestMapping(value = "/sethavedone",method = {RequestMethod.POST})
+    private JSONObject setHaveDone(@RequestParam("pIdentificationNum") String pIdentificationNum){
+        Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
+        adminService.setItemsHaveDone(patientId);
+        adminService.setMedHaveDone(patientId);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","确认完成");
+        return json;
+    }
+
+
 }

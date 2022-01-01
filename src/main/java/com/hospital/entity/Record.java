@@ -1,6 +1,6 @@
 package com.hospital.entity;
 
-// 处方
+// 开药记录
 public class Record {
     private Integer recordId;    // 开药记录ID
     private String medName;      // 药品名称
@@ -13,7 +13,7 @@ public class Record {
     private String usage;        // 用法
     private Double medPrice;     // 单价
 
-    private Integer medHaveDone; // 是否做过医学检查/使用过药品（0代表否，1代表是）
+    private Integer medHaveDone; // 是否使用过药品（0代表否，1代表是）
     private Integer havePay;     // 是否缴费（0代表否，1代表是）
 
 

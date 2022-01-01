@@ -1,7 +1,7 @@
 package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hospital.entity.Doctor;
+import com.hospital.entity.*;
 import com.hospital.mapper.AdminMapper;
 import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import java.util.List;
 public class AdminService {
     @Resource
     private AdminMapper adminMapper;
+
     //登陆
     public JSONObject login(String username, String password){
         String pw = MD5Util.md5(password);
@@ -44,5 +45,40 @@ public class AdminService {
     public List<Doctor> showDoctorRegister() {
         List<Doctor> doctors = adminMapper.showDoctorRegister();
         return doctors;
+    }
+
+    // 显示患者所有已缴费的项目和药品清单（根据患者身份证号）
+    public List<Recipe> showPayedRecipe(Integer patientId) {
+        List<Item> items = adminMapper.selectitemsbypId(patientId);
+        List<Record> med = adminMapper.selectmedbypId(patientId);
+        List<Recipe> recipes = null;
+        for(int i=0; i<items.size(); i++){
+            Recipe recipe = new Recipe();
+            recipe.setRecipeName(items.get(i).getItemName());
+            recipe.setPrice(items.get(i).getItemPrice());
+            recipes.add(recipe);
+        }
+
+        for(int i=0; i<med.size(); i++){
+            Recipe recipe = new Recipe();
+            recipe.setRecipeName(med.get(i).getMedName());
+            recipe.setPrice(med.get(i).getMedPrice());
+            recipe.setDosage(med.get(i).getDosage());
+            recipes.add(recipe);
+        }
+        return recipes;
+    }
+
+    public void setItemsHaveDone(Integer patientId) {
+        adminMapper.setItemsHaveDone(patientId);
+    }
+
+    public void setMedHaveDone(Integer patientId) {
+        adminMapper.setMedHaveDone(patientId);
+    }
+
+    public Integer getPatientIdByPid(String pIdentificationNum){
+        Integer patientId = adminMapper.getPatientIdByPid(pIdentificationNum);
+        return patientId;
     }
 }

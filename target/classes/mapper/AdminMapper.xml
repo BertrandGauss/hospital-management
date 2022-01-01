@@ -14,4 +14,34 @@
         WHERE isValid = 0;
     </select>
 
+    <select id="selectitemsbypId" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE havePay = 1 AND patientId = #{patientId};
+    </select>
+
+    <select id="selectmedbypId" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND patientId = #{patientId};
+    </select>
+
+    <update id="setItemsHaveDone" parameterType="java.lang.Integer">
+        UPDATE item
+        SET itemHaveDone=1
+        WHERE patientId = #{patientId};
+    </update>
+
+    <update id="setMedHaveDone" parameterType="java.lang.Integer">
+        UPDATE record
+        SET medHaveDone=1
+        WHERE patientId = #{patientId};
+    </update>
+
+    <select id="getPatientIdByPid" resultType="java.lang.Integer" >
+        SELECT patientId
+        FROM patient
+        WHERE pIdentificationNum = #{pIdentificationNum};
+    </select>
+
 </mapper>
