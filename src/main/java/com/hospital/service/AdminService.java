@@ -7,6 +7,7 @@ import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -38,5 +39,10 @@ public class AdminService {
     // 审核医生账号
     public void checkDoctorRegister(Doctor doctor) {
         adminMapper.checkDoctorRegister(doctor);
+    }
+
+    public List<Doctor> showDoctorRegister() {
+        List<Doctor> doctors = adminMapper.showDoctorRegister();
+        return doctors;
     }
 }

@@ -7,4 +7,11 @@
         SET isValid=1
         WHERE dIdentificationNum = #{dIdentificationNum};
     </update>
+
+    <select id="showDoctorRegister" resultType="com.hospital.entity.Doctor" >
+        SELECT *
+        FROM doctor
+        WHERE isValid = 0;
+    </select>
+
 </mapper>

@@ -36,4 +36,8 @@
     <select id="selectbyorderTime" resultType="java.lang.Integer" >
         SELECT orderId FROM `order`  WHERE  patientId = #{patientId} AND isValid=1
     </select>
+
+    <select id="selectbydate" resultType="com.hospital.entity.Order" >
+        SELECT * FROM `order`  WHERE  patientId = #{patientId} AND oDate BETWEEN #{startDate} and #{endDate}
+    </select>
 </mapper>
