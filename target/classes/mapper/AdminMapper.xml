@@ -44,4 +44,10 @@
         WHERE pIdentificationNum = #{pIdentificationNum};
     </select>
 
+    <select id="patientIsOrdered" resultType="java.lang.Integer" >
+        SELECT isOrder
+        FROM patient
+        WHERE patientId = #{patientId};
+    </select>
+
 </mapper>

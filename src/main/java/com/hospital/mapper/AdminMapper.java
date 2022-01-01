@@ -21,4 +21,6 @@ public interface AdminMapper {
     void setItemsHaveDone(Integer patientId);
 
     void setMedHaveDone(Integer patientId);
+
+    Integer patientIsOrdered(Patient patient);
 }

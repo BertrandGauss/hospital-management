@@ -159,3 +159,16 @@ CREATE TABLE `Record` (
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
 	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );
+
+-- ----------------------------
+-- Table structure for Trace
+-- ----------------------------
+DROP TABLE IF EXISTS `Trace`;
+CREATE TABLE `Trace` (
+	`traceId` bigint auto_increment,
+	`patientId` bigint,
+	`isValid` int not null default 0,
+	`state` int not null default 0,
+	primary key(`traceId`),
+	CONSTRAINT fk_patient_trace_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
+);

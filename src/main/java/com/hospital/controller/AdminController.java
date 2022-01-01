@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -54,7 +56,7 @@ public class AdminController {
     }
 
     // 显示患者所有已缴费的项目和药品清单（根据患者身份证号）
-    @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.GET})
+    @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.POST})
     private JSONObject showPayedRecipe(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
         List<Recipe> recipes = adminService.showPayedRecipe(patientId);
@@ -76,6 +78,5 @@ public class AdminController {
         json.put("msg","确认完成");
         return json;
     }
-
 
 }
