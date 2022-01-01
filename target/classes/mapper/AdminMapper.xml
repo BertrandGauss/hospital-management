@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.AdminMapper">
+    <update id="checkDoctorRegister" parameterType="com.hospital.entity.Patient">
+        UPDATE doctor
+        SET isValid=1
+        WHERE dIdentificationNum = #{dIdentificationNum};
+    </update>
+
+    <select id="showDoctorRegister" resultType="com.hospital.entity.Doctor" >
+        SELECT *
+        FROM doctor
+        WHERE isValid = 0;
+    </select>
+
+    <select id="selectitemsbypId" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE havePay = 1 AND patientId = #{patientId};
+    </select>
+
+    <select id="selectmedbypId" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND patientId = #{patientId};
+    </select>
+
+    <update id="setItemsHaveDone" parameterType="java.lang.Integer">
+        UPDATE item
+        SET itemHaveDone=1
+        WHERE patientId = #{patientId};
+    </update>
+
+    <update id="setMedHaveDone" parameterType="java.lang.Integer">
+        UPDATE record
+        SET medHaveDone=1
+        WHERE patientId = #{patientId};
+    </update>
+
+    <select id="getPatientIdByPid" resultType="java.lang.Integer" >
+        SELECT patientId
+        FROM patient
+        WHERE pIdentificationNum = #{pIdentificationNum};
+    </select>
+
+    <select id="patientIsOrdered" resultType="java.lang.Integer" >
+        SELECT isOrder
+        FROM patient
+        WHERE patientId = #{patientId};
+    </select>
+
+</mapper>

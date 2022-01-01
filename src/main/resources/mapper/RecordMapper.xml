@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.RecordMapper">
+    <insert id="addT" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">
+        INSERT INTO record (medName,doctorId, patientId, dosage, units, frequency,
+        days, `usage`, medPrice)
+        VALUES (#{medName},#{doctorId},#{patientId}, #{dosage}, #{units}, #{frequency},
+        #{days}, #{usage}, #{medPrice});
+    </insert>
+
+    <update id="setMedHaveDone" >
+        UPDATE record
+        SET medHaveDone=1
+        WHERE patientId = #{patientId} AND medName=#{medName};
+    </update>
+
+    <select id="selectmed" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND  medHaveDone=0;
+    </select>
+
+</mapper>

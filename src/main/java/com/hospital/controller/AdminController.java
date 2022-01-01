@@ -1,12 +1,92 @@
 package com.hospital.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hospital.entity.*;
+import com.hospital.service.AdminService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-//    @Autowired
+    @Autowired
+    private AdminService adminService;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
+
+    //登陆
+    @RequestMapping(value = "/login",method = {RequestMethod.POST})
+    private JSONObject login(@RequestParam("username") String username, @Param("password") String password){
+        JSONObject json = new JSONObject();
+        json= adminService.login(username, password);
+        System.out.println(json.get("msg"));
+        //将登录凭证加入到管理员登录成功的Session类
+        this.httpServletRequest.getSession().setAttribute("LOGIN",true);
+
+        return json;
+    }
+
+    // 显示所有未审核的医生注册信息
+    @RequestMapping(value = "/showdoctorregister",method = {RequestMethod.GET})
+    private JSONObject showDoctorRegister(){
+        List<Doctor> doctors = adminService.showDoctorRegister();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", doctors);
+        json.put("msg","未审核医生注册信息显示完成");
+        return json;
+    }
+
+    // 审核医生注册
+    @RequestMapping(value = "/checkdoctorregister",method = {RequestMethod.POST})
+    private JSONObject checkDoctorRegister(@RequestBody Doctor doctor){
+        adminService.checkDoctorRegister(doctor);
+
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","医生注册审核通过");
+        return json;
+    }
+
+    // 显示患者所有已缴费并且未处理的项目和药品清单（根据患者身份证号）
+    @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.POST})
+    private JSONObject showPayedRecipe(@RequestParam("pIdentificationNum") String pIdentificationNum){
+        Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
+        List<Recipe> recipes = adminService.showPayedRecipe(patientId);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", recipes);
+        json.put("msg","患者所有已缴费并且未处理的项目和药品清单显示完成");
+        return json;
+    }
+
+    // 显示所有缴费但未做的项目或药品
+    @RequestMapping(value = "/showAll",method = {RequestMethod.GET})
+    private JSONObject showALLPayedRecipe(){
+        List<Recipe> recipes = adminService.showALLPayedRecipe();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", recipes);
+        json.put("msg","所有已缴费并且未处理的项目和药品清单显示完成");
+        return json;
+    }
+
+    // 对患者已缴费的项目和药品确认进行/使用完成
+    @RequestMapping(value = "/sethavedone",method = {RequestMethod.POST})
+    private JSONObject setHaveDone(@RequestBody SomeRecipe someRecipe){
+        Integer patientId = adminService.getPatientIdByPid(someRecipe.getpIdentificationNum());
+        adminService.setHaveDone(someRecipe);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","确认完成");
+        return json;
+    }
 
 }

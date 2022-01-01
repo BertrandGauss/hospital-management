@@ -5,6 +5,7 @@ public class Doctor {
     private Integer doctorId;    // 医生ID
     private String dUsername;    // 医生登录用户名
     private String dPassword;    // 医生登录密码
+    private Integer isValid;     // 判断医生账号是否有效
     private String dName;        // 医生姓名
     private String dIdentificationNum;  // 医生身份证号
     private String dOffice;      // 医生所在科室
@@ -41,6 +42,14 @@ public class Doctor {
 
     public void setdPassword(String dPassword) {
         this.dPassword = dPassword;
+    }
+
+    public Integer getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Integer isValid) {
+        this.isValid = isValid;
     }
 
     public String getdName() {

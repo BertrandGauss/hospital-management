@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.ItemMapper">
+    <insert id="addCheckItem" parameterType="com.hospital.mapper.ItemMapper" useGeneratedKeys="true" keyProperty="itemId">
+        INSERT INTO item(patientId,doctorId,itemName,itemPrice,skinTestRes,illnessSummary, department, checkArea, notice,
+                        checkTime, checkRes, opinion)
+        VALUES (#{patientId},#{doctorId},#{itemName},#{itemPrice},#{skinTestRes},#{illnessSummary}, #{department}, #{checkArea}, #{notice},
+                #{checkTime}, #{checkRes}, #{opinion});
+    </insert>
+
+    <update id="setItemsHaveDone" >
+        UPDATE item
+        SET itemHaveDone=1
+        WHERE patientId = #{patientId} AND itemName=#{itemName};
+    </update>
+
+    <select id="selectitems" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE havePay = 1  AND itemHaveDone=0;
+    </select>
+
+</mapper>

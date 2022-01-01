@@ -16,6 +16,8 @@ public interface DoctorMapper {
 
     Integer selectByIdentificationNum(String did); // 根据医生身份证号查看是否登录
 
+    Integer checkValidByIdentificationNum(String did); // 根据医生身份证号查看账号是否有效
+
     void update(Doctor doctor); // 更新医生信息
 
     void updatepw(@Param("doctorId") Integer doctor, @Param("dPassword") String dPassword);
