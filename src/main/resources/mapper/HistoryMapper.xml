@@ -14,13 +14,8 @@
         WHERE pIdentificationNum = #{pIdentificationNum};
     </select>
 
-    <insert id="orginateid"  parameterType="com.hospital.mapper.HistoryMapper" useGeneratedKeys="true" keyProperty="historyId">
-        INSERT INTO history (patientId)
-        VALUES (#{patientId});
-    </insert>
-
     <select id="getPatientinfo" resultType="com.hospital.entity.Patient" >
-        SELECT pName, pGender, pAge, pOccupation, pPhone, pAddress, pIdentificationNum
+        SELECT patientId, pName, pGender, pAge, pOccupation, pPhone, pAddress, pIdentificationNum
         FROM patient
         WHERE patientId = #{patientId}
     </select>

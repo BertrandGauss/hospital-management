@@ -1,14 +1,8 @@
 package com.hospital.controller;
-import com.alipay.api.AlipayApiException;
-import com.alipay.api.AlipayClient;
-import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Recipe;
 import com.hospital.entity.SomeRecipe;
 import com.hospital.service.ExpenseService;
-import com.hospital.config.AlipayConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 @RestController

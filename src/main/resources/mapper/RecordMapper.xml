@@ -2,18 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.mapper.RecordMapper">
-<!--    <insert id="add" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">-->
-<!--        INSERT INTO recipe (doctorId, itemId, recipeName, dosage, units, frequency,-->
-<!--                    days, `usage`, price, totalPrice, department, skinTestRes)-->
-<!--        VALUES (#{doctorId}, #{itemId}, #{recipeName}, #{dosage}, #{units}, #{frequency},-->
-<!--                    #{days}, #{usage}, #{price}, #{totalPrice}, #{department}, #{skinTestRes});-->
-<!--    </insert>-->
-
     <insert id="add" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">
         INSERT INTO record (medName,doctorId, patientId, dosage, units, frequency,
-                    days, `usage`, medPrice)
+        days, `usage`, medPrice)
         VALUES (#{medName},#{doctorId},#{patientId}, #{dosage}, #{units}, #{frequency},
-                    #{days}, #{usage}, #{medPrice});
+        #{days}, #{usage}, #{medPrice});
     </insert>
-
 </mapper>
