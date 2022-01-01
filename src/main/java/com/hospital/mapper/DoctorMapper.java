@@ -22,4 +22,6 @@ public interface DoctorMapper {
 
     void updatepw(@Param("doctorId") Integer doctor, @Param("dPassword") String dPassword);
 
+    Integer selectbyName(@Param("department") String department, @Param("dName") String dName);
+
 }

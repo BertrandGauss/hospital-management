@@ -68,6 +68,7 @@ public class AdminService {
         List<Recipe> recipes = null;
         for(int i=0; i<items.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setPatientId(patientId);
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
             recipes.add(recipe);
@@ -75,6 +76,7 @@ public class AdminService {
 
         for(int i=0; i<med.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setPatientId(patientId);
             recipe.setRecipeName(med.get(i).getMedName());
             recipe.setPrice(med.get(i).getMedPrice());
             recipe.setDosage(med.get(i).getDosage());
@@ -92,6 +94,7 @@ public class AdminService {
             Recipe recipe = new Recipe();
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
+            recipe.setPatientId(items.get(i).getPatientId());
             recipes.add(recipe);
         }
 
@@ -100,6 +103,7 @@ public class AdminService {
             recipe.setRecipeName(records.get(i).getMedName());
             recipe.setPrice(records.get(i).getMedPrice());
             recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
             recipes.add(recipe);
         }
         return recipes;

@@ -40,4 +40,19 @@
     <select id="selectbydate" resultType="com.hospital.entity.Order" >
         SELECT * FROM `order`  WHERE  patientId = #{patientId} AND oDate BETWEEN #{startDate} and #{endDate}
     </select>
+
+    <select id="haveOrder" resultType="com.hospital.entity.Order" >
+        SELECT * FROM `order` WHERE patientId = #{patientId} AND isValid=1
+    </select>
+
+    <select id="checkOrder" resultType="java.lang.Integer" >
+        SELECT patientId FROM `order` WHERE oTime &lt;= #{oTime} AND oDate &lt;= #{oDate} AND isValid=1
+    </select>
+
+    <update id="updateisValidById" >
+        UPDATE `order`
+        SET isValid=0
+        WHERE orderId = #{orderId}
+    </update>
+
 </mapper>

@@ -48,4 +48,10 @@
         SET dPassword=#{dPassword}
         WHERE doctorId=#{doctorId}
     </update>
+
+    <select id="selectbyName" resultType="java.lang.Integer" >
+        SELECT doctorId
+        FROM doctor
+        WHERE dOffice = #{department} AND dName=#{dName} AND dTitle = "专家";
+    </select>
 </mapper>

@@ -108,4 +108,6 @@ public class PatientController {
         return json;
     }
 
+    //叫号
+
 }

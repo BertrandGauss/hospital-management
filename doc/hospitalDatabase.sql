@@ -158,16 +158,18 @@ CREATE TABLE Registration (
 	`registrationId` bigint auto_increment,
 	`patientId` bigint,
 	`doctorId` bigint,
+	`department` varchar(32),
 	`rNum` varchar(32),
+	`isValid` int not null default 1,
 	primary key(`registrationId`),
 	CONSTRAINT fk_patient_registration_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
 );
 
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (1, 8, 'v1');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (5, 2, '1');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (3, 4, '2');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (6, 4, '3');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (2, 2, 'v2');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (1, 8, 'v1');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (5, 2, '1');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (3, 4, '2');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (6, 4, '3');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (2, 2, 'v2');
 
 
 -- ----------------------------
