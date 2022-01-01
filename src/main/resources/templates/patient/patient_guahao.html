@@ -53,7 +53,6 @@
             <!--</th>-->
             <th lay-data="{type:'checkbox', }"></th>
             <th lay-data="{field:'total_calorie'}">序号</th>
-            <th lay-data="{field:'date', sort: true , templet: '#titleTpl'}">提交时间</th>
             <th lay-data="{field:'total_calorie'}">科室</th>
             <th lay-data="{field:'total_vitaminA'}">医生</th>
             <th lay-data="{field:'total_vitaminB'}">预约日期</th>
@@ -64,7 +63,34 @@
         <tbody>
         </tbody>
     </table>
-
+    <div class="weadmin-block" id="topline2" name=""topline>
+        <button class="layui-btn" onclick="WeAdminShow('无预约挂号','./patient_add_yuyue.html',450,250)">
+            <i class="layui-icon layui-icon-add-circle-fine"></i>无预约挂号
+        </button>
+    </div>
+    <div class="layui-row" style="font-size: larger">
+            挂号信息：
+    </div>
+    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
+        <thead>
+        <tr>
+            <!--<th>-->
+            <!--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">-->
+            <!--<i class="layui-icon">&#xe605;</i>-->
+            <!--</div>-->
+            <!--</th>-->
+            <th lay-data="{type:'checkbox', }"></th>
+            <th lay-data="{field:'total_calorie'}">序号</th>
+            <th lay-data="{field:'total_calorie'}">科室</th>
+            <th lay-data="{field:'total_vitaminA'}">医生</th>
+            <th lay-data="{field:'total_vitaminB'}">时间</th>
+            <th lay-data="{field:'total_vitaminC'}">挂号</th>
+            <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
 
 
