@@ -3,8 +3,10 @@ package com.hospital.service;
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Recipe;
 import com.hospital.entity.Record;
+import com.hospital.entity.Trace;
 import com.hospital.mapper.MedicineMapper;
 import com.hospital.mapper.RecordMapper;
+import com.hospital.mapper.TraceMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +17,8 @@ public class RecordService {
     private RecordMapper recordMapper;
     @Resource
     private MedicineMapper medicineMapper;
+    @Resource
+    private TraceMapper traceMapper;
 
     // 开处方
     public JSONObject addRecord(Record record) {
@@ -30,6 +34,10 @@ public class RecordService {
             //添加处方记录，并更新药品库存
             recordMapper.add(record);
             medicineMapper.updateRemains(record.getDosage());
+            //等待配药
+            Trace trace = new Trace();
+            trace.setPatientId(record.getPatientId());
+            traceMapper.addTrace(trace);
             json.put("code",0);
             json.put("msg","开处方成功");
         }

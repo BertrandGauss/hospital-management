@@ -12,6 +12,7 @@ import com.hospital.entity.Recipe;
 import com.hospital.entity.Record;
 import com.hospital.mapper.ExpenseMapper;
 import com.hospital.mapper.HistoryMapper;
+import com.hospital.mapper.TraceMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +24,8 @@ import java.util.List;
 public class ExpenseService {
     @Resource
     private ExpenseMapper expenseMapper;
+    @Resource
+    private TraceMapper traceMapper;
 
     public Double countExpense(Integer patientId){
         List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
@@ -48,7 +51,6 @@ public class ExpenseService {
             recipe.setPrice(items.get(i).getItemPrice());
             recipes.add(recipe);
         }
-
         for(int i=0; i<med.size(); i++){
             Recipe recipe = new Recipe();
             recipe.setRecipeName(med.get(i).getMedName());
@@ -97,6 +99,7 @@ public class ExpenseService {
 
             json.put("code",0);
             json.put("msg","支付成功,开始配药");
+            traceMapper.updateTrace(patientId,1);
             result = alipayClient.pageExecute(alipayRequest).getBody();
             System.out.println("*********************\n返回结果为："+result);
             json.put("data",result);

@@ -20,7 +20,7 @@ public class RecordController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    // 开具检查单
+    // 开具处方
     @RequestMapping(value = "/addRecord", method = {RequestMethod.POST})
     private JSONObject addCheckItem(@RequestBody Record record){
         Integer did=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");//医生ID
