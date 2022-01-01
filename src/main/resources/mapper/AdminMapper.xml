@@ -17,13 +17,13 @@
     <select id="selectitemsbypId" resultType="com.hospital.entity.Item" >
         SELECT *
         FROM item
-        WHERE havePay = 1 AND patientId = #{patientId};
+        WHERE havePay = 1 AND patientId = #{patientId} AND itemHaveDone=0;
     </select>
 
     <select id="selectmedbypId" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
-        WHERE havePay = 1 AND patientId = #{patientId};
+        WHERE havePay = 1 AND patientId = #{patientId} AND medHaveDone=0;
     </select>
 
 

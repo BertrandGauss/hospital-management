@@ -83,6 +83,28 @@ public class AdminService {
         return recipes;
     }
 
+    //显示所有已缴费的项目和药品清单
+    public List<Recipe> showALLPayedRecipe(){
+        List<Item> items = itemMapper.selectitems();
+        List<Record> records = recordMapper.selectmed();
+        List<Recipe> recipes = null;
+        for(int i=0; i<items.size(); i++){
+            Recipe recipe = new Recipe();
+            recipe.setRecipeName(items.get(i).getItemName());
+            recipe.setPrice(items.get(i).getItemPrice());
+            recipes.add(recipe);
+        }
+
+        for(int i=0; i<records.size(); i++){
+            Recipe recipe = new Recipe();
+            recipe.setRecipeName(records.get(i).getMedName());
+            recipe.setPrice(records.get(i).getMedPrice());
+            recipe.setDosage(records.get(i).getDosage());
+            recipes.add(recipe);
+        }
+        return recipes;
+    }
+
     public void setHaveDone(SomeRecipe someRecipe) {
         List<String> Names = someRecipe.getRecipeName();
         Integer patientId = patientMapper.selectByIdentificationNum(someRecipe.getpIdentificationNum());
