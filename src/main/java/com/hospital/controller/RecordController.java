@@ -27,10 +27,7 @@ public class RecordController {
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
         record.setDoctorId(did);
         record.setPatientId(pid);
-        recordService.addRecord(record);
-        JSONObject json = new JSONObject();
-        json.put("code",0);
-        json.put("msg","处方单开具完成");
+        JSONObject json = recordService.addRecord(record);
         return json;
     }
 

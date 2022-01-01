@@ -8,4 +8,10 @@
         VALUES (#{patientId},#{doctorId},#{itemName},#{itemPrice},#{skinTestRes},#{illnessSummary}, #{department}, #{checkArea}, #{notice},
                 #{checkTime}, #{checkRes}, #{opinion});
     </insert>
+
+    <update id="setItemsHaveDone" >
+        UPDATE item
+        SET itemHaveDone=1
+        WHERE patientId = #{patientId} AND itemName=#{itemName};
+    </update>
 </mapper>

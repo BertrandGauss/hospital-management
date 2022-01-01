@@ -18,7 +18,7 @@ public interface AdminMapper {
 
     Integer getPatientIdByPid(String pIdentificationNum);
 
-    void setItemsHaveDone(Integer patientId);
 
-    void setMedHaveDone(Integer patientId);
+
+
 }

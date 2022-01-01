@@ -8,4 +8,11 @@
         VALUES (#{medName},#{doctorId},#{patientId}, #{dosage}, #{units}, #{frequency},
         #{days}, #{usage}, #{medPrice});
     </insert>
+
+    <update id="setMedHaveDone">
+        UPDATE record
+        SET medHaveDone=1
+        WHERE patientId = #{patientId} AND medName = #{medName};
+    </update>
+
 </mapper>
