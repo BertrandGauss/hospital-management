@@ -14,4 +14,11 @@
         SET itemHaveDone=1
         WHERE patientId = #{patientId} AND itemName=#{itemName};
     </update>
+
+    <select id="selectitems" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE havePay = 1  AND itemHaveDone=0;
+    </select>
+
 </mapper>

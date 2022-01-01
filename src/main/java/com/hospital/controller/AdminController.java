@@ -55,7 +55,7 @@ public class AdminController {
         return json;
     }
 
-    // 显示患者所有已缴费的项目和药品清单（根据患者身份证号）
+    // 显示患者所有已缴费并且未处理的项目和药品清单（根据患者身份证号）
     @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.POST})
     private JSONObject showPayedRecipe(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
@@ -63,7 +63,18 @@ public class AdminController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("data", recipes);
-        json.put("msg","患者所有已缴费的项目和药品清单显示完成");
+        json.put("msg","患者所有已缴费并且未处理的项目和药品清单显示完成");
+        return json;
+    }
+
+    // 显示所有缴费但未做的项目或药品
+    @RequestMapping(value = "/showAll",method = {RequestMethod.GET})
+    private JSONObject showALLPayedRecipe(){
+        List<Recipe> recipes = adminService.showALLPayedRecipe();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", recipes);
+        json.put("msg","所有已缴费并且未处理的项目和药品清单显示完成");
         return json;
     }
 
