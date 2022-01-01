@@ -2,10 +2,7 @@ package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.*;
-import com.hospital.mapper.AdminMapper;
-import com.hospital.mapper.ItemMapper;
-import com.hospital.mapper.PatientMapper;
-import com.hospital.mapper.RecordMapper;
+import com.hospital.mapper.*;
 import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +24,8 @@ public class AdminService {
     private ItemMapper itemMapper;
     @Resource
     private RecordMapper recordMapper;
+    @Resource
+    private TraceMapper traceMapper;
 
     //登陆
     public JSONObject login(String username, String password){
@@ -124,9 +123,24 @@ public class AdminService {
         return adminMapper.patientIsOrdered(patient);
     }
 
-//    public Integer getcallNum(Patient patient){
-//        if(patientIsOrdered(patient) == 1){
-//
-//        }
-//    }
+    public void changeTraceState(PatientVo patientVo) {
+        adminMapper.updateTrace(patientVo);
+    }
+
+    public List<PatientVo> showPatientTrac() {
+        List<PatientVo> patientVos = adminMapper.showPatientTrac();
+        return patientVos;
+    }
+
+    public void updateMedIsInPatient(Integer patientId, Integer medHaveDone){
+        adminMapper.updateMedIsInPatient(patientId, medHaveDone);
+    }
+
+    public void updateMedRemainsPut(PatientVo patientVo){
+        adminMapper.updateMedRemainsPut(patientVo);
+    }
+
+    public void updateMedRemainsGet(PatientVo patientVo){
+        adminMapper.updateMedRemainsGet(patientVo);
+    }
 }

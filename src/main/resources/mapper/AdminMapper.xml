@@ -39,4 +39,35 @@
         WHERE patientId = #{patientId};
     </select>
 
+    <select id="showPatientTrac" resultType="com.hospital.entity.PatientVo" >
+        SELECT `patient`.`patientId`, `patient`.`pName`, `patient`.`pIdentificationNum`, `record`.`dosage`, `trace`.`state`, `medicine`.`medName`, medicine.remains
+        FROM `patient`, `trace`, `medicine`, `record`
+        WHERE `patient`.`patientId` = `trace`.`patientId`
+            AND `trace`.`patientId` = `record`.`patientId`
+            AND `record`.`medName` = `medicine`.`medName`
+            AND `trace`.`state` = 1;
+    </select>
+
+    <update id="updateTrace" parameterType="com.hospital.entity.PatientVo">
+        UPDATE trace SET `state` =#{state} WHERE patientId = #{patientId} AND isValid=1
+    </update>
+
+    <update id="updateMedIsInPatient">
+        UPDATE record
+        SET `medHaveDone` = #{medHaveDone}
+        WHERE record.patientId = #{patientId};
+    </update>
+
+    <update id="updateMedRemainsPut" parameterType="com.hospital.entity.PatientVo">
+        UPDATE medicine
+        SET `remains` = remains - #{dosage}
+        WHERE medicine.medName = #{medName};
+    </update>
+
+    <update id="updateMedRemainsGet" parameterType="com.hospital.entity.PatientVo">
+        UPDATE medicine
+        SET `remains` = remains + #{dosage}
+        WHERE medicine.medName = #{medName};
+    </update>
+
 </mapper>
