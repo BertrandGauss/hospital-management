@@ -20,17 +20,14 @@ public class RecordController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    // 开具检查单
+    // 开具处方
     @RequestMapping(value = "/addRecord", method = {RequestMethod.POST})
     private JSONObject addCheckItem(@RequestBody Record record){
         Integer did=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
         record.setDoctorId(did);
         record.setPatientId(pid);
-        recordService.addRecord(record);
-        JSONObject json = new JSONObject();
-        json.put("code",0);
-        json.put("msg","处方单开具完成");
+        JSONObject json = recordService.addRecord(record);
         return json;
     }
 

@@ -96,5 +96,16 @@ public class PatientController {
         json.put("msg","返回取消次数成功");
         return json;
     }
+    //显示进度
+    @RequestMapping(value = "/showTrce",method = {RequestMethod.GET})
+    private JSONObject showTrace(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String trace = patientService.showTrace(id);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data",trace);
+        json.put("msg","返回进度");
+        return json;
+    }
 
 }

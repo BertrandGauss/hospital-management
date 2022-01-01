@@ -3,6 +3,9 @@ package com.hospital.service;
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.*;
 import com.hospital.mapper.AdminMapper;
+import com.hospital.mapper.ItemMapper;
+import com.hospital.mapper.PatientMapper;
+import com.hospital.mapper.RecordMapper;
 import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AdminService {
     @Resource
     private AdminMapper adminMapper;
+    @Resource
+    private PatientMapper patientMapper;
+    @Resource
+    private ItemMapper itemMapper;
+    @Resource
+    private RecordMapper recordMapper;
 
     //登陆
     public JSONObject login(String username, String password){
@@ -74,13 +83,15 @@ public class AdminService {
         return recipes;
     }
 
-    public void setItemsHaveDone(Integer patientId) {
-        adminMapper.setItemsHaveDone(patientId);
+    public void setHaveDone(SomeRecipe someRecipe) {
+        List<String> Names = someRecipe.getRecipeName();
+        Integer patientId = patientMapper.selectByIdentificationNum(someRecipe.getpIdentificationNum());
+        for (int i=0;i<Names.size();i++){
+            itemMapper.setItemsHaveDone(patientId,Names.get(i));
+            recordMapper.setMedHaveDone(patientId,Names.get(i));
+        }
     }
 
-    public void setMedHaveDone(Integer patientId) {
-        adminMapper.setMedHaveDone(patientId);
-    }
 
     public Integer getPatientIdByPid(String pIdentificationNum){
         Integer patientId = adminMapper.getPatientIdByPid(pIdentificationNum);

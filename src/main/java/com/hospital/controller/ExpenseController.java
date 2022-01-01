@@ -58,7 +58,7 @@ public class ExpenseController {
     @RequestMapping(value = "/refund",method = {RequestMethod.POST})
     private JSONObject refund(@RequestBody SomeRecipe someRecipe){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
-        JSONObject json =expenseService.refund(id, someRecipe.getRecipeId());
+        JSONObject json =expenseService.refund(id, someRecipe.getRecipeName());
         return json;
     }
 

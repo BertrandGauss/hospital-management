@@ -26,17 +26,6 @@
         WHERE havePay = 1 AND patientId = #{patientId};
     </select>
 
-    <update id="setItemsHaveDone" parameterType="java.lang.Integer">
-        UPDATE item
-        SET itemHaveDone=1
-        WHERE patientId = #{patientId};
-    </update>
-
-    <update id="setMedHaveDone" parameterType="java.lang.Integer">
-        UPDATE record
-        SET medHaveDone=1
-        WHERE patientId = #{patientId};
-    </update>
 
     <select id="getPatientIdByPid" resultType="java.lang.Integer" >
         SELECT patientId

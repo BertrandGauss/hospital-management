@@ -2,6 +2,7 @@ package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.mapper.PatientMapper;
+import com.hospital.mapper.TraceMapper;
 import org.springframework.stereotype.Service;
 import com.hospital.entity.Patient;
 import com.hospital.utils.MD5Util;
@@ -12,6 +13,8 @@ import javax.annotation.Resource;
 public class PatientService {
     @Resource
     private PatientMapper patientMapper;
+    @Resource
+    private TraceMapper traceMapper;
 
     public Integer idnumberisregister(String pIdentificationNum){
         Integer id = patientMapper.selectByIdentificationNum(pIdentificationNum);
@@ -108,9 +111,25 @@ public class PatientService {
         return json;
     }
 
-    //显示
+    //显示取消次数
     public Integer showdanger(Integer patientId ){
        return  patientMapper.showcancleorder(patientId);
+    }
+
+    //显示进度
+    public String showTrace(Integer patientId){
+        Integer state = traceMapper.selectById(patientId);
+        String trace;
+        if (state == 0){
+            trace = "等待配药";
+        }else if(state == 1){
+            trace = "正在配药";
+        }else if(state == 3){
+            trace = "等待发药";
+        }else {
+            trace = "正在发药";
+        }
+        return trace;
     }
 
 }

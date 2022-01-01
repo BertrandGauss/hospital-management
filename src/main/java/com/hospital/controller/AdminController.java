@@ -69,10 +69,9 @@ public class AdminController {
 
     // 对患者已缴费的项目和药品确认进行/使用完成
     @RequestMapping(value = "/sethavedone",method = {RequestMethod.POST})
-    private JSONObject setHaveDone(@RequestParam("pIdentificationNum") String pIdentificationNum){
-        Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
-        adminService.setItemsHaveDone(patientId);
-        adminService.setMedHaveDone(patientId);
+    private JSONObject setHaveDone(@RequestBody SomeRecipe someRecipe){
+        Integer patientId = adminService.getPatientIdByPid(someRecipe.getpIdentificationNum());
+        adminService.setHaveDone(someRecipe);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","确认完成");
