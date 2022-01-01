@@ -31,6 +31,12 @@
         WHERE dIdentificationNum = #{did};
     </select>
 
+    <select id="checkValidByIdentificationNum" resultType="java.lang.Integer" >
+        SELECT isValid
+        FROM doctor
+        WHERE dIdentificationNum = #{did};
+    </select>
+
     <update id="update" parameterType="com.hospital.entity.Doctor">
         UPDATE doctor
         SET dUsername=#{dUsername} , dName = #{dName}, dSkill = #{dSkill}

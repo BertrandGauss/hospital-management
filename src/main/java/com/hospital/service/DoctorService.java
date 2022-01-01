@@ -13,53 +13,68 @@ public class DoctorService {
     @Resource
     private DoctorMapper doctorMapper;
 
-    public  Integer didisregister(String dIdentificationNum){
+    public Integer didisregister(String dIdentificationNum){
         Integer id = doctorMapper.selectByIdentificationNum(dIdentificationNum);
-        System.out.println(id);
+        //System.out.println(id);
         return id;
 
     }
 
     // 注册
     public JSONObject register(Doctor doctor){
-        // TODO: 管理员核验医生身份
+        Integer re = didisregister(doctor.getdIdentificationNum());
+
+        //开始校验
+        if(re!=null){
+            JSONObject json = new JSONObject();
+            json.put("msg","该身份证号码被注册过");
+            json.put("code",1);
+            return json;
+        }
+
         doctor.setdPassword(MD5Util.md5(doctor.getdPassword()));   //给医生密码加密
-        doctorMapper.add(doctor);         //注册验证成功，将医生插入到数据库中
+        doctorMapper.add(doctor);
+        //注册验证成功，等待管理员核验
         JSONObject json = new JSONObject();
 
-        json.put("msg","注册成功");
+        json.put("msg","注册完成，等待审核");
         json.put("code",0);
         return json;
-
     }
 
-    // 登录
+    // 登录（经审核通过的账号，才可以登录）
     public JSONObject login(Doctor doctor){
         String did =  doctor.getdIdentificationNum();
         String pw = MD5Util.md5(doctor.getdPassword());
         String passw = doctorMapper.selectpwbydid(did);
+        Integer isValid = doctorMapper.checkValidByIdentificationNum(did);
 
-        System.out.println("pw"+pw);
-        System.out.println("paw"+passw);
-
-        if(passw==null){
-            System.out.println("paw"+passw);
+        if(isValid == 0) {
             JSONObject json = new JSONObject();
-            json.put("msg","该用户不存在");
+            json.put("msg","该用户审核未通过");
             json.put("code",1);
             return json;
         }
-        else if(!pw.equals(passw)){
+        else{
+            if(passw==null){
+                System.out.println("paw"+passw);
+                JSONObject json = new JSONObject();
+                json.put("msg","该用户不存在");
+                json.put("code",1);
+                return json;
+            }
+            else if(!pw.equals(passw)){
+                JSONObject json = new JSONObject();
+                json.put("msg","密码错误");
+                json.put("code",2);
+                return json;
+            }
             JSONObject json = new JSONObject();
-            json.put("msg","密码错误");
-            json.put("code",2);
+
+            json.put("msg","登录成功");
+            json.put("code",0);
             return json;
         }
-        JSONObject json = new JSONObject();
-
-        json.put("msg","登录成功");
-        json.put("code",0);
-        return json;
     }
 
     // 显示医生信息

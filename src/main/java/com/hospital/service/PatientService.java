@@ -13,14 +13,14 @@ public class PatientService {
     @Resource
     private PatientMapper patientMapper;
 
-    public  Integer idnumberisregister(String pIdentificationNum){
+    public Integer idnumberisregister(String pIdentificationNum){
         Integer id = patientMapper.selectByIdentificationNum(pIdentificationNum);
         System.out.println(id);
         return id;
 
     }
 
-    public  Integer phoneisregister(String pPhone){
+    public Integer phoneisregister(String pPhone){
         Integer id = patientMapper.selectidbyphone(pPhone);
         System.out.println(id);
         return id;

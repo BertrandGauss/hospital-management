@@ -20,6 +20,7 @@ CREATE TABLE `Doctor`(
 	`doctorId` bigint auto_increment,
 	`dUsername` varchar(32) not null,
 	`dPassword` varchar(32) not null,
+	`isValid` int not null default 0,
 	`dName` varchar(32) not null default '',
 	`dIdentificationNum` varchar(18) not null default '',
 	`dOffice` varchar(32) not null default '',
