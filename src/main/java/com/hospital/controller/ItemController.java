@@ -36,9 +36,10 @@ public class ItemController {
     }
 
     // 获取检查单中的患者相关信息
-    @RequestMapping(value = "/getcheckinfobypid",method = {RequestMethod.POST})
-    private JSONObject getPatientInfoByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
-        Patient patientinfo = historyService.originatebypid(pIdentificationNum);
+    @RequestMapping(value = "/getcheckinfobypid",method = {RequestMethod.GET})
+    private JSONObject getPatientInfoByPid(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("Patient");
+        Patient patientinfo = historyService.patientInfo(id);
         JSONObject json = new JSONObject();
         json.put("data", patientinfo);
         json.put("code",0);
@@ -46,10 +47,13 @@ public class ItemController {
         return json;
     }
 
-
     // 开具检查单
     @RequestMapping(value = "/addcheckitem", method = {RequestMethod.POST})
     private JSONObject addCheckItem(@RequestBody Item item){
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");//医生ID
+        Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
+        item.setDoctorId(did);
+        item.setPatientId(pid);
         itemService.addCheckItem(item);
         JSONObject json = new JSONObject();
         json.put("code",0);

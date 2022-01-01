@@ -26,8 +26,8 @@
     </select>
 
     <insert id="edit"  parameterType="com.hospital.mapper.HistoryMapper" useGeneratedKeys="true" keyProperty="historyId">
-        INSERT INTO history(pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-        VALUES (#{pIdentificationNum}, #{clinicType}, #{diseaseDate}, #{diagnosis}, #{drugAllergyHis},#{chiefComplaint}, #{presentIllness});
+        INSERT INTO history(patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+        VALUES (#{patientId},#{pIdentificationNum}, #{clinicType}, #{diseaseDate}, #{diagnosis}, #{drugAllergyHis},#{chiefComplaint}, #{presentIllness});
     </insert>
 
     <select id="showAllHisByPid" resultType="com.hospital.entity.History">

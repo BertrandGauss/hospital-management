@@ -5,6 +5,13 @@ import java.util.Date;
 // 医学检查
 public class Item {
     private Integer itemId;          // 医学检查项目ID
+    private Integer patientId;       // 患者ID
+    private Integer doctorId;        // 医生ID
+    private String itemName;         // 医学检查项目名称
+    private Double itemPrice;        // 单价
+    private String skinTestRes;      // 皮试结果
+    private Integer itemHaveDone;    // 是否进行过医学检查（0代表否，1代表是）
+    private Integer havePay;         // 是否对该项目缴过费（0代表否，1代表是）
     private String illnessSummary;   // 病情摘要
     private String department;       // 执行科室
     private String checkArea;        // 检查部位
@@ -19,6 +26,62 @@ public class Item {
 
     public void setItemId(Integer itemId) {
         this.itemId = itemId;
+    }
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(Double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public String getSkinTestRes() {
+        return skinTestRes;
+    }
+
+    public void setSkinTestRes(String skinTestRes) {
+        this.skinTestRes = skinTestRes;
+    }
+
+    public Integer getItemHaveDone() {
+        return itemHaveDone;
+    }
+
+    public void setItemHaveDone(Integer itemHaveDone) {
+        this.itemHaveDone = itemHaveDone;
+    }
+
+    public Integer getHavePay() {
+        return havePay;
+    }
+
+    public void setHavePay(Integer havePay) {
+        this.havePay = havePay;
     }
 
     public String getIllnessSummary() {

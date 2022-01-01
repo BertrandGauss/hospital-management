@@ -1,40 +1,11 @@
 package com.hospital.entity;
 
-// 处方
+
+//处方，包括检查和药品,用来接收前端开的药品，和方便缴费退费显示,缴费页面显示的处方单就是这样的
 public class Recipe {
-    private Integer recipeId;    // 处方ID
-    private Integer doctorId;    // 医生ID
-    private Integer patientId;   // 患者ID
-    private Integer itemId;      // 医学检查项目ID
-    private String recipeName;    // 药品/医学检查（例如核磁共振，CT等）名称
-    private String dosage;       // 用量
-    private String units;        // 单位
-    private String frequency;    // 频率
-    private String days;         // 天数
-    private String usage;        // 用法
-    private String price;        // 单价
-    private String totalPrice;   // 总金额
-    private String department;   // 执行科室
-    private String skinTestRes;  // 皮试结果
-
-    private Integer remains;    // 药品库存量/医学检查剩余可做次数
-    private Integer haveDone;   // 是否做过医学检查/使用过药品（0代表否，1代表是）
-
-    public Integer getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    public Integer getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
+    private String recipeName;   // 检查或药品的名字
+    private Integer dosage;      // 用量
+    private Double price;        // 单价
 
     public String getRecipeName() {
         return recipeName;
@@ -44,107 +15,19 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getUsage() {
-        return usage;
-    }
-
-    public void setUsage(String usage) {
-        this.usage = usage;
-    }
-
-    public Integer getRemains() {
-        return remains;
-    }
-
-    public void setRemains(Integer remains) {
-        this.remains = remains;
-    }
-
-    public Integer getHaveDone() {
-        return haveDone;
-    }
-
-    public void setHaveDone(Integer haveDone) {
-        this.haveDone = haveDone;
-    }
-
-    public Integer getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(Integer recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    public Integer getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Integer doctorId) {
-        this.doctorId = doctorId;
-    }
-
-    public String getDosage() {
+    public Integer getDosage() {
         return dosage;
     }
 
-    public void setDosage(String dosage) {
+    public void setDosage(Integer dosage) {
         this.dosage = dosage;
     }
 
-    public String getUnits() {
-        return units;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setUnits(String units) {
-        this.units = units;
-    }
-
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
-    }
-
-    public String getDays() {
-        return days;
-    }
-
-    public void setDays(String days) {
-        this.days = days;
-    }
-
-    public String getSkinTestRes() {
-        return skinTestRes;
-    }
-
-    public void setSkinTestRes(String skinTestRes) {
-        this.skinTestRes = skinTestRes;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

@@ -112,6 +112,7 @@ CREATE TABLE `Item` (
     `itemHaveDone` int not null default 0,
     `havePay` int not null default 0,
 	`illnessSummary` varchar(100),
+	`department`  varchar(32),
 	`checkArea` varchar(32),
 	`notice` varchar(100),
 	`checkTime` date,
@@ -126,11 +127,16 @@ CREATE TABLE `Item` (
 -- ----------------------------
 DROP TABLE IF EXISTS `Medicine`;
 CREATE TABLE `Medicine` (
-	`medicineId` bigint auto_increment,
 	`medName` varchar(32),
 	`remains` int,
-	primary key(`medicineId`)
+	primary key(`medName`)
 );
+-- ----------------------------
+-- Records of medicine
+-- ----------------------------
+INSERT INTO `medicine` VALUES ('穿心莲内酯滴丸', '20');
+INSERT INTO `medicine` VALUES ('连花清瘟胶囊', '15');
+INSERT INTO `medicine` VALUES ('阿莫西林', '10');
 
 -- ----------------------------
 -- Table structure for Record
@@ -138,7 +144,7 @@ CREATE TABLE `Medicine` (
 DROP TABLE IF EXISTS `Record`;
 CREATE TABLE `Record` (
 	`recordId` bigint auto_increment,
-	`medicineId` bigint,
+	`medName` varchar(32),
 	`doctorId` bigint,
 	`patientId` bigint,
 	`dosage` int,
@@ -151,5 +157,5 @@ CREATE TABLE `Record` (
     `havePay` int not null default 0,
 	primary key(`recordId`),
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
-	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medicineId`) REFERENCES `Medicine`(`medicineId`)
+	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );

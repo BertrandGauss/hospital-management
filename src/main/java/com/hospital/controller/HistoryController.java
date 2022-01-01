@@ -35,6 +35,8 @@ public class HistoryController {
     @RequestMapping(value = "/getpatientinfobypid",method = {RequestMethod.POST})
     private JSONObject getPatientInfoByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Patient patientinfo = historyService.originatebypid(pIdentificationNum);
+        //把患者Id保存在session中
+        this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
         JSONObject json = new JSONObject();
         json.put("data", patientinfo);
         json.put("code",0);
@@ -43,9 +45,11 @@ public class HistoryController {
     }
 
     // 编辑病历
-    @RequestMapping(value = "/updatecasehis",method = {RequestMethod.POST})
-    private JSONObject updateCaseHis(@RequestBody History history){
-        historyService.updatecasehis(history);
+    @RequestMapping(value = "/editcasehis",method = {RequestMethod.POST})
+    private JSONObject editcasehis(@RequestBody History history){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("Patient");
+        history.setPatientId(id);
+        historyService.editcasehis(history);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","病历编辑完成");
