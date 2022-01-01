@@ -10,7 +10,12 @@ import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class AdminService {
@@ -92,4 +97,14 @@ public class AdminService {
         Integer patientId = adminMapper.getPatientIdByPid(pIdentificationNum);
         return patientId;
     }
+
+    public Integer patientIsOrdered(Patient patient){
+        return adminMapper.patientIsOrdered(patient);
+    }
+
+//    public Integer getcallNum(Patient patient){
+//        if(patientIsOrdered(patient) == 1){
+//
+//        }
+//    }
 }
