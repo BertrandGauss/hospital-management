@@ -1,9 +1,6 @@
 package com.hospital.mapper;
 
-import com.hospital.entity.Doctor;
-import com.hospital.entity.Item;
-import com.hospital.entity.Patient;
-import com.hospital.entity.Record;
+import com.hospital.entity.*;
 
 import java.util.List;
 
@@ -19,4 +16,14 @@ public interface AdminMapper {
     Integer getPatientIdByPid(String pIdentificationNum);
 
     Integer patientIsOrdered(Patient patient);
+
+    List<PatientVo> showPatientTrac();
+
+    void updateTrace(PatientVo patientVo);
+
+    void updateMedIsInPatient(Integer patientId, Integer medHaveDone);
+
+    void updateMedRemainsPut(PatientVo patientVo);
+
+    void updateMedRemainsGet(PatientVo patientVo);
 }
