@@ -77,7 +77,7 @@ public class AdminService {
             Recipe recipe = new Recipe();
             recipe.setPatientId(patientId);
             recipe.setRecipeName(med.get(i).getMedName());
-            recipe.setPrice(med.get(i).getMedPrice());
+            recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             recipe.setDosage(med.get(i).getDosage());
             recipes.add(recipe);
         }

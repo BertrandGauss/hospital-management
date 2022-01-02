@@ -54,6 +54,8 @@ public class ItemController {
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
         item.setDoctorId(did);
         item.setPatientId(pid);
+        Date date = new Date();
+        item.setItemDate(date);
         itemService.addCheckItem(item);
         JSONObject json = new JSONObject();
         json.put("code",0);
