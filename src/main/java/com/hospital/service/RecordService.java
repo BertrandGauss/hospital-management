@@ -39,7 +39,8 @@ public class RecordService {
             //等待配药
             Trace trace = new Trace();
             trace.setPatientId(record.getPatientId());
-            traceMapper.addTrace(trace);
+            if(traceMapper.selectById(record.getPatientId())==null)
+                traceMapper.addTrace(trace);
             json.put("code",0);
             json.put("msg","开处方成功");
         }

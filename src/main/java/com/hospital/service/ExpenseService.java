@@ -46,7 +46,9 @@ public class ExpenseService {
         List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
         List<Record> med = expenseMapper.selectmebypatientId(patientId);
         List<Recipe> recipes = new LinkedList<>();
+        System.out.println(patientId);
         for(int i=0; i<items.size(); i++){
+            System.out.println(items.get(i).getDoctorId());
             Doctor doctor = doctorMapper.selectbyid(items.get(i).getDoctorId());
             Recipe recipe = new Recipe();
             recipe.setType("检查");
@@ -71,14 +73,14 @@ public class ExpenseService {
             recipe.setRecipeName(med.get(i).getMedName());
             recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             Integer state = traceMapper.selectById(patientId);
-            if(state == 0)
-                recipe.setState("未缴费");
-            else if(state ==1)
-                recipe.setState("等待配药");
-            else if(state == 2)
-                recipe.setState("配药完成");
-            else
+            if(state==3)
                 recipe.setState("等待退费");
+            else if(med.get(i).getHavePay() == 0)
+                recipe.setState("未缴费");
+            else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==0)
+                recipe.setState("等待配药");
+            else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==1)
+                recipe.setState("配药完成");
             recipes.add(recipe);
 
         }

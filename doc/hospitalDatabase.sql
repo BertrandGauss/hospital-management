@@ -192,17 +192,17 @@ CREATE TABLE `History` (
 	CONSTRAINT fk_patient_history_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
 );
 
-INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (1, '098647799567035486', '初诊', '2021-12-20', '感冒', '无', '无', '无');
-
-INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (1, '098647799567035486', '复诊', '2021-12-28', '过度劳累', '无', '无', '无');
-
-INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (2, '098647796583035486', '初诊', '2021-12-08', '关节炎', '无', '无', '无');
-
-INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (3, '098647790955035486', '复诊', '2022-01-01', '癌症', '无', '无', '无');
+# INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+# VALUES (1, '098647799567035486', '初诊', '2021-12-20', '感冒', '无', '无', '无');
+#
+# INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+# VALUES (1, '098647799567035486', '复诊', '2021-12-28', '过度劳累', '无', '无', '无');
+#
+# INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+# VALUES (2, '098647796583035486', '初诊', '2021-12-08', '关节炎', '无', '无', '无');
+#
+# INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
+# VALUES (3, '098647790955035486', '复诊', '2022-01-01', '癌症', '无', '无', '无');
 
 -- ----------------------------
 -- Table structure for Item;
@@ -230,23 +230,23 @@ CREATE TABLE `Item` (
   CONSTRAINT fk_doctor_item_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`)
 );
 
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (1, 8, '核磁共振', 128.4, '', '无', '外科', '头部', '饮食清淡', '2022-01-01', '正常', '多喝热水');
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (1, 8, '核磁共振', 128.4, '', '无', '外科', '头部', '饮食清淡', '2022-01-01', '正常', '多喝热水');
 
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (1, 8, 'CT', 94.5, '', '无', '外科', '胸部', '饮食清淡，禁辛辣', '2022-01-01', '正常', '多喝热水');
-
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (1, 8, '验血', 49, '轻微炎症', '无', '外科', '血液', '饮食清淡，合理膳食', '2022-01-01', '较正常', '多喝热水');
-
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (3, 4, '验血', 49, '炎症', '无', '内科', '血液', '禁烟酒', '2022-01-02', '较严重', '建议住院观察');
-
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (3, 4, '肾透析', 280, '', '无', '内科', '肾', '饮食清淡，合理膳食，禁烟酒', '2022-01-02', '不正常', '建议手术');
-
-INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
-VALUES (2, 2, '心电图', 199.8, '', '无', '外科', '头部', '注意饮食', '2022-01-02', '正常', '多喝热水');
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (1, 8, 'CT', 94.5, '', '无', '外科', '胸部', '饮食清淡，禁辛辣', '2022-01-01', '正常', '多喝热水');
+#
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (1, 8, '验血', 49, '轻微炎症', '无', '外科', '血液', '饮食清淡，合理膳食', '2022-01-01', '较正常', '多喝热水');
+#
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (3, 4, '验血', 49, '炎症', '无', '内科', '血液', '禁烟酒', '2022-01-02', '较严重', '建议住院观察');
+#
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (3, 4, '肾透析', 280, '', '无', '内科', '肾', '饮食清淡，合理膳食，禁烟酒', '2022-01-02', '不正常', '建议手术');
+#
+# INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
+# VALUES (2, 2, '心电图', 199.8, '', '无', '外科', '头部', '注意饮食', '2022-01-02', '正常', '多喝热水');
 
 -- ----------------------------
 -- Table structure for Medicine
@@ -288,17 +288,17 @@ CREATE TABLE `Record` (
   CONSTRAINT fk_doctor_record_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
 	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );
-INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
-VALUES ('穿心莲内酯滴丸', 8, 1, 2, '盒', '一日三次', 3, '口服', '25.5');
-
-INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
-VALUES ('阿莫西林', 8, 1, 1, '盒', '一日两次', 3, '口服', '19.8');
-
-INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
-VALUES ('连花清瘟胶囊', 4, 3, 3, '盒', '一日三次', 5, '口服', '59');
-
-INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
-VALUES ('999感冒灵颗粒', 2, 3, 1, '盒', '一日三次', 3, '口服', '12.5');
+# INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
+# VALUES ('穿心莲内酯滴丸', 8, 1, 2, '盒', '一日三次', 3, '口服', '25.5');
+#
+# INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
+# VALUES ('阿莫西林', 8, 1, 1, '盒', '一日两次', 3, '口服', '19.8');
+#
+# INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
+# VALUES ('连花清瘟胶囊', 4, 3, 3, '盒', '一日三次', 5, '口服', '59');
+#
+# INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
+# VALUES ('999感冒灵颗粒', 2, 3, 1, '盒', '一日三次', 3, '口服', '12.5');
 
 
 -- ----------------------------

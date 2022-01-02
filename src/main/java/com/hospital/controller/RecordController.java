@@ -24,12 +24,13 @@ public class RecordController {
     // 开具处方
     @RequestMapping(value = "/addRecord", method = {RequestMethod.POST})
     private JSONObject addRecord(@RequestBody Record record){
-        Integer did=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");//医生ID
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
         Date date = new Date();
         record.setRecordDate(date);
         record.setDoctorId(did);
         record.setPatientId(pid);
+        System.out.println(pid);
         JSONObject json = recordService.addRecord(record);
         return json;
     }

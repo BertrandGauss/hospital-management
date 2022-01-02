@@ -100,6 +100,7 @@ public class HistoryService {
             registration.setDoctorId(doctorId);
             System.out.println("hhh"+registration.getrNum());
             patientId = registrationMapper.selectByrNum(registration);
+            System.out.println("xxxx"+patientId);
         } else if(doctor.getdTitle().equals("专家")&& doctor.getPatientId()!=null){
             String rNum = registrationMapper.selectPre(doctor.getPatientId());
             if (vNums.size() > 0 && !rNum.contains("v"))
@@ -107,8 +108,8 @@ public class HistoryService {
             else
                 registration.setrNum(String.format("%06d", nNums.get(0)));
             registration.setDoctorId(doctorId);
-
             patientId = registrationMapper.selectByrNum(registration);
+
         }else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
             //List
             List<Integer> allPID = doctorMapper.selectbydepartment(doctor.getdOffice());
@@ -134,11 +135,12 @@ public class HistoryService {
             patientId = registrationMapper.selectPatient(registration);
         }
         Patient patient;
+        System.out.println(patientId);
         if (doctor.getPatientId() == null) {
             //更新医生状态
             doctorMapper.updatepId(patientId, doctorId);
             patient = historyMapper.getPatientinfo(patientId);
-        } else if (registrationMapper.selectById(doctor.getPatientId()).getIsValid() == 0) {//看完了上一个病人的状态
+        } else if (registrationMapper.selectById(doctor.getPatientId()) == null && patientId!=null) {//看完了上一个病人的状态
             //更新医生状态
             doctorMapper.updatepId(patientId, doctorId);
             patient = historyMapper.getPatientinfo(patientId);
