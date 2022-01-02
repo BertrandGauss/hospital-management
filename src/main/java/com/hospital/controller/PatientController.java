@@ -97,7 +97,7 @@ public class PatientController {
         return json;
     }
     //显示进度
-    @RequestMapping(value = "/showTrce",method = {RequestMethod.GET})
+    @RequestMapping(value = "/showTrace",method = {RequestMethod.GET})
     private JSONObject showTrace(){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         String trace = patientService.showTrace(id);
@@ -108,6 +108,15 @@ public class PatientController {
         return json;
     }
 
-    //叫号
-
+    //叫号(显示前面有多少人）
+    @RequestMapping(value = "/showNum",method = {RequestMethod.GET})
+    private JSONObject showNum(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String Num = patientService.showNum(id);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data",Num);
+        json.put("msg","返回排队进度");
+        return json;
+    }
 }

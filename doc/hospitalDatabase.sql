@@ -26,6 +26,7 @@ CREATE TABLE `Doctor`(
 	`dOffice` varchar(32) not null default '',
 	`dTitle` varchar(32),
 	`dSkill` varchar(100),
+	`patientId` bigint,
 	primary key(`doctorId`)
 );
 

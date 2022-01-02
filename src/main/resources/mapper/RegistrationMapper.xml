@@ -6,4 +6,25 @@
         INSERT INTO registration (patientId,doctorId,department,rNum)
         VALUES (#{patientId},#{doctorId},#{department},#{rNum});
     </insert>
+
+    <select id="selectById" resultType="com.hospital.entity.Registration">
+        SELECT * FROM registration WHERE patientId=#{patientId} AND isValid=1
+    </select>
+
+    <select id="TodayRNum" resultType="java.lang.String">
+        SELECT rNum FROM registration WHERE department=#{department} AND doctorId=#{doctorId}
+    </select>
+
+    <update id="updateValid">
+        UPDATE registration SET isValid = 0 WHERE patientId=#{ptiendId}
+    </update>
+
+    <select id="selectByrNum" resultType="java.lang.String">
+        SELECT patientId FROM registration WHERE department=#{department} AND doctorId=#{doctorId} AND rNum=#{rNum}
+    </select>
+
+    <select id="selectPatient" resultType="java.lang.String">
+        SELECT patientId FROM registration WHERE department=#{department} AND rNum=#{rNum}
+    </select>
+
 </mapper>

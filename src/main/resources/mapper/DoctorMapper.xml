@@ -54,4 +54,22 @@
         FROM doctor
         WHERE dOffice = #{department} AND dName=#{dName} AND dTitle = "专家";
     </select>
+
+    <update id="updatepId" >
+        UPDATE doctor
+        SET patientId=#{patientId}
+        WHERE doctorId=#{doctorId}
+    </update>
+
+    <select id="selectbydepartment" resultType="java.lang.Integer" >
+        SELECT patientId
+        FROM doctor
+        WHERE dOffice = #{department} AND dTitle = "普通";
+    </select>
+
+    <select id="getDoctor" resultType="com.hospital.entity.Doctor" >
+        SELECT *
+        FROM doctor
+        WHERE dOffice = #{department} AND patientId=#{patientId};
+    </select>
 </mapper>

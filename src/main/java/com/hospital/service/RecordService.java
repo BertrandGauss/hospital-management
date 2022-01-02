@@ -6,6 +6,7 @@ import com.hospital.entity.Record;
 import com.hospital.entity.Trace;
 import com.hospital.mapper.MedicineMapper;
 import com.hospital.mapper.RecordMapper;
+import com.hospital.mapper.RegistrationMapper;
 import com.hospital.mapper.TraceMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class RecordService {
     private MedicineMapper medicineMapper;
     @Resource
     private TraceMapper traceMapper;
+
 
     // 开处方
     public JSONObject addRecord(Record record) {

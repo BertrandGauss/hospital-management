@@ -1,6 +1,7 @@
 package com.hospital.mapper;
 
 import com.hospital.entity.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface AdminMapper {
 
     void updateTrace(PatientVo patientVo);
 
-    void updateMedIsInPatient(Integer patientId, Integer medHaveDone);
+    void updateMedIsInPatient(@Param("patientId") Integer patientId,@Param("medHaveDone") Integer medHaveDone);
 
     void updateMedRemainsPut(PatientVo patientVo);
 

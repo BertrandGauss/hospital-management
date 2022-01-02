@@ -44,6 +44,19 @@ public class HistoryController {
         return json;
     }
 
+    @RequestMapping(value = "/showpatientinfo",method = {RequestMethod.GET})
+    private JSONObject showPatientInfo(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        Patient patientinfo = historyService.showpatientInfo(id);
+        //把患者Id保存在session中
+        this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
+        JSONObject json = new JSONObject();
+        json.put("data", patientinfo);
+        json.put("code",0);
+        json.put("msg","成功获取病历中患者相关信息");
+        return json;
+    }
+
     // 编辑病历
     @RequestMapping(value = "/editcasehis",method = {RequestMethod.POST})
     private JSONObject editcasehis(@RequestBody History history){
