@@ -10,11 +10,15 @@ public interface RegistrationMapper {
 
     Registration selectById(Integer patientId);
 
-    List<String> TodayRNum(@Param("department")String department, @Param("doctorId")Integer doctorId);
+    List<String> TodayRNumz(@Param("department")String department, @Param("doctorId")Integer doctorId);
+
+    List<String> TodayRNum(String department);
 
     void updateValid(Integer patientId);
 
     Integer selectByrNum(Registration registration);
 
     Integer selectPatient(Registration registration);
+
+    String selectPre(Integer patientId);
 }

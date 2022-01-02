@@ -27,8 +27,15 @@ public class RegistrationService {
     @Resource
     private DoctorMapper doctorMapper;
 
-    public void Registration(RegistrationVo registrationVo){
+    public JSONObject Registration(RegistrationVo registrationVo){
         Integer id = patientMapper.selectByIdentificationNum(registrationVo.getpIdentificationNum());
+        Registration reg = registrationMapper.selectById(id);
+        JSONObject json = new JSONObject();
+        if(reg != null){
+            json.put("code",1);
+            json.put("msg","有未完成的挂号");
+            return json;
+        }
         Order order = orderMapper.haveOrder(id);
         LocalTime localTime = LocalTime.now();
         Time time =Time.valueOf( localTime.plusMinutes(30));
@@ -54,6 +61,18 @@ public class RegistrationService {
             registration.setPatientId(id);
             registration.setrNum(orderSn);
         }
-
+        registrationMapper.add(registration);
+        Integer price;//挂号费
+        if(registrationVo.getdName()==null){//普通挂号
+            price = 10;
+        }else{
+            price = 40;
+        }
+        json.put("data",price);
+        json.put("code",0);
+        json.put("msg","挂号成功");
+        return json;
     }
+
+
 }

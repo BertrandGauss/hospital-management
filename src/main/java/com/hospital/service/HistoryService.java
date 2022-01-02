@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -65,32 +66,48 @@ public class HistoryService {
     //获取当前叫号叫到的患者的信息
     public Patient showpatientInfo(Integer doctorId) {
         Doctor doctor = doctorMapper.selectbyid(doctorId);
-        List<String> rNums = registrationMapper.TodayRNum(doctor.getdOffice(), doctor.getDoctorId());
-        List<Long> vNums = null;//vip
-        List<Long> nNums = null;//普通
-        for (int i = 0; i < rNums.size(); i++) {
-            if (rNums.get(i).contains("v")) {
-                Long l = Long.parseLong(rNums.get(i).split("v")[1]);
+        List<String> rNums = null;
+        if(doctor.getdTitle() =="专家")
+            rNums = registrationMapper.TodayRNumz(doctor.getdOffice(), doctor.getDoctorId());
+        else
+            rNums = registrationMapper.TodayRNum(doctor.getdOffice());
+        List<Long> vNums=new LinkedList<>();//vip
+        List<Long> nNums=new LinkedList<>();//普通
+        for (int i=0;i<rNums.size();i++){
+            if(rNums.get(i).contains("v")){
+                Long l = Long.parseLong((rNums.get(i).replace("v","")));
                 vNums.add(l);
-            } else {
+            }
+            else{
                 Long l = Long.parseLong(rNums.get(i));
-                vNums.add(l);
+                nNums.add(l);
             }
         }
         //排序
-        Collections.sort(vNums);
-        Collections.sort(nNums);
+        if(vNums!=null)
+            Collections.sort(vNums);
+        if (nNums!=null)
+            Collections.sort(nNums);
         Registration registration = new Registration();
         registration.setDepartment(doctor.getdOffice());
         Integer patientId = null;
-        if (doctor.getdTitle() == "专家") {//专家号
-            if (vNums.size() > 0)
+
+        if (doctor.getdTitle().equals("专家")&& doctor.getPatientId()==null) {//专家号
+            if (vNums.size() > 0 )
                 registration.setrNum("v" + vNums.get(0).toString());
             else
-                registration.setDepartment(nNums.get(0).toString());
+                registration.setrNum(nNums.get(0).toString());
             registration.setDoctorId(doctorId);
             patientId = registrationMapper.selectByrNum(registration);
-        } else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
+        } else if(doctor.getdTitle().equals("专家")&& doctor.getPatientId()!=null){
+            String rNum = registrationMapper.selectPre(doctor.getPatientId());
+            if (vNums.size() > 0 && !rNum.contains("v"))
+                registration.setrNum("v" + vNums.get(0).toString());
+            else
+                registration.setrNum(nNums.get(0).toString());
+            registration.setDoctorId(doctorId);
+            patientId = registrationMapper.selectByrNum(registration);
+        }else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
             //List
             List<Integer> allPID = doctorMapper.selectbydepartment(doctor.getdOffice());
             List<String> allRNUM = null;

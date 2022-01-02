@@ -33,35 +33,35 @@ CREATE TABLE `Doctor`(
 -- ----------------------------
 -- Insert values into Doctor
 -- ----------------------------
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor1', 'a123456', 1, '张一', '234569833647390534', '外科', '专家');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor2', 'b123456', 0, '张二', '234569473647390534', '外科', '普通');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor3', 'c123456', 1, '张三', '234569833647090534', '内科', '普通');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor4', 'd123456', 1, '张四', '234569833677390534', '内科', '专家');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor5', 'e123456', 0, '张五', '234569836147390534', '内科', '普通');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor6', 'f123456', 0, '张六', '234569403647390534', '外科', '专家');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor7', 'g123456', 1, '张七', '234529403647399834', '外科', '专家');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor8', 'h123456', 0, '张八', '114569403647390534', '外科', '普通');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor9', 'i123456', 1, '张九', '344569403647390534', '内科', '普通');
-
-INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-VALUES ('doctor10', 'j123456', 1, '张十', '234569406473945040', '外科', '普通');
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor1', 'a123456', 1, '张一', '234569833647390534', '外科', '专家');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor2', 'b123456', 0, '张二', '234569473647390534', '外科', '普通');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor3', 'c123456', 1, '张三', '234569833647090534', '内科', '普通');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor4', 'd123456', 1, '张四', '234569833677390534', '内科', '专家');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor5', 'e123456', 0, '张五', '234569836147390534', '内科', '普通');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor6', 'f123456', 0, '张六', '234569403647390534', '外科', '专家');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor7', 'g123456', 1, '张七', '234529403647399834', '外科', '专家');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor8', 'h123456', 0, '张八', '114569403647390534', '外科', '普通');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor9', 'i123456', 1, '张九', '344569403647390534', '内科', '普通');
+#
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
+# VALUES ('doctor10', 'j123456', 1, '张十', '234569406473945040', '外科', '普通');
 
 
 -- ----------------------------
@@ -88,35 +88,35 @@ CREATE TABLE `Patient`(
 -- ----------------------------
 -- Insert values into Patient
 -- ----------------------------
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient1', 'a123', '098647799567035486', '李一', 'F', 23, '学生', '13485764984', '重庆');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient2', 'b123', '098647796583035486', '李二', 'M', 24, '学生', '13485764984', '成都');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient3', 'c123', '098647790955035486', '李三', 'F', 20, '学生', '13485764984', '重庆');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient4', 'd123', '098642347567035486', '李四', 'M', 53, '老师', '13485764984', '北京');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient5', 'e123', '098647346067035486', '李五', 'F', 70, '兽医', '13485764984', '成都');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient6', 'f123', '098647799567997686', '李六', 'F', 54, '白领', '13485764984', '张家口');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient7', 'g123', '098647799567038666', '李七', 'M', 13, '白领', '13485764984', '重庆');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient8', 'h123', '012327799567035486', '李八', 'M', 49, '学生', '13485764984', '武汉');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient9', 'i123', '880447799567035486', '李九', 'M', 73, '白领', '13485764984', '重庆');
-
-INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
-VALUES ('patient10', 'j123', '224847799567035486', '李十', 'F', 62, '老师', '13485764984', '南昌');
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient1', 'a123', '098647799567035486', '李一', 'F', 23, '学生', '13485764984', '重庆');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient2', 'b123', '098647796583035486', '李二', 'M', 24, '学生', '13485764984', '成都');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient3', 'c123', '098647790955035486', '李三', 'F', 20, '学生', '13485764984', '重庆');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient4', 'd123', '098642347567035486', '李四', 'M', 53, '老师', '13485764984', '北京');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient5', 'e123', '098647346067035486', '李五', 'F', 70, '兽医', '13485764984', '成都');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient6', 'f123', '098647799567997686', '李六', 'F', 54, '白领', '13485764984', '张家口');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient7', 'g123', '098647799567038666', '李七', 'M', 13, '白领', '13485764984', '重庆');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient8', 'h123', '012327799567035486', '李八', 'M', 49, '学生', '13485764984', '武汉');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient9', 'i123', '880447799567035486', '李九', 'M', 73, '白领', '13485764984', '重庆');
+#
+# INSERT INTO `Patient` (`pUsername`, `pPassword`, `pIdentificationNum`, `pName`, `pGender`, `pAge`, `pOccupation`, `pPhone`, `pAddress`)
+# VALUES ('patient10', 'j123', '224847799567035486', '李十', 'F', 62, '老师', '13485764984', '南昌');
 
 
 

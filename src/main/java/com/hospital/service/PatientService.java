@@ -14,6 +14,7 @@ import com.hospital.utils.MD5Util;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -145,26 +146,34 @@ public class PatientService {
 
     public String showNum(Integer patientId){
         Registration registration = registrationMapper.selectById(patientId);
-        String rNum =registration.getrNum();
         if(registration == null){
             return "未挂号，暂无排队信息";
         }
-        List<String> rNums = registrationMapper.TodayRNum(registration.getDepartment(),registration.getDoctorId());
-        List<Long> vNums=null;//vip
-        List<Long> nNums=null;//普通
+        String rNum = new String();
+        rNum = registration.getrNum();
+        List<String> rNums = null ;
+        if(registration.getDoctorId()==null)
+            rNums = registrationMapper.TodayRNum(registration.getDepartment());
+        else
+            rNums = registrationMapper.TodayRNumz(registration.getDepartment(),registration.getDoctorId());
+        List<Long> vNums=new LinkedList<>();//vip
+        List<Long> nNums=new LinkedList<>();//普通
         for (int i=0;i<rNums.size();i++){
             if(rNums.get(i).contains("v")){
-                Long l = Long.parseLong(rNums.get(i).split("v")[1]);
+                Long l = Long.parseLong((rNums.get(i).replace("v","")));
+                System.out.println(l);
                 vNums.add(l);
             }
             else{
                 Long l = Long.parseLong(rNums.get(i));
-                vNums.add(l);
+                nNums.add(l);
             }
         }
         //排序
-        Collections.sort(vNums);
-        Collections.sort(nNums);
+        if(vNums!=null)
+            Collections.sort(vNums);
+        if (nNums!=null)
+            Collections.sort(nNums);
         //实际的排队队列
         List<String> TrueNum=null;
         Integer number =0;
@@ -172,8 +181,6 @@ public class PatientService {
         if(vNums.size()<nNums.size()){
             for(int i = 0;i<nNums.size();i++) {
                 if(i<vNums.size() ) {//看一个vip再看一个普通
-                    TrueNum.add("v" + vNums.get(i).toString());
-                    TrueNum.add(nNums.get(i).toString());
                     if(!rNum.equals("v" + vNums.get(i).toString()))
                         number = number+1;
                     else
@@ -184,8 +191,7 @@ public class PatientService {
                     else
                         break;
 
-                }else {
-                    TrueNum.add(nNums.get(i).toString());
+                }else if(i<nNums.size() ) {
                     if(!rNum.equals(nNums.get(i).toString()))
                         number = number+1;
                     else
@@ -214,7 +220,7 @@ public class PatientService {
                 }
         }
         Doctor doctor =doctorMapper.getDoctor(patientId,registration.getDepartment());
-        if(doctor.getdIdentificationNum()!=null){
+        if(doctor!=null){
             return "请您到"+doctor.getdOffice()+doctor.getdName()+"医生处就诊";
         }
         return "您前面还有"+number.toString()+"个人";
