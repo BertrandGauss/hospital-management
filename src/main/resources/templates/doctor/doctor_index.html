@@ -7,13 +7,14 @@
     <title>健康管理系统</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="shortcut icon" href="../../static/images/favicon.ico" type="image/x-icon" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" href="/templates/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
-<!--    <script type="text/javascript" src="../../lib/layui-layer-v3.5.1/layer/layer.js"></script>-->
+    <script type="text/javascript" src="../../lib/layui-layer-v3.5.1/layer/layer.js"></script>
 
 </head>
 
@@ -85,65 +86,83 @@
 <!-- 中部结束 -->
 <!-- 底部开始 -->
 <div class="footer">
-    <div class="copyright">Copyright ©2022 WeAdmin v1.0 All Rights Reserved</div>
+    <div class="copyright">Copyright ©2022 Hospital Care v1.0 All Rights Reserved</div>
 </div>
 <!-- 底部结束 -->
 <script type="text/javascript">
-
     layui.config({
         base: '../../static/js/'
-        ,version: '101100'
+        , version: '101100'
     }).extend({ //设定模块别名
         admin: 'admin'
-        ,menu: 'menu'
+        , menu: 'menu'
     });
-    layui.use(['jquery', 'admin', 'menu'], function(){
+    layui.use(['jquery', 'admin', 'menu'], function () {
         var $ = layui.jquery,
             admin = layui.admin,
             menu = layui.menu;
 
-        // 不知道为什么没有效果，加载动效出不来
+        // 本来要加load动画，不知道为什么没有效果，加载动效出不来
+        // $.ajaxSetup({
+        //     beforeSend: function () {
+        //         layui.use('layer', function () {
+        //             layui.layer.load();
+        //             //此处演示关闭
+        //             setTimeout(function(){
+        //                 layui.layer.closeAll('loading');
+        //             }, 3000);
+        //             // $(".layui-layer-shade").css('background', '#000000')
+        //             // $(".layui-layer-shade").css('opacity', '0.2')
+        //         });
+        //     },
+        // });
 
-        $(function(){
+
+        // 加载左侧菜单栏
+        $(function () {
             menu.getMenu('../../static/json/menu_doctor.json');
 
         });
+
+        //显示姓名
         function init() {
-            //显示姓名
             $.ajax({
                 type: "GET",   //提交的方法
-                url:"http://localhost:8081/user/getusername",
+                url: "http://localhost:8081/user/getusername",
                 xhrFields: {
                     withCredentials: true,
                 },
-                dataType:"json",
+                dataType: "json",
                 contentType: "application/json",
                 async: false,
                 // error: function(request) {  //失败的话
                 //     alert("Connection error");
                 // },
-                success: function(data) {
+                success: function (data) {
 
-                    if (data.code===0){
+                    if (data.code === 0) {
                         $('.cite-user-name').text(data.data);
                     }
                     // else{
                     // 	alert(data.msg)
                     // }
                 }
-
             })
 
         }
 
         init();
     });
+
+    // 修改个人信息
     function setting() {
-        WeAdminShow('','./setting.html',450,250);
+        WeAdminShow('', '../setting.html', 450, 250);
 
     }
+
+    // 修改密码
     function updatepassword() {
-        WeAdminShow('','./updatepassword.html',450,250);
+        WeAdminShow('', '../updatepassword.html', 450, 250);
 
     }
 </script>
