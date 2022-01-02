@@ -78,7 +78,7 @@ public class AdminController {
         return json;
     }
 
-    // 对患者已缴费的项目和药品确认进行/使用完成
+    // 对患者已缴费的项目确认进行完成
     @RequestMapping(value = "/sethavedone",method = {RequestMethod.POST})
     private JSONObject setHaveDone(@RequestBody SomeRecipe someRecipe){
         Integer patientId = adminService.getPatientIdByPid(someRecipe.getpIdentificationNum());
@@ -89,5 +89,45 @@ public class AdminController {
         return json;
     }
 
+    // 获取需要已开处方需要配药的用户
+    @RequestMapping(value = "/showpatienttrac",method = {RequestMethod.GET})
+    private JSONObject showPatientTrac(){
+        List<PatientVo> patientVos = adminService.showPatientTrac();
 
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data", patientVos);
+        json.put("msg","成功获取需要已开处方需要配药的用户");
+        return json;
+    }
+
+    // 配药状态修改
+    @RequestMapping(value = "/changetracestate",method = {RequestMethod.POST})
+    private JSONObject changeTraceState(@RequestBody PatientVo patientVo){
+        adminService.changeTraceState(patientVo);
+        Integer patientId = patientVo.getPatientId();
+        // 发药
+        if(patientVo.getState() == 3){
+            adminService.updateMedIsInPatient(patientId, 1);
+            adminService.updateMedRemainsPut(patientVo);
+        }
+
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","配药状态修改成功");
+        return json;
+    }
+
+    // 退药
+    @RequestMapping(value = "/withdrawmed",method = {RequestMethod.POST})
+    private JSONObject withdrawMed(@RequestBody PatientVo patientVo){
+        Integer patientId = patientVo.getPatientId();
+        adminService.updateMedIsInPatient(patientId, 0);
+        adminService.updateMedRemainsGet(patientVo);
+
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","退药审核成功");
+        return json;
+    }
 }

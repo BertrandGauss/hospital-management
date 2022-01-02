@@ -3,18 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!--解决图标不能回显问题-->
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-            <nonFilteredFileExtensions>
-                <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-            </nonFilteredFileExtensions>
-        </configuration>
-    </plugin>
+
 
     <groupId>com</groupId>
     <artifactId>hospital</artifactId>
@@ -54,7 +43,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
