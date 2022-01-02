@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页二</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/weadmin.css">
+    <link rel="stylesheet" href="../../static/layui-v2.6.8/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/layui/css/public.css" media="all">
+    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <style>
+        .layui-card {
+            border: 1px solid #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .icon {
+            margin-right: 10px;
+            color: #1aa094;
+        }
+
+        .icon-cray {
+            color: #ffb800 !important;
+        }
+
+        .icon-blue {
+            color: #1e9fff !important;
+        }
+
+        .icon-tip {
+            color: #ff5722 !important;
+        }
+
+        .layuimini-qiuck-module {
+            text-align: center;
+            margin-top: 10px
+        }
+
+        .layuimini-qiuck-module a i {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 30px;
+            background-color: #F8F8F8;
+            color: #333;
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .layuimini-qiuck-module a cite {
+            position: relative;
+            top: 2px;
+            display: block;
+            color: #666;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .welcome-module {
+            width: 100%;
+            height: 210px;
+        }
+
+        .panel {
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
+        }
+
+        .panel-body {
+            padding: 10px
+        }
+
+        .panel-title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            color: inherit
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+            margin-top: .3em;
+        }
+
+        .layui-red {
+            color: red
+        }
+
+        .main_btn > p {
+            height: 40px;
+        }
+
+        .layui-bg-number {
+            background-color: #F8F8F8;
+        }
+
+        .layuimini-notice:hover {
+            background: #f6f6f6;
+        }
+
+        .layuimini-notice {
+            padding: 7px 16px;
+            clear: both;
+            font-size: 12px !important;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .layuimini-notice-title, .layuimini-notice-label {
+            padding-right: 70px !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+
+        .layuimini-notice-title {
+            line-height: 28px;
+            font-size: 14px;
+        }
+
+        .layuimini-notice-extra {
+            position: absolute;
+            top: 50%;
+            margin-top: -8px;
+            right: 16px;
+            display: inline-block;
+            height: 16px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-xs12">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                    <legend>快捷入口</legend>
+                                </i>
+                            </div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+                                        <div class="layui-col-xs6 layuimini-qiuck-module">
+                                            <a href="./doctor_middle_editCase.html" data-title="编辑病例" data-icon="layui-icon-user">
+                                                <i class="layui-icon">&#xe6b2;</i>
+                                                <cite>编辑病例</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs6 layuimini-qiuck-module">
+                                            <a href="./doctor_middle_prescription.html" data-title="开处方" data-icon="layui-icon-tabs">
+                                                <i class="layui-icon">&#xe62a;</i>
+                                                <cite>开处方</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs6 layuimini-qiuck-module">
+                                            <a href="./doctor_middle_checkCase.html" data-title="查看病例" data-icon="layui-icon-headset">
+                                                <i class="layui-icon">&#xe770;</i>
+                                                <cite>查看病例</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs6 layuimini-qiuck-module">
+                                            <a href="./doctor_middle_examine.html" layuimini-content-href="page/form.html" data-title="开检查" data-icon="layui-icon-return">
+                                                <i class="layui-icon">&#xe62a;</i>
+                                                <cite>开检查</cite>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                    <legend>就诊情况</legend>
+                                </i>
+
+                            </div>
+                            <div class="layui-card-body">
+                                <table class="layui-table" lay-even="" lay-skin="nob">
+                                    <colgroup>
+                                        <col width="70">
+                                        <col width="70">
+                                        <col width="140">
+                                        <col width="100">
+                                        <col width="110">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>科室</th>
+                                        <th>预定时间</th>
+                                        <th>患者</th>
+                                        <th>状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>内科</td>
+                                        <td>10-14 14:00</td>
+                                        <td>张三</td>
+                                        <td>正在就诊</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>内科</td>
+                                        <td>10-14 14:30</td>
+                                        <td>张四</td>
+                                        <td>待就诊</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div id="main2" style="width: 50%;min-height:120px"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">
+                                <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                    <legend>处理进度</legend>
+                                </i>
+                            </div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space15">
+                                        <br>
+                                        <div class="aa"
+                                             style="font-size: 20px; text-align:center; font-family: '等线 Light'; color: #c60625; font-weight: bold">
+                                            目前排队患者人数：
+                                        </div>
+                                        <br>
+                                        <div class="aa"
+                                             style="font-size: 50px; text-align:center; font-family: 'Lucida Handwriting'; color: #e54501; font-weight: bold">
+                                            5
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="layui-col-md12">
+                                            <button type="button" class="layui-btn layui-btn-fluid layui-bg-green">
+                                                <div class="aa" style="font-size: 20px">
+                                                    立即处理
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="layui-col-md12">-->
+                    <!--                        <div class="layui-row layui-col-space15">-->
+                    <!--                            <div class="layui-col-xs6">-->
+                    <!--                                <div class="layui-card">-->
+                    <!--                                    <div class="layui-card-header">-->
+                    <!--                                        <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">-->
+                    <!--                                            <legend>账号安全度评分</legend>-->
+                    <!--                                        </i>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="layui-card-body">-->
+                    <!--                                        &lt;!&ndash;                    <div id="main2" style="width: 50%;min-height:500px"></div>&ndash;&gt;-->
+                    <!--                                        <br>-->
+                    <!--                                        <div class="layui-progress layui-progress-big layui-bg-green" lay-showpercent="true">-->
+                    <!--                                            <div class="layui-progress-bar layui-bg-red" lay-percent="30%"></div>-->
+                    <!--                                        </div>-->
+                    <!--                                        <br>-->
+                    <!--                                        <div class="aa" style="font-size: large; color: #8D8D8D" >账号安全状况分析</div>-->
+                    <!--                                        <div class="aa" style="font-size: large; color: #8D8D8D" >目前账号健康指数为：</div>-->
+                    <!--                                        <br><br>-->
+                    <!--                                        <div class="yishu" style="font-size: 100px; color: darkseagreen; text-align: center" >70</div>-->
+                    <!--                                        <br>-->
+                    <!--                                        <hr class="layui-border-green">-->
+                    <!--                                        <blockquote class="layui-elem-quote">-->
+                    <!--                                            <div class="aa" style="font-size: large;  font-weight: bold; color: #009E94" >安全健康</div>-->
+                    <!--                                            <hr class="layui-border-green">-->
+                    <!--                                            <div class="aa" style="font-size: large;  " >无历史违规行为</div>-->
+                    <!--                                        </blockquote>-->
+
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+
+                    <!--                    </div>-->
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>系统公告</legend>
+                        </i>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <div class="layuimini-notice" id="notice1" name="notice">
+                            <div class="layuimini-notice-title">预约后请勿随意取消挂号！</div>
+                            <div class="layuimini-notice-extra">2021-01-01 23:06</div>
+                        </div>
+                        <div class="layuimini-notice" id="notice2" name="notice">
+                            <div class="layuimini-notice-title">预约后请及时取号！</div>
+                            <div class="layuimini-notice-extra">2021-01-02 08:06</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>系统信息</legend>
+                        </i>
+                    </div>
+                    <div class="layui-card-body layui-text">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="100">
+                                <col>
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td>系统名称</td>
+                                <td>
+                                    医院信息管理系统
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>当前版本</td>
+                                <td>v1.0.0</td>
+                            </tr>
+                            <tr>
+                                <td>主要特色</td>
+                                <td>在线预约\在线挂号\在线缴费</td>
+                            </tr>
+                            <tr>
+                                <td>Github</td>
+                                <td style="padding-bottom: 0;">
+                                    <div class="layui-btn-container">
+                                        <iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=star&count=true"
+                                                frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                                        <iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=fork&count=true"
+                                                frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>医院发展 - 大事记</legend>
+                        </i>
+                    </div>
+                    <div><br></div>
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">2021年，Hospital Care医院管理系统正式上线，医院发展进入新时代</div>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">2018年，医院管理系统进入无纸化时代</div>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">2016年，医院管理系统进入电子化时代</div>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">2012年，医院不断发展</div>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text">
+                                <div class="layui-timeline-title">2000年，医院建立</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+<!--<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>-->
+
+<script>
+    layui.use(['layer', 'miniTab'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            miniTab = layui.miniTab
+
+        miniTab.listen();
+
+        /**
+         * 查看公告信息
+         **/
+        $('body').on('click', '.layuimini-notice', function () {
+            var title = $(this).children('.layuimini-notice-title').text(),
+                noticeTime = $(this).children('.layuimini-notice-extra').text(),
+                content = $(this).children('.layuimini-notice-content').html();
+            var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+                '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
+                '<div style="font-size: 12px">' + content + '</div>\n' +
+                '</div>\n';
+            parent.layer.open({
+                type: 1,
+                title: '系统公告' + '<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">' + noticeTime + '</span>',
+                area: '300px;',
+                shade: 0.8,
+                id: 'layuimini-notice',
+                btn: ['查看', '取消'],
+                btnAlign: 'c',
+                moveType: 1,
+                content: html,
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: 'https://gitee.com/zhongshaofa/layuimini',
+                        target: '_blank'
+                    });
+                }
+            });
+        })
+    });
+</script>
+<script src="//cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
+<script>//账号评分进度条
+layui.use('element', function () {
+    var $ = layui.jquery
+        , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+    //触发事件
+    var active = {
+        setPercent: function () {
+            //设置50%进度
+            element.progress('demo', '50%')
+        }
+        , loading: function (othis) {
+            var DISABLED = 'layui-btn-disabled';
+            if (othis.hasClass(DISABLED)) return;
+
+            //模拟loading
+            var n = 0, timer = setInterval(function () {
+                n = n + Math.random() * 10 | 0;
+                if (n > 100) {
+                    n = 100;
+                    clearInterval(timer);
+                    othis.removeClass(DISABLED);
+                }
+                element.progress('demo', n + '%');
+            }, 300 + Math.random() * 1000);
+
+            othis.addClass(DISABLED);
+        }
+    };
+
+    $('.site-demo-active').on('click', function () {
+        var othis = $(this), type = $(this).data('type');
+        active[type] ? active[type].call(this, othis) : '';
+    });
+});
+</script>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        var $ = layui.jquery
+        $(document).ready(
+            $.ajax({
+                type: "GET",   //提交的方法
+                url: "http://localhost:8081/admin/shownotice",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                // error: function (request) {  //失败的话
+                //     alert("Connection error");
+                // },
+                success: function (data) {
+                    var f = data.data
+                    for (var i = 0; i < f.length; i++) {
+                        var h = i + 1
+                        var content = f[i]["content"]
+                        var timenow = f[i]["date"].split("T")[0]
+                        $("#notice").append(
+                            '<div class="layuimini-notice-title">' +
+                            content + '      ' +
+                            // '</div>'+
+                            // '<div class="layuimini-notice-extra">'+
+                            timenow +
+                            '</div>'
+                        )
+                    }
+
+                }
+
+            })
+        )
+    })
+</script>
+<script type="text/javascript">
+    /**
+     * 报表功能
+     */
+    // 基于准备好的dom，初始化echarts实例
+    layui.use(['layer'], function () {
+        var $ = layui.jquery
+        var myChart = echarts.init(document.getElementById('main'));
+        $(document).ready(
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8081/user/showallcalorie",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                // error: function (request) {  //失败的话
+                //     alert("Connection error");
+                // },
+                success: function (data) {
+                    // window.location.reload();
+                    var fca = new Array();
+                    var eca = new Array();
+                    var chazhi = new Array();
+                    var dates = new Array();
+                    var f = data.data;
+                    for (var i = 0; i < f.length; i++) {
+                        json1 = f[i];
+                        fca.unshift(json1["food_calorie"]);
+                        temp = -json1["exercise_calorie"]
+                        eca.unshift(temp)
+                        chazhi.unshift(json1["food_calorie"] - json1["exercise_calorie"])
+                        temp_date = json1["date"].split("T")[0]
+                        dates.unshift(temp_date);
+
+                    }
+                    option = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['总变化', '消耗卡路里', '摄入卡路里']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'category',
+                                axisTick: {
+                                    show: false
+                                },
+                                data: dates
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '总变化',
+                                type: 'bar',
+                                label: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: chazhi
+                            },
+                            {
+                                name: '消耗卡路里',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: eca
+                            },
+                            {
+                                name: '摄入卡路里',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true,
+                                    position: 'left'
+                                },
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: fca
+                            }
+                        ]
+                    };
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                }
+            })
+        )
+    });
+</script>
+</body>
+</html>
