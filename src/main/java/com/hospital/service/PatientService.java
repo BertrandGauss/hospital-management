@@ -2,18 +2,17 @@ package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Doctor;
+import com.hospital.entity.Patient;
 import com.hospital.entity.Registration;
 import com.hospital.mapper.DoctorMapper;
 import com.hospital.mapper.PatientMapper;
 import com.hospital.mapper.RegistrationMapper;
 import com.hospital.mapper.TraceMapper;
-import org.springframework.stereotype.Service;
-import com.hospital.entity.Patient;
 import com.hospital.utils.MD5Util;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -155,7 +154,7 @@ public class PatientService {
         if(registration.getDoctorId()==null)
             rNums = registrationMapper.TodayRNum(registration.getDepartment());
         else
-            rNums = registrationMapper.TodayRNumz(registration.getDepartment(),registration.getDoctorId());
+            rNums = registrationMapper.TodayRNumz(registration.getDoctorId());
         List<Long> vNums=new LinkedList<>();//vip
         List<Long> nNums=new LinkedList<>();//普通
         for (int i=0;i<rNums.size();i++){
@@ -175,51 +174,38 @@ public class PatientService {
         if (nNums!=null)
             Collections.sort(nNums);
         //实际的排队队列
-        List<String> TrueNum=null;
         Integer number =0;
-        String result;
-        if(vNums.size()<nNums.size()){
-            for(int i = 0;i<nNums.size();i++) {
-                if(i<vNums.size() ) {//看一个vip再看一个普通
-                    if(!rNum.equals("v" + vNums.get(i).toString()))
-                        number = number+1;
-                    else
-                        break;
+        for (int i = 0; i < rNums.size(); i++) {
+            System.out.println(rNum);
+            if (i < vNums.size() && i < nNums.size()) {//看一个vip再看一个普通
+                String str1 = String.format("%06d", nNums.get(i));
+                String str2= String.format("%06d", vNums.get(i));
+                if (!rNum.equals("v" + str2))
+                    number = number + 1;
+                else
+                    break;
+                if (!rNum.equals(str1))
+                    number = number + 1;
+                else
+                    break;
+            } else if (i < nNums.size()) {
+                String str = String.format("%06d", nNums.get(i));
+                if (!rNum.equals(str))
+                    number = number + 1;
+                else
+                    break;
 
-                    if(!rNum.equals(nNums.get(i).toString()))
-                        number = number+1;
-                    else
-                        break;
+            } else {
+                String str2= String.format("%06d", vNums.get(i));
+                if (!rNum.equals("v"+str2))
+                    number = number + 1;
+                else
+                    break;
 
-                }else if(i<nNums.size() ) {
-                    if(!rNum.equals(nNums.get(i).toString()))
-                        number = number+1;
-                    else
-                        break;
-                 }
             }
-        }else{
-            for(int i = 0;i<vNums.size();i++) {
-                if(i<nNums.size() ) {//看一个vip再看一个普通
-                    if(!rNum.equals("v" + vNums.get(i).toString()))
-                        number = number+1;
-                    else
-                        break;
-
-                    if(!rNum.equals(nNums.get(i).toString()))
-                        number = number+1;
-                    else
-                        break;
-
-                    }else {
-                        if(!rNum.equals("v" + vNums.get(i).toString()))
-                            number = number+1;
-                        else
-                            break;
-                    }
-                }
         }
-        Doctor doctor =doctorMapper.getDoctor(patientId,registration.getDepartment());
+
+            Doctor doctor =doctorMapper.getDoctor(patientId,registration.getDepartment());
         if(doctor!=null){
             return "请您到"+doctor.getdOffice()+doctor.getdName()+"医生处就诊";
         }

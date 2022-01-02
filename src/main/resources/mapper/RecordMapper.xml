@@ -4,9 +4,9 @@
 <mapper namespace="com.hospital.mapper.RecordMapper">
     <insert id="addT" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">
         INSERT INTO record (medName,doctorId, patientId, dosage, units, frequency,
-        days, `usage`, medPrice)
+        days, `usage`, medPrice,recordDate)
         VALUES (#{medName},#{doctorId},#{patientId}, #{dosage}, #{units}, #{frequency},
-        #{days}, #{usage}, #{medPrice});
+        #{days}, #{usage}, #{medPrice},#{recordDate});
     </insert>
 
     <update id="setMedHaveDone" >

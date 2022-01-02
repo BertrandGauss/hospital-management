@@ -17,16 +17,17 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `Doctor`;
 CREATE TABLE `Doctor`(
-	`doctorId` bigint auto_increment,
-	`dUsername` varchar(32) not null,
-	`dPassword` varchar(32) not null,
-	`isValid` int not null default 0,
-	`dName` varchar(32) not null default '',
+	`doctorId`           bigint               auto_increment,
+	`dUsername`          varchar(32) not null,
+	`dPassword`          varchar(32) not null,
+	`isValid`            int         not null default 0,
+	`dName`              varchar(32) not null default '',
+	`dPhone`             VARCHAR(11) NOT NULL DEFAULT '',
 	`dIdentificationNum` varchar(18) not null default '',
-	`dOffice` varchar(32) not null default '',
-	`dTitle` varchar(32),
-	`dSkill` varchar(100),
-	`patientId` bigint,
+	`dOffice`            varchar(32) not null default '',
+	`dTitle`             varchar(32),
+	`dSkill`             varchar(100),
+	`patientId`          bigint,
 	primary key(`doctorId`)
 );
 
@@ -140,14 +141,14 @@ CREATE TABLE `Order`(
 -- ----------------------------
 -- Insert values into Order
 -- ----------------------------
-INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
-VALUES (1, '外科', '4', '专家预约', '2021-12-30', '10:00:00');
-
-INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
-VALUES (1, '外科', '8', '科室预约', '2022-01-01', '15:00:00');
-
-INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
-VALUES (2, '外科', '2', '科室预约', '2021-01-01', '15:00:00');
+# INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
+# VALUES (1, '外科', '1', '专家预约', '2021-12-30', '10:00:00');
+#
+# INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
+# VALUES (1, '外科', null, '科室预约', '2022-01-01', '15:00:00');
+#
+# INSERT INTO `Order` (`patientId`, `department`, `doctorId`, `oType`, `oDate`, `oTime`)
+# VALUES (2, '外科', null, '科室预约', '2021-01-01', '15:00:00');
 
 
 
@@ -192,16 +193,16 @@ CREATE TABLE `History` (
 );
 
 INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (1, '098647799567035486', '发热', '2021-12-20', '感冒', '无', '无', '无');
+VALUES (1, '098647799567035486', '初诊', '2021-12-20', '感冒', '无', '无', '无');
 
 INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (1, '098647799567035486', '头疼', '2021-12-28', '过度劳累', '无', '无', '无');
+VALUES (1, '098647799567035486', '复诊', '2021-12-28', '过度劳累', '无', '无', '无');
 
 INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (2, '098647796583035486', '关节疼痛', '2021-12-08', '关节炎', '无', '无', '无');
+VALUES (2, '098647796583035486', '初诊', '2021-12-08', '关节炎', '无', '无', '无');
 
 INSERT INTO `History` (patientId, pIdentificationNum, clinicType, diseaseDate, diagnosis, drugAllergyHis, chiefComplaint, presentIllness)
-VALUES (3, '098647790955035486', '胸闷气短', '2022-01-01', '癌症', '无', '无', '无');
+VALUES (3, '098647790955035486', '复诊', '2022-01-01', '癌症', '无', '无', '无');
 
 -- ----------------------------
 -- Table structure for Item;

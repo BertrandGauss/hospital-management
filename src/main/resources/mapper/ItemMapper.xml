@@ -4,9 +4,9 @@
 <mapper namespace="com.hospital.mapper.ItemMapper">
     <insert id="addCheckItem" parameterType="com.hospital.mapper.ItemMapper" useGeneratedKeys="true" keyProperty="itemId">
         INSERT INTO item(patientId,doctorId,itemName,itemPrice,skinTestRes,illnessSummary, department, checkArea, notice,
-                        checkTime, checkRes, opinion)
+                        checkTime, checkRes, opinion,itemDate)
         VALUES (#{patientId},#{doctorId},#{itemName},#{itemPrice},#{skinTestRes},#{illnessSummary}, #{department}, #{checkArea}, #{notice},
-                #{checkTime}, #{checkRes}, #{opinion});
+                #{checkTime}, #{checkRes}, #{opinion},#{itemDate});
     </insert>
 
     <update id="setItemsHaveDone" >

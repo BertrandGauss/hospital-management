@@ -8,6 +8,7 @@ public class Doctor {
     private Integer isValid;     // 判断医生账号是否有效
     private String dName;        // 医生姓名
     private String dIdentificationNum;  // 医生身份证号
+    private String dPhone;       //医生手机号
     private String dOffice;      // 医生所在科室
     private String dTitle;       // 医生职称（只能为专家或普通）
     private String dSkill ;      // 医生的擅长简介
@@ -60,6 +61,15 @@ public class Doctor {
 
     public void setdName(String dName) {
         this.dName = dName;
+    }
+
+
+    public String getdPhone() {
+        return dPhone;
+    }
+
+    public void setdPhone(String dPhone) {
+        this.dPhone = dPhone;
     }
 
     public String getdOffice() {

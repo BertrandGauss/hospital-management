@@ -13,30 +13,26 @@ public class DoctorService {
     @Resource
     private DoctorMapper doctorMapper;
 
-    public Integer didisregister(String dIdentificationNum){
-        Integer id = doctorMapper.selectByIdentificationNum(dIdentificationNum);
-        //System.out.println(id);
-        return id;
 
+    public Integer selectId(String dPhone) {
+        return doctorMapper.selectBydPhone(dPhone);
     }
-
     // 注册
     public JSONObject register(Doctor doctor){
-        Integer re = didisregister(doctor.getdIdentificationNum());
-
         //开始校验
-        if(re!=null){
-            JSONObject json = new JSONObject();
+        JSONObject json = new JSONObject();
+        if (doctorMapper.selectByIdentificationNum(doctor.getdIdentificationNum()) != null) {
             json.put("msg","该身份证号码被注册过");
             json.put("code",1);
             return json;
+        } else if (doctorMapper.checkValidBydphone(doctor.getdPhone()) != null) {
+            json.put("msg", "该手机号被注册过");
+            json.put("code", 1);
+            return json;
         }
-
         doctor.setdPassword(MD5Util.md5(doctor.getdPassword()));   //给医生密码加密
         doctorMapper.add(doctor);
         //注册验证成功，等待管理员核验
-        JSONObject json = new JSONObject();
-
         json.put("msg","注册完成，等待审核");
         json.put("code",0);
         return json;
@@ -44,10 +40,10 @@ public class DoctorService {
 
     // 登录（经审核通过的账号，才可以登录）
     public JSONObject login(Doctor doctor){
-        String did =  doctor.getdIdentificationNum();
+        String dphone = doctor.getdPhone();
         String pw = MD5Util.md5(doctor.getdPassword());
-        String passw = doctorMapper.selectpwbydid(did);
-        Integer isValid = doctorMapper.checkValidByIdentificationNum(did);
+        String passw = doctorMapper.selectpwbydphone(dphone);
+        Integer isValid = doctorMapper.checkValidBydphone(dphone);
         if(isValid==null){
             JSONObject json = new JSONObject();
             json.put("msg","该用户不存在");

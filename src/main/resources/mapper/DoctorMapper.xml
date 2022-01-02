@@ -3,14 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.mapper.DoctorMapper">
     <insert id="add"  parameterType="com.hospital.mapper.DoctorMapper" useGeneratedKeys="true" keyProperty="doctorId">
-        INSERT INTO doctor (dUsername,dPassword,dName,dIdentificationNum,dOffice,dTitle)
-        VALUES (#{dUsername},#{dPassword},#{dName},#{dIdentificationNum},#{dOffice},#{dTitle});
+        INSERT INTO doctor (dUsername,dPassword,dName,dIdentificationNum,dPhone,dOffice,dTitle)
+        VALUES (#{dUsername},#{dPassword},#{dName},#{dIdentificationNum},#{dPhone},#{dOffice},#{dTitle});
     </insert>
 
-    <select id="selectpwbydid" resultType="java.lang.String" >
+    <select id="selectpwbydphone" resultType="java.lang.String">
         SELECT dPassword
         FROM doctor
-        WHERE dIdentificationNum = #{did};
+        WHERE dPhone = #{dPhone};
+    </select>
+
+    <select id="selectBydPhone" resultType="java.lang.Integer">
+        SELECT doctorId
+        FROM doctor
+        WHERE dPhone = #{dPhone};
     </select>
 
     <select id="selectpwbyid" resultType="java.lang.String" >
@@ -31,10 +37,10 @@
         WHERE dIdentificationNum = #{did};
     </select>
 
-    <select id="checkValidByIdentificationNum" resultType="java.lang.Integer" >
+    <select id="checkValidBydphone" resultType="java.lang.Integer">
         SELECT isValid
         FROM doctor
-        WHERE dIdentificationNum = #{did};
+        WHERE dPhone = #{dPhone};
     </select>
 
     <update id="update" parameterType="com.hospital.entity.Doctor">

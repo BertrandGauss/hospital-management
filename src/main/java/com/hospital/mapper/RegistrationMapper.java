@@ -10,7 +10,7 @@ public interface RegistrationMapper {
 
     Registration selectById(Integer patientId);
 
-    List<String> TodayRNumz(@Param("department")String department, @Param("doctorId")Integer doctorId);
+    List<String> TodayRNumz(Integer doctorId);
 
     List<String> TodayRNum(String department);
 

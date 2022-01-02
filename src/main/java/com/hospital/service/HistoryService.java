@@ -66,9 +66,9 @@ public class HistoryService {
     //获取当前叫号叫到的患者的信息
     public Patient showpatientInfo(Integer doctorId) {
         Doctor doctor = doctorMapper.selectbyid(doctorId);
-        List<String> rNums = null;
-        if(doctor.getdTitle() =="专家")
-            rNums = registrationMapper.TodayRNumz(doctor.getdOffice(), doctor.getDoctorId());
+        List<String> rNums = new LinkedList<>();
+        if(doctor.getdTitle().equals("专家"))
+            rNums = registrationMapper.TodayRNumz(doctor.getDoctorId());
         else
             rNums = registrationMapper.TodayRNum(doctor.getdOffice());
         List<Long> vNums=new LinkedList<>();//vip
@@ -94,18 +94,20 @@ public class HistoryService {
 
         if (doctor.getdTitle().equals("专家")&& doctor.getPatientId()==null) {//专家号
             if (vNums.size() > 0 )
-                registration.setrNum("v" + vNums.get(0).toString());
+                registration.setrNum("v" + String.format("%06d", vNums.get(0)));
             else
-                registration.setrNum(nNums.get(0).toString());
+                registration.setrNum(String.format("%06d", nNums.get(0)));
             registration.setDoctorId(doctorId);
+            System.out.println("hhh"+registration.getrNum());
             patientId = registrationMapper.selectByrNum(registration);
         } else if(doctor.getdTitle().equals("专家")&& doctor.getPatientId()!=null){
             String rNum = registrationMapper.selectPre(doctor.getPatientId());
             if (vNums.size() > 0 && !rNum.contains("v"))
-                registration.setrNum("v" + vNums.get(0).toString());
+                registration.setrNum("v" + String.format("%06d", vNums.get(0)));
             else
-                registration.setrNum(nNums.get(0).toString());
+                registration.setrNum(String.format("%06d", nNums.get(0)));
             registration.setDoctorId(doctorId);
+
             patientId = registrationMapper.selectByrNum(registration);
         }else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
             //List
@@ -116,14 +118,14 @@ public class HistoryService {
             }
             for (int i = 0; i < rNums.size(); i++) {
                 if (i < vNums.size()) {
-                    if (!checkRNum("v" + vNums.get(i).toString(), allRNUM)) {
-                        registration.setrNum("v" + vNums.get(i).toString());
+                    if (!checkRNum("v" +String.format("%06d", vNums.get(i)), allRNUM)) {
+                        registration.setrNum("v" +String.format("%06d", vNums.get(i)));
                         break;
                     }
                 } else if (i < nNums.size()) {
                     if (i < vNums.size()) {
-                        if (!checkRNum(nNums.get(i).toString(), allRNUM)) {
-                            registration.setrNum(nNums.get(i).toString());
+                        if (!checkRNum(String.format("%06d", nNums.get(0)), allRNUM)) {
+                            registration.setrNum(String.format("%06d", nNums.get(0)));
                             break;
                         }
                     }
@@ -132,7 +134,6 @@ public class HistoryService {
             patientId = registrationMapper.selectPatient(registration);
         }
         Patient patient;
-
         if (doctor.getPatientId() == null) {
             //更新医生状态
             doctorMapper.updatepId(patientId, doctorId);

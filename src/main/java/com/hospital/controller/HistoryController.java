@@ -22,7 +22,7 @@ public class HistoryController {
     // 初始化病历
     @RequestMapping(value = "/originatecasehis",method = {RequestMethod.GET})
     private JSONObject originateCaseHis(){
-        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("USER");
         String dept = historyService.showdepartmentofhis(id);
         JSONObject json = new JSONObject();
         json.put("data", dept);
@@ -46,7 +46,8 @@ public class HistoryController {
 
     @RequestMapping(value = "/showpatientinfo",method = {RequestMethod.GET})
     private JSONObject showPatientInfo(){
-        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("USER");
+        System.out.println(id);
         Patient patientinfo = historyService.showpatientInfo(id);
         //把患者Id保存在session中
         this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());

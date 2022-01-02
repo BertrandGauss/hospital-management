@@ -12,7 +12,7 @@
     </select>
 
     <select id="TodayRNumz" resultType="java.lang.String">
-        SELECT rNum FROM registration WHERE department=#{department} AND doctorId=#{doctorId}
+        SELECT rNum FROM registration WHERE doctorId=#{doctorId}
     </select>
 
     <select id="TodayRNum" resultType="java.lang.String">
