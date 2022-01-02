@@ -39,8 +39,11 @@
         </form>
     </div>
     <div class="weadmin-block" id="topline" name=""topline>
-        <button class="layui-btn" onclick="WeAdminShow('已有预约挂号','./patient_add_yuyue.html',450,250)">
+        <button class="layui-btn" onclick="WeAdminShow('已有预约挂号','./patient_add_guahao1.html')">
             <i class="layui-icon layui-icon-add-circle-fine"></i>已有预约挂号
+        </button>
+        <button class="layui-btn" onclick="WeAdminShow('无预约挂号','./patient_add_guahao2.html')">
+            <i class="layui-icon layui-icon-add-circle-fine"></i>无预约挂号
         </button>
     </div>
     <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
@@ -63,11 +66,7 @@
         <tbody>
         </tbody>
     </table>
-    <div class="weadmin-block" id="topline2" name=""topline>
-        <button class="layui-btn" onclick="WeAdminShow('无预约挂号','./patient_add_yuyue.html',450,250)">
-            <i class="layui-icon layui-icon-add-circle-fine"></i>无预约挂号
-        </button>
-    </div>
+
     <div class="layui-row" style="font-size: larger">
             挂号信息：
     </div>
