@@ -30,6 +30,7 @@ public class DoctorController {
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     private JSONObject login(@RequestBody Doctor doctor){
         JSONObject json = new JSONObject();
+        System.out.println(doctor.getdIdentificationNum());
         json= doctorService.login(doctor);
         System.out.println(json.get("msg"));
         //将登录凭证加入到医生登录成功的Session类
@@ -70,6 +71,18 @@ public class DoctorController {
     private JSONObject updatepassword(@RequestParam("old_password") String old_password, @Param("new_passward") String new_password){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         JSONObject  json=doctorService.updatedoctorpasswd(id, old_password, new_password);
+        return json;
+    }
+
+    //显示医生用户名
+    @RequestMapping(value = "/showDoctorName",method = {RequestMethod.GET})
+    private JSONObject showDoctorName(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String Name = doctorService.showName(id);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data",Name);
+        json.put("msg","返回医生成功");
         return json;
     }
 

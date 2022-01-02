@@ -327,18 +327,18 @@
             </div>
             <div class="tip">
                 <a class="login-tip" href='./register.html'>还未注册？</a>
-                <a href="./forgetpassword.html" class="forget-password">忘记密码？</a>
+                <!--<a href="./forgetpassword.html" class="forget-password">忘记密码？</a>-->
             </div>
             <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
-                <button class="login-btn" lay-submit="" lay-filter="login" href='./patient_index.html'>我是患者</button>
-                <button class="login-btn" lay-submit="" lay-filter="login" href='./doctor_index.html'>我是医生</button>
-                <button class="login-btn" lay-submit="" lay-filter="login" href='./admin_index.html'>我是管理员</button>
+                <button class="login-btn" lay-submit="" lay-filter="Patientlogin" >我是患者</button>
+                <button class="login-btn" lay-submit="" lay-filter="Doctorlogin" >我是医生</button>
+                <button class="login-btn" lay-submit="" lay-filter="Adminlogin" >我是管理员</button>
             </div>
         </form>
     </div>
 </div>
 <div class="footer">
-    ©版权所有 2022 Hospital Care<span class="padding-5"></span><a target="_blank" href="http://www.miitbeian.gov.cn"></a>
+    ©版权所有 2022 Hospital Management<span class="padding-5"></span><a target="_blank" href="http://www.miitbeian.gov.cn"></a>
 </div>
 <script>
     layui.use(['form', 'jquery'], function () {
@@ -365,11 +365,11 @@
         });
 
         // 进行登录操作
-        form.on('submit(login)', function (data) {
+        form.on('submit(Patientlogin)', function (data) {
             data = data.field;
             $.ajax({
                 type: "POST",   //提交的方法
-                url: "http://localhost:8081/user/login",
+                url: "http://localhost:8082/patient/login",
                 xhrFields: {
                     withCredentials: true,
                 },
@@ -377,8 +377,8 @@
                 contentType: "application/json",
                 //url:"#",
                 data: JSON.stringify({
-                    "telephone": data.telephone,
-                    "user_password": data.user_password
+                    "pPhone": data.telephone,
+                    "pPassword": data.user_password
                 }),
                 async: false,
                 error: function (request) {  //失败的话
@@ -388,16 +388,76 @@
 
                     if (data.code == 0) {
                         // alert("success!");
-                        window.location.href = "./index.html";
+                        window.location.href = './patient_index.html';
                     } else {
                         alert(data.msg);
                     }
                 }
             })
+            return false;
+        });
+        form.on('submit(Doctorlogin)', function (data) {
+            data = data.field;
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082/doctor/login",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType: "application/json",
+                //url:"#",
+                data: JSON.stringify({
+                    "dIdentificationNum": data.telephone,
+                    "dPassword": data.user_password
+                }),
+                async: false,
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
 
-            // layer.msg('登录成功', function () {
-            //   window.location = '../index.html';
-            // });
+                    if (data.code == 0) {
+                        // alert("success!");
+                        window.location.href='./admin_index.html';
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
+            return false;
+        });
+        form.on('submit(Adminlogin)', function (data) {
+            data = data.field;
+            var json={
+                "username":$(data.telephone).val(),
+                "password":$(data.user_password).val()
+            }
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082/admin/login",
+                xhrFields: {
+                    withCredentials: true,
+                },
+
+                dataType: "json",
+                contentType:'application/x-www-form-urlencoded',
+                //url:"#",
+                data: json,
+                async: false,
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
+
+                    if (data.code == 0) {
+                        // alert("success!");
+                        window.location.href='./doctor_index.html';
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
             return false;
         });
     });

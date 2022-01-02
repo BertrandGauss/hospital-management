@@ -119,4 +119,16 @@ public class PatientController {
         json.put("msg","返回排队进度");
         return json;
     }
+
+    //显示患者用户名
+    @RequestMapping(value = "/showPatientName",method = {RequestMethod.GET})
+    private JSONObject showPatientName(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String Name = patientService.showName(id);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("data",Name);
+        json.put("msg","返回用户名成功");
+        return json;
+    }
 }

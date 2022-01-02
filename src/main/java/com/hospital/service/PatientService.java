@@ -226,4 +226,9 @@ public class PatientService {
         return "您前面还有"+number.toString()+"个人";
 
     }
+
+    public String showName(Integer patientId){
+       Patient patient = patientMapper.selectbyid(patientId);
+       return patient.getpUsername();
+    }
 }

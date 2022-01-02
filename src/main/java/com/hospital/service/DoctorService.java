@@ -48,7 +48,12 @@ public class DoctorService {
         String pw = MD5Util.md5(doctor.getdPassword());
         String passw = doctorMapper.selectpwbydid(did);
         Integer isValid = doctorMapper.checkValidByIdentificationNum(did);
-
+        if(isValid==null){
+            JSONObject json = new JSONObject();
+            json.put("msg","该用户不存在");
+            json.put("code",1);
+            return json;
+        }
         if(isValid == 0) {
             JSONObject json = new JSONObject();
             json.put("msg","该用户审核未通过");
@@ -103,5 +108,9 @@ public class DoctorService {
             json.put("msg","成功修改密码");
         }
         return json;
+    }
+
+    public String showName(Integer doctorId){
+       return doctorMapper.selectbyid(doctorId).getdName();
     }
 }
