@@ -19,6 +19,7 @@ public class Item {
     private Date checkTime;          // 检查时间
     private String checkRes;         // 检查结果
     private String opinion;          // 总结意见
+    private Date itemDate;           // 开检查单时间
 
     public Integer getItemId() {
         return itemId;
@@ -138,5 +139,13 @@ public class Item {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public void setItemDate(Date itemDate) {
+        this.itemDate = itemDate;
+    }
+
+    public Date getItemDate() {
+        return itemDate;
     }
 }

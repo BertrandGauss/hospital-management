@@ -1,5 +1,7 @@
 package com.hospital.entity;
 
+import java.util.Date;
+
 // 开药记录
 public class Record {
     private Integer recordId;    // 开药记录ID
@@ -12,6 +14,7 @@ public class Record {
     private Integer days;        // 天数
     private String usage;        // 用法
     private Double medPrice;     // 单价
+    private Date recordDate;     // 开处方单时间
 
     private Integer medHaveDone; // 是否使用过药品（0代表否，1代表是）
     private Integer havePay;     // 是否缴费（0代表否，1代表是）
@@ -113,5 +116,13 @@ public class Record {
 
     public void setHavePay(Integer havePay) {
         this.havePay = havePay;
+    }
+
+    public Date getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(Date recordDate) {
+        this.recordDate = recordDate;
     }
 }

@@ -223,6 +223,7 @@ CREATE TABLE `Item` (
 	`checkTime` date,
 	`checkRes` varchar(100),
 	`opinion` varchar(100),
+	`itemDate` date,
 	primary key(`itemId`),
 	CONSTRAINT fk_patient_item_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
   CONSTRAINT fk_doctor_item_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`)
@@ -279,7 +280,8 @@ CREATE TABLE `Record` (
 	`usage` varchar(32),
 	`medPrice` double,
 	`medHaveDone` int not null default 0,
-    `havePay` int not null default 0,
+  `havePay` int not null default 0,
+	`recordDate` date,
 	primary key(`recordId`),
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
   CONSTRAINT fk_doctor_record_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
