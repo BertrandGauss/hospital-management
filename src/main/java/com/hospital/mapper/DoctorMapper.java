@@ -4,6 +4,7 @@ import com.hospital.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import javax.print.Doc;
+import java.util.List;
 
 public interface DoctorMapper {
     void add(Doctor doctor);         // 注册，增加医生信息
@@ -21,5 +22,13 @@ public interface DoctorMapper {
     void update(Doctor doctor); // 更新医生信息
 
     void updatepw(@Param("doctorId") Integer doctor, @Param("dPassword") String dPassword);
+
+    Integer selectbyName(@Param("department") String department, @Param("dName") String dName);
+
+    void updatepId(@Param("patientId")Integer patientId,@Param("doctorId") Integer doctorId);
+
+    List<Integer> selectbydepartment(String department);
+
+    Doctor getDoctor(@Param("patientId")Integer patientId,@Param("department") String department);
 
 }

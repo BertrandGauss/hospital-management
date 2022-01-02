@@ -12,6 +12,8 @@ public class Doctor {
     private String dTitle;       // 医生职称（只能为专家或普通）
     private String dSkill ;      // 医生的擅长简介
 
+    private Integer patientId;      // 正在给谁看病
+
     public String getdIdentificationNum() {
         return dIdentificationNum;
     }
@@ -82,5 +84,13 @@ public class Doctor {
 
     public void setdSkill(String dSkill) {
         this.dSkill = dSkill;
+    }
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 }

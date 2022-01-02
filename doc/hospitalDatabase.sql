@@ -26,6 +26,7 @@ CREATE TABLE `Doctor`(
 	`dOffice` varchar(32) not null default '',
 	`dTitle` varchar(32),
 	`dSkill` varchar(100),
+	`patientId` bigint,
 	primary key(`doctorId`)
 );
 
@@ -158,16 +159,18 @@ CREATE TABLE Registration (
 	`registrationId` bigint auto_increment,
 	`patientId` bigint,
 	`doctorId` bigint,
+	`department` varchar(32),
 	`rNum` varchar(32),
+	`isValid` int not null default 1,
 	primary key(`registrationId`),
 	CONSTRAINT fk_patient_registration_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
 );
 
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (1, 8, 'v1');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (5, 2, '1');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (3, 4, '2');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (6, 4, '3');
-INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (2, 2, 'v2');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (1, 8, 'v1');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (5, 2, '1');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (3, 4, '2');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (6, 4, '3');
+# INSERT INTO `Registration` (patientId, doctorId, rNum) VALUES (2, 2, 'v2');
 
 
 -- ----------------------------
@@ -221,7 +224,8 @@ CREATE TABLE `Item` (
 	`checkRes` varchar(100),
 	`opinion` varchar(100),
 	primary key(`itemId`),
-	CONSTRAINT fk_patient_item_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`)
+	CONSTRAINT fk_patient_item_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
+  CONSTRAINT fk_doctor_item_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`)
 );
 
 INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
@@ -278,6 +282,7 @@ CREATE TABLE `Record` (
     `havePay` int not null default 0,
 	primary key(`recordId`),
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
+  CONSTRAINT fk_doctor_record_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
 	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );
 INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)

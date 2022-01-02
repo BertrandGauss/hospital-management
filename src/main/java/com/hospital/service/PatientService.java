@@ -1,13 +1,20 @@
 package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hospital.entity.Doctor;
+import com.hospital.entity.Registration;
+import com.hospital.mapper.DoctorMapper;
 import com.hospital.mapper.PatientMapper;
+import com.hospital.mapper.RegistrationMapper;
 import com.hospital.mapper.TraceMapper;
 import org.springframework.stereotype.Service;
 import com.hospital.entity.Patient;
 import com.hospital.utils.MD5Util;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class PatientService {
@@ -15,6 +22,10 @@ public class PatientService {
     private PatientMapper patientMapper;
     @Resource
     private TraceMapper traceMapper;
+    @Resource
+    private RegistrationMapper registrationMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
 
     public Integer idnumberisregister(String pIdentificationNum){
         Integer id = patientMapper.selectByIdentificationNum(pIdentificationNum);
@@ -132,4 +143,81 @@ public class PatientService {
         return trace;
     }
 
+    public String showNum(Integer patientId){
+        Registration registration = registrationMapper.selectById(patientId);
+        String rNum =registration.getrNum();
+        if(registration == null){
+            return "未挂号，暂无排队信息";
+        }
+        List<String> rNums = registrationMapper.TodayRNum(registration.getDepartment(),registration.getDoctorId());
+        List<Long> vNums=null;//vip
+        List<Long> nNums=null;//普通
+        for (int i=0;i<rNums.size();i++){
+            if(rNums.get(i).contains("v")){
+                Long l = Long.parseLong(rNums.get(i).split("v")[1]);
+                vNums.add(l);
+            }
+            else{
+                Long l = Long.parseLong(rNums.get(i));
+                vNums.add(l);
+            }
+        }
+        //排序
+        Collections.sort(vNums);
+        Collections.sort(nNums);
+        //实际的排队队列
+        List<String> TrueNum=null;
+        Integer number =0;
+        String result;
+        if(vNums.size()<nNums.size()){
+            for(int i = 0;i<nNums.size();i++) {
+                if(i<vNums.size() ) {//看一个vip再看一个普通
+                    TrueNum.add("v" + vNums.get(i).toString());
+                    TrueNum.add(nNums.get(i).toString());
+                    if(!rNum.equals("v" + vNums.get(i).toString()))
+                        number = number+1;
+                    else
+                        break;
+
+                    if(!rNum.equals(nNums.get(i).toString()))
+                        number = number+1;
+                    else
+                        break;
+
+                }else {
+                    TrueNum.add(nNums.get(i).toString());
+                    if(!rNum.equals(nNums.get(i).toString()))
+                        number = number+1;
+                    else
+                        break;
+                 }
+            }
+        }else{
+            for(int i = 0;i<vNums.size();i++) {
+                if(i<nNums.size() ) {//看一个vip再看一个普通
+                    if(!rNum.equals("v" + vNums.get(i).toString()))
+                        number = number+1;
+                    else
+                        break;
+
+                    if(!rNum.equals(nNums.get(i).toString()))
+                        number = number+1;
+                    else
+                        break;
+
+                    }else {
+                        if(!rNum.equals("v" + vNums.get(i).toString()))
+                            number = number+1;
+                        else
+                            break;
+                    }
+                }
+        }
+        Doctor doctor =doctorMapper.getDoctor(patientId,registration.getDepartment());
+        if(doctor.getdIdentificationNum()!=null){
+            return "请您到"+doctor.getdOffice()+doctor.getdName()+"医生处就诊";
+        }
+        return "您前面还有"+number.toString()+"个人";
+
+    }
 }
