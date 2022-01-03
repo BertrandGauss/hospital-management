@@ -10,12 +10,11 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="shortcut icon" href="/templates/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../../static/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/css/weadmin.css">
     <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../lib/layui-layer-v3.5.1/layer/layer.js"></script>
-
+<!--    <script type="text/javascript" src="../../lib/layui-layer-v3.5.1/layer/layer.js"></script>-->
 </head>
 
 <body>
@@ -128,7 +127,7 @@
         function init() {
             $.ajax({
                 type: "GET",   //提交的方法
-                url: "http://localhost:8081/user/getusername",
+                url: "http://localhost:8082/doctor/showdoctorinfo",
                 xhrFields: {
                     withCredentials: true,
                 },
@@ -139,9 +138,10 @@
                 //     alert("Connection error");
                 // },
                 success: function (data) {
+                    console.log(data);
 
                     if (data.code === 0) {
-                        $('.cite-user-name').text(data.data);
+                        $('.cite-user-name').text(data.data.dUsername);
                     }
                     // else{
                     // 	alert(data.msg)
@@ -163,7 +163,6 @@
     // 修改密码
     function updatepassword() {
         WeAdminShow('', '../updatepassword.html', 450, 250);
-
     }
 </script>
 
