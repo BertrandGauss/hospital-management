@@ -78,4 +78,8 @@
         FROM doctor
         WHERE dOffice = #{department} AND patientId=#{patientId};
     </select>
+
+    <delete id="deleteDoctorRegister">
+        DELETE FROM doctor WHERE dIdentificationNum = #{dIdentificationNum}
+    </delete>
 </mapper>

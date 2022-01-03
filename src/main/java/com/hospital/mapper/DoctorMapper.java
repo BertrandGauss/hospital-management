@@ -32,4 +32,5 @@ public interface DoctorMapper {
 
     Doctor getDoctor(@Param("patientId")Integer patientId,@Param("department") String department);
 
+    void deleteDoctorRegister(String dIdentificationNum );
 }
