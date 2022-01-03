@@ -9,15 +9,15 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
-  <link rel="shortcut icon" href="../../static/images/favicon.ico" type="image/x-icon"/>
-  <link rel="stylesheet" href="../../static/css/font.css">
-  <link rel="stylesheet" href="../../static/css/weadmin.css">
-  <link rel="stylesheet" href="../../static/layui/css/layui.css">
-  <script src="../../static/layui/layui.js" charset="utf-8"></script>
-  <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
-  <script type="text/javascript" src="../../static/js/idangerous.swiper.min.js"></script>
-  <script type="text/javascript" src="../../static/js/wow.min.js"></script>
-  <script type="text/javascript" src="../../static/js/main.js"></script>
+  <link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="../static/css/font.css">
+  <link rel="stylesheet" href="../static/css/weadmin.css">
+  <link rel="stylesheet" href="../static/layui/css/layui.css">
+  <script src="../static/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
+  <script type="text/javascript" src="../static/js/wow.min.js"></script>
+  <script type="text/javascript" src="../static/js/main.js"></script>
 </head>
 <body class="login-bg" style="width:900px;margin:auto">
 
@@ -26,10 +26,16 @@
   <div id="darkbannerwrap"></div>
 
   <form class="layui-form login-bottom " lay-filter="user_infor">
-    <!--手机号-->
+    <!--用户名-->
+      <div class="layui-form-item">
+          <label class="layui-form-label"> 用户名</label>
+          <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="pUsername" name="pUsername"
+                 autocomplete="off" lay-verify="required"
+                 class="layui-input" lay-reqtext="用户名不能为空" placeholder="请输入用户名">
+      </div>
     <div class="layui-form-item">
       <label class="layui-form-label"> 手机号</label>
-      <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="phone" name="phone"
+      <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="pPhone" name="pPhone"
              autocomplete="off" lay-verify="required"
              class="layui-input" lay-reqtext="手机号不能为空" placeholder="请输入手机号">
     </div>
@@ -37,8 +43,8 @@
     <div class="layui-form-item">
       <label class="layui-form-label">密码</label>
       <div class="layui-input-inline">
-        <input style="width:230px;height: 40px;margin:0 auto;" type="password" id="new_password"
-               name="new_password" autocomplete="off"
+        <input style="width:230px;height: 40px;margin:0 auto;" type="password" id="pPassword"
+               name="pPassword" autocomplete="off"
                lay-verify="required" class="layui-input" lay-reqtext="密码不能为空" placeholder="请输入密码">
       </div>
     </div>
@@ -71,10 +77,24 @@
         <input type="radio" name="sex" value="f" title="男">
         <input type="radio" name="sex" value="m" title="女">
       </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label"> 家庭住址</label>
+        <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="pAddress" name="pAddress"
+               class="layui-input"  placeholder="请输入家庭住址">
+      </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"> 年龄</label>
+            <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="pAge" name="pAge"
+                   class="layui-input"  placeholder="请输入年龄">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"> 职业</label>
+            <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="pOccupation" name="pOccupation"
+                   class="layui-input"  placeholder="请输入职业">
+        </div>
+
     </div>
-
-
-    <div><br></div>
 
     <!--        <div class="layui-form-item">-->
     <!--            <label class="layui-form-label"> 住址</label>-->
@@ -100,14 +120,15 @@
             layer = layui.layer;
     form.verify({
       confirmPass: function (value) {
-        if ($('input[name=new_password]').val() !== value)
+        if ($('input[name=pPassword]').val() !== value)
 
           return '两次密码输入不一致！';
 
       }
     });
     //监听提交
-    form.on('submit(register)', function () {
+    form.on('submit(register)', function (data) {
+        data = data.field;
       $.ajax({
         type: "POST",   //提交的方法
         url: "http://localhost:8082/patient/register",
@@ -117,11 +138,16 @@
         dataType: "json",
         contentType: 'application/json',
         data: JSON.stringify({
-          "phone": $("#phone").val(),
-          "user_password": $("#new_password").val(),
-          "name": $("#name").val(),
-          "identity":$("#identity").val(),
-          "sex":$("#sex").val()
+            "pUsername":data.pUsername,
+            "pPassword":data.pPassword,
+            "pName":data.name,
+            "pIdentificationNum":data.identity,
+            "pGender":data.sex,
+            "pAge":data.pAge,
+            "pOccupation":data.pOccupation,
+            "pPhone":data.pPhone,
+            "pAddress":data.pAddress
+
         }),
 
         async: false,
