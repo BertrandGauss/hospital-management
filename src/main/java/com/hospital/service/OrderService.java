@@ -74,6 +74,7 @@ public class OrderService {
 
     public JSONObject cancleOrder(Integer patientId, Integer orderId){
         JSONObject json = new JSONObject();
+        System.out.println(patientId);
         if (orderMapper.selectValid(patientId, orderId)==0){
             json.put("msg","该预约是无效预约");
             json.put("code",1);

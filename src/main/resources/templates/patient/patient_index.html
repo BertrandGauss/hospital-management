@@ -32,8 +32,8 @@
 
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;" th:text="1222">
-                <img src="../../static/images/toux.jpg" class="layui-nav-img">
+              <a href="javascript:;" th:text="1222">
+                  <span id="time"></span><img src="../../static/images/toux.jpg" class="layui-nav-img">
 
                 <!--姓名展示-->
                 <cite class="cite-user-name"></cite>
@@ -118,11 +118,34 @@
             // 	return false;
             // }
         });
+        function countdown() {
+            var myDate = new Date();
+            //获取当前年
+            var year=myDate.getFullYear();
+            //获取当前月
+            var month=myDate.getMonth()+1;
+            //获取当前日
+            var date=myDate.getDate();
+            var h=myDate.getHours();       //获取当前小时数(0-23)
+            var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s=myDate.getSeconds();
+            var now=year+'年'+getNow(month)+'月'+getNow(date)+"日     "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+            // 赋值给展示时间
+            $('#time').text(now);
+        }
+        // 获取当前时间
+        function getNow(s) {
+            return s < 10 ? '0' + s: s;
+        }
+
+        setInterval(function(){
+            countdown()
+        }, 1000);
         function init() {
             //显示姓名
             $.ajax({
                 type: "GET",   //提交的方法
-                url:"http://localhost:8081/user/getusername",
+                url:"http://localhost:8082/patient/showPatientName",
                 xhrFields: {
                     withCredentials: true,
                 },
