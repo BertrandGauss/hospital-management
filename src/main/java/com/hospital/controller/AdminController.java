@@ -101,18 +101,11 @@ public class AdminController {
         return json;
     }
 
-    // 配药状态修改
+    // 配药状态修改(包括发药和退药）
     @RequestMapping(value = "/changetracestate",method = {RequestMethod.POST})
     private JSONObject changeTraceState(@RequestBody PatientVo patientVo){
         adminService.changeTraceState(patientVo);
-        Integer patientId = patientVo.getPatientId();
-        // 发药
-        if(patientVo.getState() == 3){
-            adminService.updateMedIsInPatient(patientId, 1);
-            adminService.updateMedRemainsPut(patientVo);
-        }
-
-        JSONObject json = new JSONObject();
+        JSONObject json = adminService.updateState(patientVo);
         json.put("code",0);
         json.put("msg","配药状态修改成功");
         return json;

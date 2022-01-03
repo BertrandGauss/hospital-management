@@ -21,4 +21,10 @@
         WHERE havePay = 1 AND  medHaveDone=0;
     </select>
 
+    <select id="getRdate" >
+        SELECT recordDate
+        FROM record
+        WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
+    </select>
+
 </mapper>

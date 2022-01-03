@@ -94,7 +94,7 @@
 </script>
 
 <script>
-    var dates=[]
+    var orders=[]
     layui.use('table', function() {
         var $ = layui.jquery
         var table = layui.table;
@@ -102,17 +102,17 @@
 
         table.on('checkbox(allorder)', function(obj) {
             var flag=0;
-            for(let i=0;i<dates.length;i++){
-                if(dates[i]==obj.data.date){
+            for(var i=0;i<orders.length;i++){
+                if(orders[i]==obj.data.orderId){
                     console.log("delete")
                     dates.splice(i,1);
                     i--;
                     flag=1;
-                    console.log(dates)
+                    console.log(orders)
                 }
             }
             if(flag==0){
-                dates.push(obj.data.date);
+                orders.push(obj.data.orderId);
             }
         });
         //监听工具条
@@ -133,7 +133,7 @@
                         dataType:"json",
                         contentType: "application/json",
                         data: JSON.stringify({
-                            "date":data.orderId
+                            "orderId":data.orderId
                         }),
 
                         success: function (result) {

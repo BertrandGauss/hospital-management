@@ -1,5 +1,7 @@
 package com.hospital.entity;
 
+import java.util.Date;
+
 public class PatientVo {
     private Integer patientId;     // 患者ID
     private String pName;          // 患者姓名
@@ -7,7 +9,7 @@ public class PatientVo {
     private Integer state;
     private Integer dosage;      // 用量
     private String medName;     //药品名称
-    private Integer remains;    //药品库存量
+    private Date rDate;         //开单时间
 
     public String getMedName() {
         return medName;
@@ -15,14 +17,6 @@ public class PatientVo {
 
     public void setMedName(String medName) {
         this.medName = medName;
-    }
-
-    public Integer getRemains() {
-        return remains;
-    }
-
-    public void setRemains(Integer remains) {
-        this.remains = remains;
     }
 
     public Integer getPatientId() {
@@ -63,5 +57,13 @@ public class PatientVo {
 
     public void setDosage(Integer dosage) {
         this.dosage = dosage;
+    }
+
+    public Date getrDate() {
+        return rDate;
+    }
+
+    public void setrDate(Date rDate) {
+        this.rDate = rDate;
     }
 }
