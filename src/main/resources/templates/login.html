@@ -388,7 +388,7 @@
 
                     if (data.code == 0) {
                         // alert("success!");
-                        window.location.href = './patient_index.html';
+                        window.location.href = './patient/patient_index.html';
                     } else {
                         alert(data.msg);
                     }
@@ -408,7 +408,7 @@
                 contentType: "application/json",
                 //url:"#",
                 data: JSON.stringify({
-                    "dIdentificationNum": data.telephone,
+                    "dPhone": data.telephone,
                     "dPassword": data.user_password
                 }),
                 async: false,
@@ -419,7 +419,7 @@
 
                     if (data.code == 0) {
                         // alert("success!");
-                        window.location.href='./admin_index.html';
+                        window.location.href='./doctor/doctor_index.html';
                     } else {
                         alert(data.msg);
                     }
@@ -430,8 +430,8 @@
         form.on('submit(Adminlogin)', function (data) {
             data = data.field;
             var json={
-                "username":$(data.telephone).val(),
-                "password":$(data.user_password).val()
+                "username":$("#telephone").val(),
+                "password":$("#user_password").val()
             }
             $.ajax({
                 type: "POST",   //提交的方法
@@ -452,7 +452,7 @@
 
                     if (data.code == 0) {
                         // alert("success!");
-                        window.location.href='./doctor_index.html';
+                        window.location.href='./admin/admin_index.html';
                     } else {
                         alert(data.msg);
                     }
