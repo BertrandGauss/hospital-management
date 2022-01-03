@@ -98,10 +98,8 @@
                     <label>
                         <select name="select2" id="select2" lay-verify="required">
                             <option value="">职称</option>
-                            <option value="住院医师">住院医师</option>
-                            <option value="主治医师">主治医师</option>
-                            <option value="主任医师">主任医师</option>
-                            <option value="副主任医师">副主任医师</option>
+                            <option value="专家">专家</option>
+                            <option value="普通">普通</option>
                         </select>
                     </label>
                 </div>
@@ -139,7 +137,8 @@
         });
         // console.log(yzm)
         //监听提交
-        form.on('submit(register)', function () {
+        form.on('submit(register)', function (data) {
+            data = data.field;
             $.ajax({
                 type: "POST",   //提交的方法
                 url: "http://localhost:8082/doctor/register",
@@ -149,12 +148,13 @@
                 dataType: "json",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    "dPhone":$("#phone").val(),
-                    "dPassword":$("#commit_password").val(),
-                    "dName":$("#name").val(),
-                    "dIdentificationNum":$("#identity").val(),
-                    "dOffice":$("#select1").val(),
-                    "dTitle":$("#select2").val()
+                    "dUsername":data.name,
+                    "dPhone":data.phone,
+                    "dPassword":data.commit_password,
+                    "dName":data.name,
+                    "dIdentificationNum":data.identity,
+                    "dOffice":data.select1,
+                    "dTitle":data.select2
                 }),
 
                 async: false,

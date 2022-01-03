@@ -100,7 +100,7 @@ public class OrderService {
     public void checkOrder(){
         Date today = new Date();
         System.out.println("today"+today);
-        Time time =Time.valueOf(LocalTime.now());
+        Time time =Time.valueOf(LocalTime.now().plusHours(-1));
         List<Integer> pIds= orderMapper.checkOrder();
         for(int i=0;i<pIds.size();i++){
             //过时算取消预约
