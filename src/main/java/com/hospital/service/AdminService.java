@@ -29,6 +29,8 @@ public class AdminService {
     private RecordMapper recordMapper;
     @Resource
     private TraceMapper traceMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
 
     //登陆
     public JSONObject login(String username, String password){
@@ -56,6 +58,11 @@ public class AdminService {
     // 审核医生账号
     public void checkDoctorRegister(Doctor doctor) {
         adminMapper.checkDoctorRegister(doctor);
+    }
+
+    // 审核不通过医生账号
+    public void deleteDoctorRegister(Doctor doctor) {
+        doctorMapper.deleteDoctorRegister(doctor.getdIdentificationNum());
     }
 
     public List<Doctor> showDoctorRegister() {
@@ -160,6 +167,7 @@ public class AdminService {
         if(patientVo.getState()==2){
             updateMedIsInPatient(patientVo.getPatientId(), 1);
             updateMedRemainsPut(patientVo);
+            traceMapper.updateTrace(patientVo.getPatientId(),2);
         }
         //退药
         else if(patientVo.getState()==3){
@@ -174,6 +182,7 @@ public class AdminService {
             }
             updateMedIsInPatient(patientVo.getPatientId(), 0);
             updateMedRemainsGet(patientVo);
+            traceMapper.updateTrace(patientVo.getPatientId(),3);
         }
         jsonObject.put("code",0);
         jsonObject.put("msg","修改配药状态成功");

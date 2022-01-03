@@ -41,6 +41,9 @@ public class RecordService {
             trace.setPatientId(record.getPatientId());
             if(traceMapper.selectById(record.getPatientId())==null)
                 traceMapper.addTrace(trace);
+            else{
+                traceMapper.updateTrace(record.getPatientId(),0);
+            }
             json.put("code",0);
             json.put("msg","开处方成功");
         }
