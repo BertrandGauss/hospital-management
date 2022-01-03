@@ -21,4 +21,9 @@
         WHERE havePay = 1  AND itemHaveDone=0;
     </select>
 
+    <select id="getIdate" >
+        SELECT itemDate
+        FROM item
+        WHERE patientId = #{patientId} AND itemName=#{itemName} AND havePay = 1 AND  medHaveDone = 1;
+    </select>
 </mapper>

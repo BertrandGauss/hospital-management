@@ -7,8 +7,11 @@ import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +97,7 @@ public class AdminService {
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
             recipe.setPatientId(items.get(i).getPatientId());
+            recipe.setRdate(items.get(i).getItemDate());
             recipes.add(recipe);
         }
 
@@ -103,6 +107,7 @@ public class AdminService {
             recipe.setPrice(records.get(i).getMedPrice());
             recipe.setDosage(records.get(i).getDosage());
             recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
             recipes.add(recipe);
         }
         return recipes;
@@ -146,5 +151,33 @@ public class AdminService {
 
     public void updateMedRemainsGet(PatientVo patientVo){
         adminMapper.updateMedRemainsGet(patientVo);
+    }
+
+    //修改配药状态，包括退药和发药
+    public JSONObject updateState(PatientVo patientVo){
+        JSONObject jsonObject = new JSONObject();
+        //表示发药
+        if(patientVo.getState()==2){
+            updateMedIsInPatient(patientVo.getPatientId(), 1);
+            updateMedRemainsPut(patientVo);
+        }
+        //退药
+        else if(patientVo.getState()==3){
+            Date rDate = recordMapper.getRdate(patientVo.getPatientId(), patientVo.getMedName());
+            LocalDateTime localDateTime = LocalDateTime.now();
+            localDateTime = localDateTime.plusHours(12);//12小时
+            Date date =Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
+            if(rDate.after(date)){
+                jsonObject.put("code",1);
+                jsonObject.put("msg","退药时间超过了缴费时间的12小时");
+                return jsonObject;
+            }
+            updateMedIsInPatient(patientVo.getPatientId(), 0);
+            updateMedRemainsGet(patientVo);
+        }
+        jsonObject.put("code",0);
+        jsonObject.put("msg","修改配药状态成功");
+        return  jsonObject;
+
     }
 }

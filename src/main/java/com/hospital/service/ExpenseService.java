@@ -7,15 +7,15 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.hospital.config.AlipayConfig;
 import com.hospital.entity.*;
-import com.hospital.mapper.DoctorMapper;
-import com.hospital.mapper.ExpenseMapper;
-import com.hospital.mapper.HistoryMapper;
-import com.hospital.mapper.TraceMapper;
+import com.hospital.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +27,10 @@ public class ExpenseService {
     private TraceMapper traceMapper;
     @Resource
     private DoctorMapper doctorMapper;
+    @Resource
+    private RecordMapper recordMapper;
+    @Resource
+    private ItemMapper itemMapper;
 
     public Double countExpense(Integer patientId){
         List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
@@ -140,7 +144,12 @@ public class ExpenseService {
     public JSONObject refund(Integer patientId, List<String> recipeIds){
         JSONObject json = new JSONObject();
         Double prices = 0.0;
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime = localDateTime.plusHours(12);//12小时
+        Date date =Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
         for(int i = 0 ;i<recipeIds.size();i++){
+            Date rDateRecord = recordMapper.getRdate(patientId,recipeIds.get(i));
+            Date iDateItem = itemMapper.getIdate(patientId,recipeIds.get(i));
             Item item = expenseMapper.checkitem(patientId,recipeIds.get(i));
             Record record = expenseMapper.checkmedicine(patientId,recipeIds.get(i));
             if(item==null && record==null){
@@ -157,7 +166,16 @@ public class ExpenseService {
                 json.put("code",3);
                 json.put("msg","退费药品未退回");
                 return  json;
-            }else if(item!=null){
+            }else if(rDateRecord!=null&&rDateRecord.after(date)){
+                json.put("code",4);
+                json.put("msg","必须缴费12小时以内才可以退费");
+                return  json;
+            }else if(iDateItem!=null&&iDateItem.after(date)){
+                json.put("code",4);
+                json.put("msg","必须缴费12小时以内才可以退费");
+                return  json;
+            }
+            else if(item!=null){
                 prices = prices + item.getItemPrice();
                 expenseMapper.deleteItem(patientId,recipeIds.get(i));
             }else if(record!=null){
@@ -183,7 +201,7 @@ public class ExpenseService {
         //商户订单号，后台可以写一个工具类生成一个订单号，必填
         String out_trade_no = orderSn;
         //支付宝交易号，后台可以写一个工具类生成一个订单号，必填
-        String trade_no  = new String("2021021022001468560501398642");
+        String trade_no  = new String(orderSn);
         //付款金额，从前台获取，必填
         String refund_amount = prices.toString();
         //订单名称/标题，可自定义
