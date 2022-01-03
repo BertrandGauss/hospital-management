@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册用户</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" href="../static/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/weadmin.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
+    <script type="text/javascript" src="../static/js/wow.min.js"></script>
+    <script type="text/javascript" src="../static/js/main.js"></script>
+</head>
+<body class="login-bg" style="width:900px;margin:auto">
+
+<div class="login" style="width:600px;margin: auto">
+    <div class="message">注册成为新医生</div>
+    <div id="darkbannerwrap"></div>
+
+    <form class="layui-form login-bottom " lay-filter="user_infor">
+        <!--手机号-->
+        <div class="layui-form-item">
+            <label class="layui-form-label"> 手机号</label>
+            <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="phone" name="phone"
+                   autocomplete="off" lay-verify="required"
+                   class="layui-input" lay-reqtext="手机号不能为空" placeholder="请输入手机号">
+        </div>
+        <!--密码-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input style="width:230px;height: 40px;margin:0 auto;" type="password" id="new_password"
+                       name="new_password" autocomplete="off"
+                       lay-verify="required" class="layui-input" lay-reqtext="密码不能为空" placeholder="请输入密码">
+            </div>
+        </div>
+        <!--确认密码-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码</label>
+            <div class="layui-input-inline">
+                <input style="width:230px;height: 40px;margin:0 auto;" type="password" id="commit_password"
+                       name="commit_password" autocomplete="off"
+                       lay-verify="required|confirmPass" class="layui-input" lay-reqtext="密码不能为空" placeholder="请输入密码">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"> 姓名</label>
+            <input style="width:230px;height: 40px;margin:0 auto;" type="text" id="name" name="name"
+                   lay-verify="required"
+                   class="layui-input" lay-reqtext="姓名不能为空" placeholder="请输入姓名">
+        </div>
+        <div class="layui-form-item" style="height: 50px;margin:0 auto;">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="男" title="男">
+                <input type="radio" name="sex" value="女" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证</label>
+            <input style="width:230px;height: 40px;margin:0 auto;" type="text" name="identity" lay-verify="identity"
+                   placeholder="请输入18位身份证号" autocomplete="off" class="layui-input">
+
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">科室/职称</label>
+            <div class="layui-input-inline" style="width:110px;height:10px;margin:0 auto;">
+                <select name="select1" id="select1" lay-verify="required">
+                    <option value="">科室</option>
+                    <option value="外科">外科</option>
+                    <option value="内科">内科</option>
+                    <option value="妇科">妇科</option>
+                    <option value="儿科">儿科</option>
+                    <option value="口腔科">口腔科</option>
+                    <option value="五官科">五官科</option>
+                    <option value="皮肤科">皮肤科</option>
+                    <option value="放射科">放射科</option>
+                    <option value="生化室">生化室</option>
+                    <option value="化验室">化验室</option>
+                </select>
+            </div>
+            <div class="layui-form-mid"></div>
+            <div class="layui-input-inline" style="width:110px;height: 20px;margin:0 auto;">
+                <div class="layui-inline">
+
+                    <label>
+                        <select name="select2" id="select2" lay-verify="required">
+                            <option value="">职称</option>
+                            <option value="住院医师">住院医师</option>
+                            <option value="主治医师">主治医师</option>
+                            <option value="主任医师">主任医师</option>
+                            <option value="副主任医师">副主任医师</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <div><br></div>
+
+        <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
+            <button class="layui-btn layui-btn-lg layui-btn-normal" lay-submit="" lay-filter="register"
+                    href='./login.html'>注册用户
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<script src="../lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+<script>
+    layui.use(['form', 'layer', 'util'], function () {
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        // 密码校验
+        form.verify({
+            confirmPass: function (value) {
+                if ($('input[name=new_password]').val() !== value)
+                    return '两次密码输入不一致！';
+            }
+        });
+        // console.log(yzm)
+        //监听提交
+        form.on('submit(register)', function () {
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082/doctor/register",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "dPhone":$("#phone").val(),
+                    "dPassword":$("#commit_password").val(),
+                    "dName":$("#name").val(),
+                    "dIdentificationNum":$("#identity").val(),
+                    "dOffice":$("#select1").val(),
+                    "dTitle":$("#select2").val()
+                }),
+
+                async: false,
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
+                    if (data.code !== 0)
+                        layer.msg(data.msg)
+                    else {
+                        layer.msg(data.msg, {icon: 1, time: 1500, shade: 0.4}, function () {
+                            location.href = "./login.html";
+                        });
+
+                    }
+                }
+            })
+            return false;
+        })
+
+    });
+
+</script>
+</body>
+</html>
