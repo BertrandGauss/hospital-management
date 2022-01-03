@@ -27,19 +27,14 @@
         <legend>病人基本信息</legend>
     </fieldset>
 
-    <form class="layui-form" action="">
+    <form class="layui-form" lay-filter="patient_infor">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-inline">
-                    <label>
-                        <select name="pName" lay-verify="required" lay-search="" id="selectUsername"
-                                lay-filter="selectUsername">
-                            <option value="">直接选择或搜索选择</option>
-                        </select>
-                    </label>
+                    <input type="text" name="pName" id="pName" readonly
+                           class="layui-input layui-disabled">
                 </div>
-
             </div>
 
             <div class="layui-inline">
@@ -115,60 +110,45 @@
                 </div>
             </div>
         </div>
-
+    </form>
+    <form class="layui-form" action="">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">诊断类型</label>
-            <div class="layui-input-inline">
-                <select name="quiz1">
-                    <option value="">请选择诊断标准</option>
-                    <!--                    <option value="" selected="">浙江省</option>-->
-                    <option value="">神内</option>
-                    <option value="">泌外</option>
-                    <option value="">普外</option>
-
-                </select>
-            </div>
+            <label class="layui-form-label">就诊类型</label>
             <div class="layui-input-inline">
                 <label>
-                    <select name="quiz2" lay-verify="required" lay-search="">
-                        <option value="">直接选择或搜索选择</option>
-                        <option value="1">layer</option>
-                        <option value="2">form</option>
-                        <option value="3">layim</option>
-                        <option value="4">element</option>
-                        <option value="5">laytpl</option>
-                        <option value="6">upload</option>
-                        <option value="7">laydate</option>
-                        <option value="8">laypage</option>
-                        <option value="9">flow</option>
-                        <option value="10">util</option>
-                        <option value="11">code</option>
-                        <option value="12">tree</option>
-                        <option value="13">layedit</option>
-                        <option value="14">nav</option>
-                        <option value="15">tab</option>
-                        <option value="16">table</option>
-                        <option value="17">select</option>
-                        <option value="18">checkbox</option>
-                        <option value="19">switch</option>
-                        <option value="20">radio</option>
+                    <select name="clinicType" lay-verify="required" lay-search="">
+                        <option value="">请选择就诊类型</option>
+                        <option value="初诊">初诊</option>
+                        <option value="复诊">复诊</option>
                     </select>
                 </label>
             </div>
 
-            <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>
-        </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">诊断</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="diagnosis" id="diagnosis" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">发病日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="diseaseDate">
+                    </div>
+                </div>
+            </div>
 
         <div class="layui-form-item" pane="">
             <label class="layui-form-label">药敏史</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="none" lay-skin="primary" title="无" checked="" value="无">
+            <div class="layui-input-block" id="drugAllergyHis">
+                <input type="checkbox" name="drugAllergyHis" lay-skin="primary" title="无" checked="" value="无">
                 <!--                <input type="checkbox" name="like1[read]" lay-skin="primary" title="无">-->
-                <input type="checkbox" name="item1" lay-skin="primary" title="青霉素">
-                <input type="checkbox" name="item2" lay-skin="primary" title="磺胺">
-                <input type="checkbox" name="item3" lay-skin="primary" title="链霉素">
-                <input type="checkbox" name="item4" lay-skin="primary" title="其他">
+                <input type="checkbox" name="drugAllergyHis" lay-skin="primary" value="青霉素" title="青霉素">
+                <input type="checkbox" name="drugAllergyHis" lay-skin="primary" value="磺胺" title="磺胺">
+                <input type="checkbox" name="drugAllergyHis" lay-skin="primary" value="链霉素" title="链霉素">
+                <input type="checkbox" name="drugAllergyHis" lay-skin="primary" value="其他" title="其他">
 
             </div>
         </div>
@@ -176,9 +156,9 @@
         <div class="layui-form-item layui-form-text">
             <div class="layui-col-md8">
                 <label class="layui-form-label">主诉</label>
-                <div class="layui-input-block">
+                <div class="layui-input-block" id="chiefComplaint">
                     <label>
-                        <textarea  name="content1" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        <textarea  name="chiefComplaint" placeholder="请输入内容" class="layui-textarea"></textarea>
                     </label>
                 </div>
             </div>
@@ -188,8 +168,8 @@
         <div class="layui-form-item layui-form-text">
             <div class="layui-col-md8">
                 <label class="layui-form-label">现病史</label>
-                <div class="layui-input-block">
-                    <label for="LAY_demo_editor"></label><textarea class="layui-textarea layui-hide" name="content2"
+                <div class="layui-input-block" id="presentIllness">
+                    <label for="LAY_demo_editor"></label><textarea class="layui-textarea layui-hide" name="presentIllness"
                                                                    lay-verify="content" id="LAY_demo_editor"></textarea>
                 </div>
             </div>
@@ -210,21 +190,37 @@
 
 
 <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+
+<!--展示当前时间-->
+<script>
+    layui.use(['util', 'laydate', 'layer'], function () {
+        // 记录当前时间并展示
+        function getNow(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var currTime = new Date();
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate())
+            + ' ' + getNow(currTime.getHours()) + ':' + getNow(currTime.getMinutes()) + ':' + getNow(currTime.getSeconds());
+        lay('#date').val(str2);
+    });
+</script>
+
+
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , layedit = layui.layedit;
+        // , laydate = layui.laydate;
 
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
+        // //日期，时间选择器
+        // laydate.render({
+        //     elem: '#date'
+        // });
+        // laydate.render({
+        //     elem: '#date1'
+        // });
 
         //创建一个编辑器
         var editIndex = layedit.build('LAY_demo_editor');
@@ -245,13 +241,13 @@
             }
         });
 
-        // //监听指定开关
-        // form.on('switch(switchTest)', function (data) {
-        //     layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-        //         offset: '6px'
-        //     });
-        //     layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        // });
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
 
         //监听提交
         form.on('submit(demo1)', function (data) {
@@ -282,96 +278,95 @@
 
     });
 </script>
-
-<!--展示当前时间-->
 <script>
-    layui.use(['util', 'laydate', 'layer'], function () {
-        // 记录当前时间并展示
-        function getNow(s) {
-            return s < 10 ? '0' + s : s;
-        }
-
-        var currTime = new Date();
-        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate())
-            + ' ' + getNow(currTime.getHours()) + ':' + getNow(currTime.getMinutes()) + ':' + getNow(currTime.getSeconds());
-        lay('#date').val(str2);
-    });
-</script>
-
-<script>
-    // 更新下拉框内容
-    layui.use(['jquery', 'form', 'upload', 'layer'], function () {
-        var $ = layui.jquery,
-            form = layui.form;
-
-        //检查项目添加到下拉框中
-        $.ajax({
-            url: './data_for_select.json',
-            dataType: 'json',   // 预期返回数据类型
-            type: 'get',
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        //监听提交
+        $.ajax({//表单提交
+            type: "GET",   //提交的方法
+            url:"http://localhost:8082/history/showpatientinfo",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType:"json",
             contentType: "application/json",
-            async: true,
-            // error: function(request) {  //失败的话
-            //     alert("Connection error");
-            // },
-            success: function (data) {
-                console.log(data);
-                $.each(data.data, function (index, item) {
-                    $('#selectUsername').append(new Option(item.pName, item.patientId));// 下拉菜单里添加元素
+            async: false,
+            error: function(request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function(data) {
+                console.log(data.data)
+                form.val("patient_infor", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "pName": data.data.pName,
+                    "pPhone":data.data.pPhone,
+                    "pIdentificationNum":data.data.pIdentificationNum,
+                    "pAge":data.data.pAge,
+                    "patientId":data.data.patientId,
+                    "pGender":data.data.pGender,
+                    "pAddress":data.data.pAddress
                 });
-                layui.form.render("select"); //重新渲染 固定写法
             }
+
         })
+    });
+</script>
+<script>
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            data = data.field;
+            console.log(data)
+            alert($("#diseaseDate").val())
+            alert(data. drugAllergyHis)
+            $.ajax({
+                type: "POST",   //提交的方法
+                url:"http://localhost:8082/history/editcasehis",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType:"json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                  "clinicType": data.clinicType,
+                  "diagnosis": data.diagnosis,
+                  "diseaseDate": $("#diseaseDate").val(),
+                  "drugAllergyHis": data.drugAllergyHis,
+                  "chiefComplaint": data.chiefComplaint,
+                  "presentIllness" : data.presentIllness
+                }),
+
+                async: false,
+                error: function(request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function(data) {
+
+                }
+
+            })
+        });
 
     });
 
+
 </script>
-
-<!--实现级联更新各种文本框-->
 <script>
-    layui.use(['util', 'jquery', 'layer', 'form'], function () {
-        var $ = layui.$,
-            layer = layui.layer,
-            form = layui.form;
-        // 其中selectUsername是select的 lay-filter属性值
-        form.on('select(selectUsername)', function (data) {
-            var patientId = data.value;    // 获得选中患者id
-            // 接下来从获取数据中按照患者id获取其他相关信息
-            layui.jquery.ajax({
-                type: 'POST',
-                url: './data_for_select.json',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    // 遍历所有数据
-                    layui.jquery.each(data.data, function (key, val) {
-                        if (val.patientId === patientId) {
-                            console.log(val.patientId);
-                            // 展示患者编号
-                            lay("#patientId").val(patientId);
-                            // 展示患者手机号
-                            lay("#pPhone").val(val.pPhone);
-                            // 展示患者身份证号
-                            lay("#pIdentificationNum").val(val.pIdentificationNum);
-                            // 展示患者年龄
-                            lay("#pAge").val(val.pAge);
-                            // 展示患者性别
-                            if (val.pGender === "M") {
-                                $("input[name=pGender][value='男']").prop({"checked": true, "disabled": true});
-                                $("input[name=pGender][value='女']").prop("disabled", true);
-                            } else {
-                                $("input[name=pGender][value='女']").prop({"checked": true, "disabled": true});
-                                $("input[name=pGender][value='男']").prop("disabled", true);
-                            }
-                            form.render("radio");
-                        }
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
 
-                    });
-                }
-            });
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#diseaseDate', //指定元素
+            type: "date"
         });
     });
-
 </script>
 
 </body>

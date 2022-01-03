@@ -55,7 +55,7 @@ public class AdminController {
     }
 
     // 审核医生不通过
-    @RequestMapping(value = "/checkdoctorregister",method = {RequestMethod.POST})
+    @RequestMapping(value = "/deletedoctorregister",method = {RequestMethod.POST})
     private JSONObject deleteDoctorRegister(@RequestBody Doctor doctor){
         adminService.deleteDoctorRegister(doctor);
         JSONObject json = new JSONObject();
