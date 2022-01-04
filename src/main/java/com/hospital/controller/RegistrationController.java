@@ -23,4 +23,12 @@ public class RegistrationController {
         JSONObject json = registrationService.Registration(registrationVo);
         return json;
     }
+
+    //显示所有挂号
+    @RequestMapping(value = "/showregistration", method = {RequestMethod.GET})
+    private JSONObject showregistration(){
+        JSONObject json = registrationService.showregistration();
+        return json;
+    }
+
 }

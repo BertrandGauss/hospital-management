@@ -28,7 +28,8 @@
         <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
     </a>
 </div>
-
+<br>
+<br>
 <div class="weadmin-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 we-search">
@@ -38,12 +39,11 @@
         </form>
     </div>
     <div class="weadmin-block" id="topline" name=""topline>
-        <button class="layui-btn" onclick="WeAdminShow('已有预约挂号','./patient_register.html')">
-            <i class="layui-icon layui-icon-add-circle-fine"></i>预约挂号
+        <button class="layui-btn" onclick="WeAdminShow('开始挂号','./patient_register.html',450,450)">
+            <i class="layui-icon layui-icon-add-circle-fine"></i>线下挂号
         </button>
     </div>
-    预约信息：
-    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
+    <table class="layui-table"  lay-data="{ url:'http://localhost:8082/registration/showregistration', page:true, id:'allRecord'}" lay-filter="allRecord">
         <thead>
         <tr>
             <!--<th>-->
@@ -51,241 +51,28 @@
             <!--<i class="layui-icon">&#xe605;</i>-->
             <!--</div>-->
             <!--</th>-->
-            <th lay-data="{type:'checkbox', }"></th>
-            <th lay-data="{field:'total_calorie'}">序号</th>
-            <th lay-data="{field:'total_calorie'}">科室</th>
-            <th lay-data="{field:'total_vitaminA'}">医生</th>
-            <th lay-data="{field:'total_vitaminB'}">预约日期</th>
-            <th lay-data="{field:'total_vitaminC'}">预约时间</th>
-            <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
+            <th lay-data="{field:'patientId'}">患者ID</th>
+            <th lay-data="{field:'doctorId'}">医生ID</th>
+            <th lay-data="{field:'department'}">就诊科室</th>
+            <th lay-data="{field:'rNum'}">排队号</th>
         </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-
-    <div class="layui-row" style="font-size: larger">
-            挂号信息：
-    </div>
-    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
-        <thead>
-        <tr>
-            <!--<th>-->
-            <!--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">-->
-            <!--<i class="layui-icon">&#xe605;</i>-->
-            <!--</div>-->
-            <!--</th>-->
-            <th lay-data="{type:'checkbox', }"></th>
-            <th lay-data="{field:'total_calorie'}">序号</th>
-            <th lay-data="{field:'total_calorie'}">科室</th>
-            <th lay-data="{field:'total_vitaminA'}">医生</th>
-            <th lay-data="{field:'total_vitaminB'}">时间</th>
-            <th lay-data="{field:'total_vitaminC'}">挂号</th>
-            <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-
 
 </div>
 <script src="../../lib/layui/layui.js" charset="utf-8"></script>
-<script type="text/html" id="barDemo">
-    <a title="查看" lay-event="view"><i class="layui-icon">&#xe63c;</i></a>
-    <a title="取消" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
-</script>
-<script type="text/html" id="titleTpl">
-    {{#
-    var fn = function(data){
-    return data.substring(0,10);
-    };
-    }}
-    {{ fn(d.date) }}
-</script>
-
-<script>
-    var dates=[]
-    layui.use('table', function() {
-        var $ = layui.jquery
-        var table = layui.table;
-        //监听表格复选框选择
-
-        table.on('checkbox(allfood)', function(obj) {
-            var flag=0;
-            for(let i=0;i<dates.length;i++){
-                if(dates[i]==obj.data.date){
-                    console.log("delete")
-                    dates.splice(i,1);
-                    i--;
-                    flag=1;
-                    console.log(dates)
-                }
-            }
-            if(flag==0){
-                dates.push(obj.data.date);
-            }
-        });
-        //监听工具条
-        table.on('tool(allfood)', function(obj) {
-            var data = obj.data;
-            console.log(data.date)
-            if (obj.event === 'del') {
-                layer.confirm('确认取消预约吗？', function(index) {
-                    var data = obj.data;
-                    $.ajax({
-                        //几个参数需要注意一下
-                        type: "POST",//方法类型
-
-                        url: "http://localhost:8081/food/deletefood",//url
-                        xhrFields: {
-                            withCredentials: true,
-                        },
-                        dataType:"json",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            "date":data.date
-                        }),
-                        success: function (result) {
-                            if (result.code == "0") {
-                                layer.close(index);
-                                layer.msg('取消预约成功');
-                                layui.table.reload("allfood",{page:{curr:1}});
-                            }else{
-                                layer.msg('取消预约失败', {
-                                    icon: 5
-                                });
-                            }
-                        },
-                        error : function() {
-                            layer.msg('服务器错误', {
-                                icon: 5
-                            });
-                        }
-                    });
-                });
-            }
-            if (obj.event === 'view') {
-                var data = obj.data;
-                WeAdminShow('编辑','./showfood.html?date='+data.date,600,400);
-            }
-        });
 
 
 
-    });
-    function deleteSome() {
-        console.log(dates)
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteSomeFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                data: JSON.stringify({
-                    "dates":dates
-                }),
-                contentType: "application/json",
-                async: true,
 
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
+<script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
-                }
-            })
-        });
-        window.delAll();
-    }
-</script>
-
-
-<script>
-    function deleAll() {
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteAllFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-
-                contentType: "application/json",
-                async: true,
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
-</script>
-<!--<script>-->
-<!--function deleteSome() {-->
-<!--console.log(dates)-->
-<!--layui.use(['form', 'jquery','util','admin', 'layer'], function() {-->
-<!--var $ = layui.jquery;-->
-<!--$.ajax({-->
-<!--type: "POST",   //提交的方法-->
-<!--url:"http://localhost:8081/food/deleteSomeFood",-->
-<!--xhrFields: {-->
-<!--withCredentials: true,-->
-<!--},-->
-<!--dataType:"json",-->
-<!--data: JSON.stringify({-->
-<!--"date":date-->
-<!--}),-->
-<!--contentType: "application/json",-->
-<!--async: true,-->
-
-<!--error: function(request) {  //失败的话-->
-<!--alert("Connection error");-->
-<!--},-->
-<!--success: function(data) {-->
-
-<!--}-->
-<!--})-->
-<!--});-->
-<!--window.delAll();-->
-<!--}-->
-<!--</script>-->
-<script>
-    layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-        var form = layui.form,
-            table = layui.table,
-            $ = layui.jquery,
-            util = layui.util,
-            admin = layui.admin,
-            layer = layui.layer;
-        form.on('submit(search)',function (data){(
-
-            table.reload('allfood', {
-                url:"http://localhost:8081/food/searchFood",
-                method: 'POST',
-                contentType: 'application/json'
-                , where: {
-                    "startdate":data.field.start,
-                    "enddate":data.field.end
-
-                }, page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-            })
-
-        )
-            return false;
-        })})
-</script>
 <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/admin.js" type="text/javascript" charset="utf-8"></script>
+
+
 </body>
 </html>

@@ -14,24 +14,42 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>新增预约</legend>
 </fieldset>
-<form class="layui-form" action="">
+<form class="layui-form"  lay-filter="startorder">
 
     <div class="layui-form-item">
         <label class="layui-form-label">选择医生</label>
         <div class="layui-input-inline">
-            <select name="keshi">
+            <select name="department" id="department" lay-verify="required">
                 <option value="">科室</option>
-                <option value="内科">内科</option>
                 <option value="外科">外科</option>
+                <option value="内科">内科</option>
+                <option value="妇科">妇科</option>
+                <option value="儿科">儿科</option>
+                <option value="口腔科">口腔科</option>
+                <option value="五官科">五官科</option>
+                <option value="皮肤科">皮肤科</option>
+                <option value="放射科">放射科</option>
+                <option value="生化室">生化室</option>
+                <option value="化验室">化验室</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="类型">
+            <select id="oType" name="oType">
                 <option value="">请选择门诊形式</option>
-                <option value="专家门诊">专家门诊</option>
-                <option value="普通门诊">普通门诊</option>
+                <option value="专家">专家门诊</option>
+                <option value="普通">普通门诊</option>
             </select>
         </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="医生姓名" name="dName" id="dName"  />
+            </div>
+        </div>
+        <div class="layui-inline">
+
+    </div>
+    <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">预约日期</label>
             <div class="layui-input-inline">
@@ -40,55 +58,36 @@
                        readonly>
             </div>
         </div>
-        <div class="layui-input-inline">
-            <select name="quiz3">
-                <option value="">请选择医生</option>
-                <option value="赵一">赵一</option>
-                <option value="钱二">钱二</option>
-                <option value="孙三">孙三</option>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">可选时间</label>
         <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">9:00-10:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">10:00-11:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">11:00-12:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">12:00-13:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">13:00-14:00</button></div>
-
-
-
+            <select name="oTime" id="oTime" lay-verify="required">
+                <option value="9:00">9:00-10:00</option>
+                <option value="10:00">10:00-11:00</option>
+                <option value="11:00">11:00-12:00</option>
+                <option value="14:00">14:00-15:00</option>
+                <option value="15:00">15:00-16:00</option>
+                <option value="16:00">16:00-17:00</option>
+            </select>
+        <!--<div class="layui-input-inline">-->
+            <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" >9:00-10:00</button></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" >10:00-11:00</button></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-radius">11:00-12:00</button></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-radius">12:00-13:00</button></div>-->
+        <!--<div class="layui-input-inline">-->
+            <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-radius">13:00-14:00</button></div>-->
     </div>
     <br>
         <div class="layui-row">
-<!--            <div class="layui-col-xs3 layui-col-md-offset4">-->
-<!--                <blockquote class="layui-elem-quote" >-->
-<!--                    <div class="aa" style="font-size: large;color: #8D8D8D;text-align: center">-->
-<!--                        该医生该时段剩余号数：-->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                    <div class="layui-row">-->
-<!--                        <div class="layui-col-xs3 layui-col-md-offset5">-->
-<!--                            <button type="button" class="layui-btn"><i class="layui-icon"> 30 </i></button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </blockquote>-->
-
-<!--            </div>-->
             <div class="layui-col-xs3 layui-col-md-offset4">
                 <br>
                 <button type="submit" class="layui-btn layui-col-md-offset5" lay-submit="" lay-filter="demo1">确认预约</button>
             </div>
         </div>
     <br>
-
+</form>
 
 <script src="../../static/layui/layui.js" charset="utf-8"></script>
 <script>
@@ -163,7 +162,7 @@
     });
 </script>
 
-</form>
+
 <script>
     layui.use(['util', 'laydate', 'layer'], function () {
         // 记录当前时间并展示
@@ -176,5 +175,6 @@
         lay('#date').val(str2);
     });
 </script>
+
 </body>
 </html>

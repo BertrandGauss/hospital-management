@@ -1,7 +1,6 @@
 package com.hospital.mapper;
 
 import com.hospital.entity.Registration;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +20,6 @@ public interface RegistrationMapper {
     Integer selectPatient(Registration registration);
 
     String selectPre(Integer patientId);
+
+    List<Registration> showAll();
 }
