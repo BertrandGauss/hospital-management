@@ -188,7 +188,7 @@
         var form = layui.form,
             table = layui.table;
         form.on('submit(search)',function (data){ (
-
+            alert(data.field.pIdentificationNum),
             layui.table.reload('allItem', {
                 url:"http://localhost:8082/record/searchitem",
                 method: 'POST',

@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="../../static/css/weadmin.css" />
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
     <![endif]-->
 </head>
@@ -48,11 +46,8 @@
         </form>
     </div>
     <div class="weadmin-block" id="topline" name=""topline>
-        <button class="layui-btn" onclick="WeAdminShow('新增预约','./patient_add_yuyue.html',800,400);">
+        <button class="layui-btn" onclick="WeAdminShow('新增预约','./patient_add_yuyue.html',750,400);">
             <i class="layui-icon layui-icon-add-circle-fine"></i>新增预约
-        </button>
-        <button class="layui-btn layui-btn-danger" onclick="deleteSome()">
-            <i class="layui-icon layui-icon-delete"></i>取消预约
         </button>
     </div>
     <table class="layui-table"  lay-data="{ url:'http://localhost:8082/order/showallorder', page:true, id:'allorder'}" lay-filter="allorder">
@@ -67,7 +62,7 @@
             <th lay-data="{field:'orderId'}">序号</th>
             <!--<th lay-data="{field:'date', sort: true , templet: '#titleTpl'}">提交时间</th>-->
             <th lay-data="{field:'department'}">科室</th>
-            <th lay-data="{field:'doctorId'}">医生</th>
+            <th lay-data="{field:'dName'}">医生</th>
             <th lay-data="{field:'oType'}">预约类型</th>
             <th lay-data="{field:'oDate', sort: true , templet: '#titleTpl'}">预约日期</th>
             <th lay-data="{field:'oTime'}">预约时间</th>
@@ -164,90 +159,10 @@
 
 
     });
-    function deleteSome() {
-        console.log(dates)
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteSomeFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                data: JSON.stringify({
-                    "dates":dates
-                }),
-                contentType: "application/json",
-                async: true,
-
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
 </script>
 
 
-<script>
-    function deleAll() {
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteAllFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
 
-                contentType: "application/json",
-                async: true,
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
-</script>
-<!--<script>-->
-<!--function deleteSome() {-->
-<!--console.log(dates)-->
-<!--layui.use(['form', 'jquery','util','admin', 'layer'], function() {-->
-<!--var $ = layui.jquery;-->
-<!--$.ajax({-->
-<!--type: "POST",   //提交的方法-->
-<!--url:"http://localhost:8081/food/deleteSomeFood",-->
-<!--xhrFields: {-->
-<!--withCredentials: true,-->
-<!--},-->
-<!--dataType:"json",-->
-<!--data: JSON.stringify({-->
-<!--"date":date-->
-<!--}),-->
-<!--contentType: "application/json",-->
-<!--async: true,-->
-
-<!--error: function(request) {  //失败的话-->
-<!--alert("Connection error");-->
-<!--},-->
-<!--success: function(data) {-->
-
-<!--}-->
-<!--})-->
-<!--});-->
-<!--window.delAll();-->
-<!--}-->
-<!--</script>-->
 <script>
     layui.use(['form', 'jquery','util','admin', 'layer'], function() {
         var form = layui.form,
@@ -257,14 +172,13 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)',function (data){(
-
-            table.reload('allfood', {
-                url:"http://localhost:8081/searchorder",
+            table.reload('allorder', {
+                url:"http://localhost:8082/order/searchorder",
                 method: 'POST',
                 contentType: 'application/json'
                 , where: {
-                    "startdate":data.field.start,
-                    "enddate":data.field.end
+                    "startDate":data.field.start,
+                    "endDate":data.field.end
 
                 }, page: {
                     curr: 1 //重新从第 1 页开始

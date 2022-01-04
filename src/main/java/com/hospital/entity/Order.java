@@ -8,6 +8,7 @@ public class Order {
     private Integer orderId;     // 预约ID
     private Integer patientId;   // 患者ID
     private Integer doctorId;    // 医生ID
+    private String dName;        // 医生名字
     private String department;   // 预约科室
     private String oType;        // 预约类型（只能为专家预约或科室预约）
     private Date oDate;          //预约日期
@@ -36,6 +37,14 @@ public class Order {
 
     public void setDoctorId(Integer doctorId){
         this.doctorId = doctorId;
+    }
+
+    public String getdName() {
+        return dName;
+    }
+
+    public void setdName(String dName) {
+        this.dName = dName;
     }
 
     public String getDepartment() {
