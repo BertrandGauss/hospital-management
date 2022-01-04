@@ -30,45 +30,25 @@
 </div>
 
 <div class="weadmin-body">
-    <div class="layui-row">
-        <form class="layui-form layui-col-md12 we-search">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                <legend>挂号</legend>
-            </fieldset>
-            预约信息：
-        </form>
-    </div>
-    <div class="weadmin-block" id="topline" name=""topline>
-        <button class="layui-btn" onclick="WeAdminShow('已有预约挂号','./patient_add_guahao1.html')">
-            <i class="layui-icon layui-icon-add-circle-fine"></i>已有预约挂号
-        </button>
-        <button class="layui-btn" onclick="WeAdminShow('无预约挂号','./patient_add_guahao2.html')">
-            <i class="layui-icon layui-icon-add-circle-fine"></i>无预约挂号
-        </button>
-    </div>
-    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
-        <thead>
-        <tr>
-            <!--<th>-->
-            <!--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">-->
-            <!--<i class="layui-icon">&#xe605;</i>-->
-            <!--</div>-->
-            <!--</th>-->
-            <th lay-data="{type:'checkbox', }"></th>
-            <th lay-data="{field:'total_calorie'}">序号</th>
-            <th lay-data="{field:'total_calorie'}">科室</th>
-            <th lay-data="{field:'total_vitaminA'}">医生</th>
-            <th lay-data="{field:'total_vitaminB'}">预约日期</th>
-            <th lay-data="{field:'total_vitaminC'}">预约时间</th>
-            <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+
+
 
     <div class="layui-row" style="font-size: larger">
-            挂号信息：
+        <form class="layui-form layui-col-md12 we-search">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>挂号信息</legend>
+            </fieldset>
+            已有挂号信息搜索：
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="开始日" name="start" id="start"  />
+            </div>
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="截止日" name="end" id="end"  />
+            </div>
+            <button class="layui-btn" lay-submit="" lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </form>
     </div>
     <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
         <thead>
