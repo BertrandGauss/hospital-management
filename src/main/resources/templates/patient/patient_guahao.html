@@ -59,11 +59,11 @@
             <!--</div>-->
             <!--</th>-->
             <th lay-data="{type:'checkbox', }"></th>
-            <th lay-data="{field:'total_calorie'}">序号</th>
-            <th lay-data="{field:'total_calorie'}">科室</th>
-            <th lay-data="{field:'total_vitaminA'}">医生</th>
-            <th lay-data="{field:'total_vitaminB'}">时间</th>
-            <th lay-data="{field:'total_vitaminC'}">挂号</th>
+            <th lay-data="{field:'id'}">序号</th>
+            <th lay-data="{field:'department'}">科室</th>
+            <th lay-data="{field:'doctor'}">医生</th>
+            <th lay-data="{field:'date'}">时间</th>
+            <th lay-data="{field:'rNum'}">挂号</th>
             <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
         </tr>
         </thead>
@@ -95,7 +95,7 @@
         var table = layui.table;
         //监听表格复选框选择
 
-        table.on('checkbox(allfood)', function(obj) {
+        table.on('checkbox(registration)', function(obj) {
             var flag=0;
             for(let i=0;i<dates.length;i++){
                 if(dates[i]==obj.data.date){
@@ -133,10 +133,10 @@
                         success: function (result) {
                             if (result.code == "0") {
                                 layer.close(index);
-                                layer.msg('取消预约成功');
+                                layer.msg('取消挂号成功');
                                 layui.table.reload("allfood",{page:{curr:1}});
                             }else{
-                                layer.msg('取消预约失败', {
+                                layer.msg('取消挂号失败', {
                                     icon: 5
                                 });
                             }
@@ -168,7 +168,7 @@
             var $ = layui.jquery;
             $.ajax({
                 type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteAllFood",
+                url:"http://localhost:8081/guahao",
                 xhrFields: {
                     withCredentials: true,
                 },
@@ -227,7 +227,7 @@
         form.on('submit(search)',function (data){(
 
             table.reload('allfood', {
-                url:"http://localhost:8081/food/searchFood",
+                url:"http://localhost:8081/showallregistration",
                 method: 'POST',
                 contentType: 'application/json'
                 , where: {
