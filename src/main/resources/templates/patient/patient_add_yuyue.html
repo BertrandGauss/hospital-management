@@ -35,7 +35,9 @@
         <div class="layui-inline">
             <label class="layui-form-label">预约日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                <!--lay-verify="date"-->
+                <input type="text" name="date" id="date" class="layui-input layui-disabled"
+                       readonly>
             </div>
         </div>
         <div class="layui-input-inline">
@@ -97,9 +99,9 @@
             ,laydate = layui.laydate;
 
         //日期
-        laydate.render({
-            elem: '#date'
-        });
+        // laydate.render({
+        //     elem: '#date'
+        // });
         laydate.render({
             elem: '#date1'
         });
@@ -160,6 +162,19 @@
 
     });
 </script>
+
 </form>
+<script>
+    layui.use(['util', 'laydate', 'layer'], function () {
+        // 记录当前时间并展示
+        function getNow(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var currTime = new Date();
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
+        lay('#date').val(str2);
+    });
+</script>
 </body>
 </html>
