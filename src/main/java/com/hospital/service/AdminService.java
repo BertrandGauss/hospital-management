@@ -71,24 +71,28 @@ public class AdminService {
     }
 
     // 显示患者所有已缴费的项目和药品清单（根据患者身份证号）
-    public List<Recipe> showPayedRecipe(Integer patientId) {
+    public List<Recipe> showPayedRecipe(Integer patientId, String pIdentificationNum) {
         List<Item> items = adminMapper.selectitemsbypId(patientId);
         List<Record> med = adminMapper.selectmedbypId(patientId);
         List<Recipe> recipes = null;
         for(int i=0; i<items.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setpIdentificationNum(pIdentificationNum);
             recipe.setPatientId(patientId);
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
+            recipe.setRdate(items.get(i).getItemDate());
             recipes.add(recipe);
         }
 
         for(int i=0; i<med.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setpIdentificationNum(pIdentificationNum);
             recipe.setPatientId(patientId);
             recipe.setRecipeName(med.get(i).getMedName());
             recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             recipe.setDosage(med.get(i).getDosage());
+            recipe.setRdate(med.get(i).getRecordDate());
             recipes.add(recipe);
         }
         return recipes;
@@ -101,20 +105,24 @@ public class AdminService {
         List<Recipe> recipes = null;
         for(int i=0; i<items.size(); i++){
             Recipe recipe = new Recipe();
+            String pIdentificationNum = patientMapper.selectbyid(items.get(i).getPatientId()).getpIdentificationNum();
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
             recipe.setPatientId(items.get(i).getPatientId());
             recipe.setRdate(items.get(i).getItemDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
             recipes.add(recipe);
         }
 
         for(int i=0; i<records.size(); i++){
             Recipe recipe = new Recipe();
+            String pIdentificationNum = patientMapper.selectbyid(records.get(i).getPatientId()).getpIdentificationNum();
             recipe.setRecipeName(records.get(i).getMedName());
             recipe.setPrice(records.get(i).getMedPrice());
             recipe.setDosage(records.get(i).getDosage());
             recipe.setPatientId(records.get(i).getPatientId());
             recipe.setRdate(records.get(i).getRecordDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
             recipes.add(recipe);
         }
         return recipes;
@@ -122,8 +130,9 @@ public class AdminService {
 
     public void setHaveDone(SomeRecipe someRecipe) {
         List<String> Names = someRecipe.getRecipeName();
-        Integer patientId = patientMapper.selectByIdentificationNum(someRecipe.getpIdentificationNum());
+        List<String> pIdentificationNums = someRecipe.getpIdentificationNum();
         for (int i=0;i<Names.size();i++){
+            Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNums.get(i));
             itemMapper.setItemsHaveDone(patientId,Names.get(i));
             recordMapper.setMedHaveDone(patientId,Names.get(i));
         }

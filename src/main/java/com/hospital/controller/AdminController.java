@@ -47,6 +47,7 @@ public class AdminController {
     // 审核医生注册通过
     @RequestMapping(value = "/checkdoctorregister",method = {RequestMethod.POST})
     private JSONObject checkDoctorRegister(@RequestBody Doctor doctor){
+        System.out.println(doctor.getdIdentificationNum());
         adminService.checkDoctorRegister(doctor);
         JSONObject json = new JSONObject();
         json.put("code",0);
@@ -68,7 +69,7 @@ public class AdminController {
     @RequestMapping(value = "/showpayedrecipe",method = {RequestMethod.POST})
     private JSONObject showPayedRecipe(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Integer patientId = adminService.getPatientIdByPid(pIdentificationNum);
-        List<Recipe> recipes = adminService.showPayedRecipe(patientId);
+        List<Recipe> recipes = adminService.showPayedRecipe(patientId, pIdentificationNum);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("data", recipes);
@@ -90,7 +91,6 @@ public class AdminController {
     // 对患者已缴费的项目确认进行完成
     @RequestMapping(value = "/sethavedone",method = {RequestMethod.POST})
     private JSONObject setHaveDone(@RequestBody SomeRecipe someRecipe){
-        Integer patientId = adminService.getPatientIdByPid(someRecipe.getpIdentificationNum());
         adminService.setHaveDone(someRecipe);
         JSONObject json = new JSONObject();
         json.put("code",0);

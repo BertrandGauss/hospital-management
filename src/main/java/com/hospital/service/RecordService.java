@@ -1,16 +1,13 @@
 package com.hospital.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hospital.entity.Recipe;
-import com.hospital.entity.Record;
-import com.hospital.entity.Trace;
-import com.hospital.mapper.MedicineMapper;
-import com.hospital.mapper.RecordMapper;
-import com.hospital.mapper.RegistrationMapper;
-import com.hospital.mapper.TraceMapper;
+import com.hospital.entity.*;
+import com.hospital.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class RecordService {
@@ -20,7 +17,10 @@ public class RecordService {
     private MedicineMapper medicineMapper;
     @Resource
     private TraceMapper traceMapper;
-
+    @Resource
+    private PatientMapper patientMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
 
     // 开处方
     public JSONObject addRecord(Record record) {
@@ -49,5 +49,98 @@ public class RecordService {
         }
         return json;
 
+    }
+
+    //显示所有已缴费的处方
+    public List<Recipe> showAllRecord(){
+        List<Record> records = recordMapper.selectmed();
+        List<Recipe> recipes = new LinkedList<>();
+        Recipe recipe = new Recipe();
+        for(int i=0; i<records.size(); i++){
+            String pIdentificationNum = patientMapper.selectbyid(records.get(i).getPatientId()).getpIdentificationNum();
+            Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
+            recipe.setdName(doctor.getdName());
+            recipe.setRecipeName(records.get(i).getMedName());
+            recipe.setPrice(records.get(i).getMedPrice());
+            recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
+            recipe.setState("等待配药");
+            recipes.add(recipe);
+        }
+        return recipes;
+    }
+
+    //显示所有已缴费的处方
+    public List<Recipe> showAllGETRecord(){
+        List<Record> records = recordMapper.selectmedGet();
+        List<Recipe> recipes = new LinkedList<>();
+        Recipe recipe = new Recipe();
+        for(int i=0; i<records.size(); i++){
+            String pIdentificationNum = patientMapper.selectbyid(records.get(i).getPatientId()).getpIdentificationNum();
+            Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
+            recipe.setdName(doctor.getdName());
+            recipe.setRecipeName(records.get(i).getMedName());
+            recipe.setPrice(records.get(i).getMedPrice());
+            recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
+            recipe.setState("配药完成");
+            recipes.add(recipe);
+        }
+        return recipes;
+    }
+
+    //显示所有已缴费的处方
+    public List<Recipe> searchrecord(String pIdentificationNum){
+        List<Record> records = recordMapper.selectmedbypIdentificationNum(pIdentificationNum);
+        List<Recipe> recipes = new LinkedList<>();
+        Recipe recipe = new Recipe();
+        for(int i=0; i<records.size(); i++){
+            Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
+            recipe.setdName(doctor.getdName());
+            recipe.setRecipeName(records.get(i).getMedName());
+            recipe.setPrice(records.get(i).getMedPrice());
+            recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
+            recipe.setState("等待配药");
+            recipes.add(recipe);
+        }
+        return recipes;
+    }
+
+    //设置所有配药
+    public void setRecordsHaveDone(SomeRecipe someRecipe) {
+        List<String> Names = someRecipe.getRecipeName();
+        List<String> pIdentificationNums = someRecipe.getpIdentificationNum();
+        for (int i=0;i<Names.size();i++){
+            Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNums.get(i));
+            recordMapper.setMedHaveDone(patientId,Names.get(i));
+            if(checkRecords(patientId)==1)
+                traceMapper.updateTrace(patientId,2);
+        }
+    }
+
+    //设置某项配药已配
+    public void setRecordHaveDone(String recordname, String pIdentificationNum) {
+        Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
+        recordMapper.setMedHaveDone(patientId,recordname);
+        //所有药品配齐
+        if(checkRecords(patientId)==1)
+            traceMapper.updateTrace(patientId,2);
+    }
+
+    //检查患者是不是所有配药完成
+    public Integer checkRecords(Integer patientId){
+        List<Integer> haveDone = recordMapper.selectById(patientId);
+        for(int i=0;i<haveDone.size();i++){
+            if(haveDone.get(i)==0)
+                return  0;
+        }
+        return 1;
     }
 }

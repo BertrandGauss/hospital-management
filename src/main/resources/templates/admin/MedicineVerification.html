@@ -5,26 +5,42 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../../static/css/font.css">
-    <link rel="stylesheet" href="../../../static/css/weadmin.css">
-    <link rel="stylesheet" href="../../../static/layui-v2.6.8/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/weadmin.css">
+    <link rel="stylesheet" href="../../static/layui-v2.6.8/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/font.css">
     <!--<link rel="stylesheet" href="../../../static/layui/css/public.css" media="all">-->
-    <link rel="stylesheet" href="../../../static/layui/css/public.css" tppabs="https://www.layui.site/layui/dist/css/layui.css"
+    <link rel="stylesheet" href="../../static/layui/css/public.css" tppabs="https://www.layui.site/layui/dist/css/layui.css"
           media="all">
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <script href="../../static/layui-v2.6.8/layui/layui.js"></script>
-    <title>配药审核</title>
+    <title>检查审核</title>
 </head>
-<body>
-<!--
-<div>
-    <table class="layui-hide" id="test-dropdown-table" lay-filter="test-dropdown-table"></table>
-
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">项目审核</a>
+				<a href="javascript:;"> <cite>药品审核</cite></a>
+			</span>
+    <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+        <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
+    </a>
 </div>
--->
-    <table class="layui-hide" id="test" lay-filter="test"></table>
+
+<div class="weadmin-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 we-search">
+            信息搜索：
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="身份证" name="pIdentificationNum" id="pIdentificationNum"  />
+            </div>
+            <button class="layui-btn" lay-submit="" lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </form>
+    </div>
+</div>
+<table class="layui-hide" id="test" lay-filter="test"></table>
 <!--
 <script type="text/html" id="test-dropdown-toolbar-barDemo">
     <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="edit">编辑</a>
@@ -38,22 +54,17 @@
 <script type="text/html" id="toolbarDemo">
     <!--   script将点击事件与控件绑定起来-->
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <!--
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        -->
+        <button class="layui-btn layui-btn-sm" onclick="checkSome()">批量审核</button>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="detail">完成</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="send">确认发药</a>
 </script>
 
 
 
-<script src="../../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
+<script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <script>
     layui.use('table', function(){
@@ -61,73 +72,137 @@
 
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'test/test_medicine.json'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
+            , url: 'http://localhost:8082/record/showRecord'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
             , toolbar: '#toolbarDemo'
-            , title: '配药审核表'
+            , title: '配药表'
             , totalRow: true
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}   // 复选框
-                , {field: 'patientId', title: '患者ID', width: 100, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                , {field: 'pIdentificationNum', title: '患者身份证号', width: 100, edit: 'text'}
-                , {field: 'pName', title: '患者姓名', width: 100, edit: 'text'}
-                , {field: 'isValid', title: '是否开具处方', width: 100,edit: 'text'}
-                , {field: 'medName', title: '药品名称', width: 100,edit: 'text' }
-                , {field: 'remains', title: '药品库存', width: 100}
-                , {field: 'medPrice', title: '药品单价', width: 100, sort: true, totalRow: true}
-                , {field: 'dosage', title: '药品用量', width: 100}
-                , {field: 'havePay', title: '是否缴费', width: 100,edit: 'text'}
-                , {field: 'state', title: '进度状态', width: 100, edit: 'text'}
+                , {field: 'patientId', title: '患者ID', width: 150, fixed: 'left', unresize: true, sort: true}
+                , {field: 'pIdentificationNum', title: '患者身份证号', width: 300}
+                , {field: 'recipeName', title: '药品名称', width: 200,edit: 'text' }
+                , {field: 'price', title: '药品单价', width: 150}
+                , {field: 'dosage', title: '用量', width: 150}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]]
             , page: true
         });
-
-        //工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {    // 点击事件
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                    break;
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(demo)', function(obj){
-            console.log(obj)
-        });
-
-
-
         //监听工具条
         //监听工具条，修改表格内容，在表格内，跟lay-filter绑定
         table.on('tool(test)', function (obj) {
             var data = obj.data;
-            if (obj.event === 'detail') {
-                layer.msg('审核已通过');
-            } else if (obj.event === 'del') {
-                layer.confirm('确定删除记录吗', function (index) {
-                    obj.del();
-                    layer.close(index);
+            var json={
+                "recipeName":data.recipeName,
+                "pIdentificationNum":data.pIdentificationNum
+            }
+            console.log(json)
+            if (obj.event === 'send') {
+                layer.confirm('确定发药吗', function (index) {
+                    $.ajax({
+                        type: "POST",   //提交的方法
+                        url: "http://localhost:8082/record/setRecordhavedone",
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                        dataType: "json",
+                        contentType:'application/x-www-form-urlencoded',
+                        data: json,
+                        success: function (result) {
+                            if (result.code == "0") {
+                                layer.close(index);
+                                layui.table.reload("test",{page:{curr:1}});
+                            }else{
+                                layer.msg("发药错误", {
+                                    icon: 5
+                                });
+                            }
+                        },
+                        error : function() {
+                            layer.msg('服务器错误', {
+                                icon: 5
+                            });
+                        }
+                    })
                 });
-            } else if (obj.event === 'edit') {
-                layer.alert('编辑行：<br>' + JSON.stringify(data))
             }
         });
 
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
     });
+</script>
+<script>
+    layui.use('table', function() {
+        var table = layui.table;
+        var recipeNames = [];
+        var pIdentificationNums = []
+        table.on('checkbox(test)', function (obj) {
+            console.log(obj.data)
+            var flag = 0;
+            for (let i = 0; i < recipeNames.length; i++) {
+                if (pIdentificationNums[i] == obj.data.pIdentificationNum && recipeNames[i] == obj.data.recipeName) {
+                    pIdentificationNums.splice(i, 1);
+                    recipeNames.splice(i, 1);
+                    i--;
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                recipeNames.push(obj.data.recipeName);
+                pIdentificationNums.push(obj.data.pIdentificationNum);
+            }
+        });
+
+
+    })
+    function checkSome() {
+        console.log(recipeNames)
+        layui.use(['form', 'jquery', 'util', 'layer'], function () {
+            var $ = layui.jquery;
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082/record/setRecordshavedone",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                data: JSON.stringify({
+                    "recipeName": recipeNames,
+                    "pIdentificationNum": pIdentificationNums
+                }),
+                contentType: "application/json",
+                async: true,
+
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
+
+                }
+            })
+        });
+
+    }
+</script>
+<script>
+    layui.use(['form', 'jquery','util','admin', 'layer'], function() {
+        var form = layui.form,
+            table = layui.table;
+        form.on('submit(search)',function (data){ (
+
+            layui.table.reload('test', {
+                url:"http://localhost:8082/record/searchrecord",
+                method: 'POST',
+                contentType:'application/x-www-form-urlencoded'
+                , where: {
+                    "pIdentificationNum":data.field.pIdentificationNum,
+                }, page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            })
+
+        )
+
+            return false;
+        })})
 </script>
 </body>
 </html>

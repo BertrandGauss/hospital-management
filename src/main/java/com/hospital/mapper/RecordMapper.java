@@ -13,5 +13,11 @@ public interface RecordMapper {
 
     List<Record> selectmed();
 
+    List<Record> selectmedGet();
+
+    List<Record> selectmedbypIdentificationNum(String pIdentificationNum);
+
+    List<Integer> selectById(Integer patientId);
+
     Date getRdate(@Param("patientId") Integer patientId, @Param("medName") String medName );
 }
