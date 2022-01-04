@@ -96,10 +96,10 @@ public class ItemController {
         return json;
     }
 
-    //对患者某个药品进行确认
+    //查找某个患者的检查
     @RequestMapping(value = "/searchitem",method = {RequestMethod.POST})
-    private JSONObject searchitem(@RequestParam("pIdentificationNum")String pIdentificationNum){
-        List<Recipe> items =itemService.searchitem(pIdentificationNum);
+    private JSONObject searchitem(@RequestBody Patient patient){
+        List<Recipe> items =itemService.searchitem(patient.getpIdentificationNum());
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","查找完成");

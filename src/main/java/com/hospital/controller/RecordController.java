@@ -1,11 +1,9 @@
 package com.hospital.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hospital.entity.Item;
-import com.hospital.entity.Recipe;
-import com.hospital.entity.Record;
-import com.hospital.entity.SomeRecipe;
+import com.hospital.entity.*;
 import com.hospital.service.RecordService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,8 +78,8 @@ public class RecordController {
 
     //对患者某个药品进行确认
     @RequestMapping(value = "/searchrecord",method = {RequestMethod.POST})
-    private JSONObject searchrecord(@RequestParam("pIdentificationNum")String pIdentificationNum){
-        List<Recipe> records =recordService.searchrecord(pIdentificationNum);
+    private JSONObject searchrecord(@RequestBody Patient patient){
+        List<Recipe> records =recordService.searchrecord(patient.getpIdentificationNum());
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","查找完成");
@@ -113,9 +111,9 @@ public class RecordController {
 
     //查找某一患者已给出的药品
     @RequestMapping(value = "/searchreturnrecord",method = {RequestMethod.POST})
-    private JSONObject searchreturnrecord(@RequestParam("pIdentificationNum")String pIdentificationNum){
+    private JSONObject searchreturnrecord(@RequestBody Patient patient){
         System.out.println("开始退药");
-        List<Recipe> records =recordService.searchreturnrecord(pIdentificationNum);
+        List<Recipe> records =recordService.searchreturnrecord(patient.getpIdentificationNum());
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","查找患者可以退药药品完成");

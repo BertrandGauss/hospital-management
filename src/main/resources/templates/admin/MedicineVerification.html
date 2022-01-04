@@ -210,15 +210,21 @@
         }
 </script>
 <script>
-        var form = layui.form;
+    layui.use(['form', 'jquery','util','admin', 'layer'], function() {
+        var form = layui.form,
+            table = layui.table,
+            $ = layui.jquery,
+            util = layui.util,
+            admin = layui.admin,
+            layer = layui.layer;
         form.on('submit(search)',function (data){(
-
             table.reload('allRecord', {
                 url:"http://localhost:8082/record/searchrecord",
                 method: 'POST',
                 contentType: 'application/json'
                 , where: {
-                    "pIdentificationNum":data.field.pIdentificationNum,
+                    "pIdentificationNum":data.field.pIdentificationNum
+
 
                 }, page: {
                     curr: 1 //重新从第 1 页开始
@@ -227,8 +233,7 @@
 
         )
             return false;
-        })
+        })})
 </script>
-
 </body>
 </html>

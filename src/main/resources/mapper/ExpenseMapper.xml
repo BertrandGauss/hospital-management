@@ -36,7 +36,14 @@
     </delete>
 
     <delete id="deleteRecord">
-        DELETE FROM record  WHERE patientId = #{patientId} AND itemName=#{recipeName}
+        DELETE FROM record  WHERE patientId = #{patientId} AND recordDate=#{recipeName}
     </delete>
 
+    <select id="selectmedbydate" resultType="com.hospital.entity.Record" >
+        SELECT * FROM record  WHERE  patientId = #{patientId} AND recordDate BETWEEN #{startDate} and #{endDate}
+    </select>
+
+    <select id="selectitembydate" resultType="com.hospital.entity.Item" >
+        SELECT * FROM item  WHERE  patientId = #{patientId} AND itemDate BETWEEN #{startDate} and #{endDate}
+    </select>
 </mapper>

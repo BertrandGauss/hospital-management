@@ -48,13 +48,13 @@
     <select id="selectmedbypIdentificationNum" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
-        WHERE havePay = 1 AND  medHaveDone=0 AND pIdentificationNum=#{pIdentificationNum};
+        WHERE havePay = 1 AND  medHaveDone=0 AND patientId=#{patientId};
     </select>
 
     <select id="selectnotmedbypIdentificationNum" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
-        WHERE havePay = 1 AND  medHaveDone=1 AND pIdentificationNum=#{pIdentificationNum};
+        WHERE havePay = 1 AND  medHaveDone=1 AND patientId=#{patientId};
     </select>
 
     <select id="getRecord" resultType="com.hospital.entity.Record">

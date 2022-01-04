@@ -186,22 +186,25 @@
 <script>
     layui.use(['form', 'jquery','util','admin', 'layer'], function() {
         var form = layui.form,
-            table = layui.table;
-        form.on('submit(search)',function (data){ (
-            alert(data.field.pIdentificationNum),
-            layui.table.reload('allItem', {
-                url:"http://localhost:8082/record/searchitem",
+            table = layui.table,
+            $ = layui.jquery,
+            util = layui.util,
+            admin = layui.admin,
+            layer = layui.layer;
+        form.on('submit(search)',function (data){(
+            table.reload('allItem', {
+                url:"http://localhost:8082/item/searchitem",
                 method: 'POST',
-                contentType:'application/x-www-form-urlencoded'
+                contentType: 'application/json'
                 , where: {
-                    "pIdentificationNum":data.field.pIdentificationNum,
+                    "pIdentificationNum":data.field.pIdentificationNum
+
                 }, page: {
                     curr: 1 //重新从第 1 页开始
                 }
             })
 
         )
-
             return false;
         })})
 </script>

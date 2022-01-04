@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>患者预约</title>
+    <title>缴费退费</title>
     <meta name="renderer" content="webkit" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -209,35 +209,6 @@
         window.delAll();
     }
 </script>
-<!--<script>-->
-<!--function deleteSome() {-->
-<!--console.log(dates)-->
-<!--layui.use(['form', 'jquery','util','admin', 'layer'], function() {-->
-<!--var $ = layui.jquery;-->
-<!--$.ajax({-->
-<!--type: "POST",   //提交的方法-->
-<!--url:"http://localhost:8081/food/deleteSomeFood",-->
-<!--xhrFields: {-->
-<!--withCredentials: true,-->
-<!--},-->
-<!--dataType:"json",-->
-<!--data: JSON.stringify({-->
-<!--"date":date-->
-<!--}),-->
-<!--contentType: "application/json",-->
-<!--async: true,-->
-
-<!--error: function(request) {  //失败的话-->
-<!--alert("Connection error");-->
-<!--},-->
-<!--success: function(data) {-->
-
-<!--}-->
-<!--})-->
-<!--});-->
-<!--window.delAll();-->
-<!--}-->
-<!--</script>-->
 <script>
     layui.use(['form', 'jquery','util','admin', 'layer'], function() {
         var form = layui.form,
@@ -247,14 +218,13 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)',function (data){(
-
-            table.reload('allfood', {
-                url:"http://localhost:8081/food/searchFood",
+            table.reload('allrecipe', {
+                url:"http://localhost:8082/expense/searchExpense",
                 method: 'POST',
                 contentType: 'application/json'
                 , where: {
-                    "startdate":data.field.start,
-                    "enddate":data.field.end
+                    "startDate":data.field.start,
+                    "endDate":data.field.end
 
                 }, page: {
                     curr: 1 //重新从第 1 页开始

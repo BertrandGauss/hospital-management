@@ -13,7 +13,7 @@ public interface ItemMapper {
 
     List<Item> selectitems();
 
-    List<Item> selectitemsbyPid(String pIdentificationNum);
+    List<Item> selectitemsbyPid(Integer patientId);
 
     Date getIdate(@Param("patientId") Integer patientId, @Param("itemName") String itemName );
 }

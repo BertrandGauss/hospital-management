@@ -350,53 +350,5 @@
 </script>
 
 
-<!--实现级联更新各种文本框-->
-<!--<script>-->
-<!--    layui.use(['util', 'jquery', 'layer', 'form'], function () {-->
-<!--        var $ = layui.$,-->
-<!--            layer = layui.layer,-->
-<!--            form = layui.form;-->
-<!--        // 其中selectUsername是select的 lay-filter属性值-->
-<!--        form.on('select(selectUsername)', function (data) {-->
-<!--            var patientId = data.value;    // 获得选中患者id-->
-<!--            // 接下来从获取数据中按照患者id获取其他相关信息-->
-<!--            layui.jquery.ajax({-->
-<!--                type: 'POST',-->
-<!--                url: './data_for_select.json',-->
-<!--                dataType: 'json',-->
-<!--                success: function (data) {-->
-<!--                    console.log(data);-->
-<!--                    // 遍历所有数据-->
-<!--                    layui.jquery.each(data.data, function (key, val) {-->
-<!--                        if (val.patientId === patientId) {-->
-<!--                            console.log(val.patientId);-->
-<!--                            // 展示患者编号-->
-<!--                            lay("#patientId").val(patientId);-->
-<!--                            // 展示患者手机号-->
-<!--                            lay("#pPhone").val(val.pPhone);-->
-<!--                            // 展示患者身份证号-->
-<!--                            lay("#pIdentificationNum").val(val.pIdentificationNum);-->
-<!--                            // 展示患者年龄-->
-<!--                            lay("#pAge").val(val.pAge);-->
-<!--                            // 展示患者性别-->
-<!--                            if (val.pGender === "M") {-->
-<!--                                $("input[name=sex][value='男']").prop({"checked": true, "disabled": true});-->
-<!--                                $("input[name=sex][value='女']").prop("disabled", true);-->
-<!--                            } else {-->
-<!--                                $("input[name=sex][value='女']").prop({"checked": true, "disabled": true});-->
-<!--                                $("input[name=sex][value='男']").prop("disabled", true);-->
-<!--                            }-->
-<!--                            form.render("radio");-->
-<!--                        }-->
-
-<!--                    });-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-
-<!--</script>-->
-
-
 </body>
 </html>

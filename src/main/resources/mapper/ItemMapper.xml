@@ -30,6 +30,6 @@
     <select id="selectitemsbyPid" resultType="com.hospital.entity.Item" >
         SELECT *
         FROM item
-        WHERE havePay = 1  AND itemHaveDone=0 AND pIdentificationNum=#{pIdentificationNum};
+        WHERE havePay = 1  AND itemHaveDone=0 AND patientId=#{patientId};
     </select>
 </mapper>

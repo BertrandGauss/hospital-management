@@ -17,9 +17,9 @@ public interface RecordMapper {
 
     List<Record> selectmedGet();
 
-    List<Record> selectmedbypIdentificationNum(String pIdentificationNum);
+    List<Record> selectmedbypIdentificationNum(Integer patientId);
 
-    List<Record> selectnotmedbypIdentificationNum(String pIdentificationNum);
+    List<Record> selectnotmedbypIdentificationNum(Integer patientId);
 
     List<Integer> selectById(Integer patientId);
 

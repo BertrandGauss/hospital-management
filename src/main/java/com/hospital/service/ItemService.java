@@ -48,7 +48,8 @@ public class ItemService {
 
     //显示所有已缴费的检查
     public List<Recipe> searchitem(String pIdentificationNum){
-        List<Item> items = itemMapper.selectitemsbyPid(pIdentificationNum);
+        Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
+        List<Item> items = itemMapper.selectitemsbyPid(patientId);
         List<Recipe> recipes = new LinkedList<>();
         Recipe recipe = new Recipe();
         for(int i=0; i<items.size(); i++){

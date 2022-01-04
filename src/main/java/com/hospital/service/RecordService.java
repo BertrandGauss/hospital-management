@@ -95,7 +95,8 @@ public class RecordService {
 
     //显示固定患者已缴费的处方
     public List<Recipe> searchrecord(String pIdentificationNum){
-        List<Record> records = recordMapper.selectmedbypIdentificationNum(pIdentificationNum);
+        Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
+        List<Record> records = recordMapper.selectmedbypIdentificationNum(patientId);
         List<Recipe> recipes = new LinkedList<>();
         Recipe recipe = new Recipe();
         for(int i=0; i<records.size(); i++){
@@ -171,7 +172,8 @@ public class RecordService {
 
     //显示固定患者可退药的处方
     public List<Recipe> searchreturnrecord(String pIdentificationNum){
-        List<Record> records = recordMapper.selectnotmedbypIdentificationNum(pIdentificationNum);
+        Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
+        List<Record> records = recordMapper.selectnotmedbypIdentificationNum(patientId);
         List<Recipe> recipes = new LinkedList<>();
         Recipe recipe = new Recipe();
         for(int i=0; i<records.size(); i++){
