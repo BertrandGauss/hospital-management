@@ -27,7 +27,7 @@
         <legend>病人基本信息</legend>
     </fieldset>
 
-    <form class="layui-form" action="">
+    <form class="layui-form" action="" lay-filter="patient_infor">
         <div class="layui-form-item">
             <!--姓名-->
             <div class="layui-inline">
@@ -313,52 +313,89 @@
 
 </script>
 
-<!--实现级联更新各种文本框-->
 <script>
-    layui.use(['util', 'jquery', 'layer', 'form'], function () {
-        var $ = layui.$,
-            layer = layui.layer,
-            form = layui.form;
-        // 其中selectUsername是select的 lay-filter属性值
-        form.on('select(selectUsername)', function (data) {
-            var patientId = data.value;    // 获得选中患者id
-            // 接下来从获取数据中按照患者id获取其他相关信息
-            layui.jquery.ajax({
-                type: 'POST',
-                url: './data_for_select.json',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    // 遍历所有数据
-                    layui.jquery.each(data.data, function (key, val) {
-                        if (val.patientId === patientId) {
-                            console.log(val.patientId);
-                            // 展示患者编号
-                            lay("#patientId").val(patientId);
-                            // 展示患者手机号
-                            lay("#pPhone").val(val.pPhone);
-                            // 展示患者身份证号
-                            lay("#pIdentificationNum").val(val.pIdentificationNum);
-                            // 展示患者年龄
-                            lay("#pAge").val(val.pAge);
-                            // 展示患者性别
-                            if (val.pGender === "M") {
-                                $("input[name=sex][value='男']").prop({"checked": true, "disabled": true});
-                                $("input[name=sex][value='女']").prop("disabled", true);
-                            } else {
-                                $("input[name=sex][value='女']").prop({"checked": true, "disabled": true});
-                                $("input[name=sex][value='男']").prop("disabled", true);
-                            }
-                            form.render("radio");
-                        }
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        //监听提交
+        $.ajax({//表单提交
+            type: "GET",   //提交的方法
+            url:"http://localhost:8082/history/showpatientinfo",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType:"json",
+            contentType: "application/json",
+            async: false,
+            error: function(request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function(data) {
+                console.log(data.data)
+                form.val("patient_infor", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "pName": data.data.pName,
+                    "pPhone":data.data.pPhone,
+                    "pIdentificationNum":data.data.pIdentificationNum,
+                    "pAge":data.data.pAge,
+                    "patientId":data.data.patientId,
+                    "pGender":data.data.pGender,
+                    "pAddress":data.data.pAddress
+                });
+            }
 
-                    });
-                }
-            });
-        });
+        })
     });
-
 </script>
+
+
+<!--实现级联更新各种文本框-->
+<!--<script>-->
+<!--    layui.use(['util', 'jquery', 'layer', 'form'], function () {-->
+<!--        var $ = layui.$,-->
+<!--            layer = layui.layer,-->
+<!--            form = layui.form;-->
+<!--        // 其中selectUsername是select的 lay-filter属性值-->
+<!--        form.on('select(selectUsername)', function (data) {-->
+<!--            var patientId = data.value;    // 获得选中患者id-->
+<!--            // 接下来从获取数据中按照患者id获取其他相关信息-->
+<!--            layui.jquery.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: './data_for_select.json',-->
+<!--                dataType: 'json',-->
+<!--                success: function (data) {-->
+<!--                    console.log(data);-->
+<!--                    // 遍历所有数据-->
+<!--                    layui.jquery.each(data.data, function (key, val) {-->
+<!--                        if (val.patientId === patientId) {-->
+<!--                            console.log(val.patientId);-->
+<!--                            // 展示患者编号-->
+<!--                            lay("#patientId").val(patientId);-->
+<!--                            // 展示患者手机号-->
+<!--                            lay("#pPhone").val(val.pPhone);-->
+<!--                            // 展示患者身份证号-->
+<!--                            lay("#pIdentificationNum").val(val.pIdentificationNum);-->
+<!--                            // 展示患者年龄-->
+<!--                            lay("#pAge").val(val.pAge);-->
+<!--                            // 展示患者性别-->
+<!--                            if (val.pGender === "M") {-->
+<!--                                $("input[name=sex][value='男']").prop({"checked": true, "disabled": true});-->
+<!--                                $("input[name=sex][value='女']").prop("disabled", true);-->
+<!--                            } else {-->
+<!--                                $("input[name=sex][value='女']").prop({"checked": true, "disabled": true});-->
+<!--                                $("input[name=sex][value='男']").prop("disabled", true);-->
+<!--                            }-->
+<!--                            form.render("radio");-->
+<!--                        }-->
+
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
 
 
 </body>
