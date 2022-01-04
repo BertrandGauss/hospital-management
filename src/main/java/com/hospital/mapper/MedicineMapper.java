@@ -4,4 +4,6 @@ public interface MedicineMapper {
     Integer selectNumByName(String medName);
 
     void updateRemains(Integer dosage);
+
+    void returnRemains(Integer dosage);
 }

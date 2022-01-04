@@ -89,4 +89,36 @@ public class RecordController {
         json.put("count",records.size());
         return json;
     }
+
+    // 对患者已缴费的药品确认进行完成退药
+    @RequestMapping(value = "/setRecordsnothavedone",method = {RequestMethod.POST})
+    private JSONObject setRecordsnothavedone(@RequestBody SomeRecipe someRecipe){
+        recordService.setRecordsnotHaveDone(someRecipe);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","批量退药确认完成");
+        return json;
+    }
+
+    //对患者某个药品进行确认退药
+    @RequestMapping(value = "/setRecordnothavedone",method = {RequestMethod.POST})
+    private JSONObject setRecordnothavedone(@RequestParam("recipeName") String recipeName, @RequestParam("pIdentificationNum")String pIdentificationNum){
+        recordService.setRecordnotHaveDone(recipeName,pIdentificationNum);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","退药确认完成");
+        return json;
+    }
+
+    //查找某一患者已给出的药品
+    @RequestMapping(value = "/searchreturnrecord",method = {RequestMethod.POST})
+    private JSONObject searchreturnrecord(@RequestParam("pIdentificationNum")String pIdentificationNum){
+        List<Recipe> records =recordService.searchreturnrecord(pIdentificationNum);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","查找患者可以退药药品完成");
+        json.put("data",records);
+        json.put("count",records.size());
+        return json;
+    }
 }

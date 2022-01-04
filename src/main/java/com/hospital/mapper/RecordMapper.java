@@ -11,13 +11,19 @@ public interface RecordMapper {
 
     void setMedHaveDone(@Param("patientId") Integer patientId, @Param("medName") String medName );
 
+    void setMednotHaveDone(@Param("patientId") Integer patientId, @Param("medName") String medName );
+
     List<Record> selectmed();
 
     List<Record> selectmedGet();
 
     List<Record> selectmedbypIdentificationNum(String pIdentificationNum);
 
+    List<Record> selectnotmedbypIdentificationNum(String pIdentificationNum);
+
     List<Integer> selectById(Integer patientId);
 
     Date getRdate(@Param("patientId") Integer patientId, @Param("medName") String medName );
+
+    Record getRecord(@Param("patientId") Integer patientId, @Param("medName") String medName );
 }
