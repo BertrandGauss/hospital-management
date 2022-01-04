@@ -50,7 +50,7 @@
             </button>
         </form>
     </div>
-    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/food/showallfood', page:true, id:'allfood'}" lay-filter="allfood">
+    <table class="layui-table"  lay-data="{ url:'http://localhost:8081/', page:true, id:'allfood'}" lay-filter="allfood">
         <thead>
         <tr>
             <!--<th>-->
@@ -158,33 +158,7 @@
 
 
     });
-    function deleteSome() {
-        console.log(dates)
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteSomeFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                data: JSON.stringify({
-                    "dates":dates
-                }),
-                contentType: "application/json",
-                async: true,
 
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
 </script>
 
 
