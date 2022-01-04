@@ -6,6 +6,7 @@ import java.util.Date;
 //处方，包括检查和药品,用来接收前端开的药品，和方便缴费退费显示,缴费页面显示的处方单就是这样的
 public class Recipe {
     private Integer patientId;      //患者ID
+    private String pIdentificationNum; //患者的身份证号
     private String Type;           //类别
     private String recipeName;   // 检查或药品的名字
     private Double price;        // 金额
@@ -20,6 +21,14 @@ public class Recipe {
 
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
+    }
+
+    public void setpIdentificationNum(String pIdentificationNum) {
+        this.pIdentificationNum = pIdentificationNum;
+    }
+
+    public String getpIdentificationNum() {
+        return pIdentificationNum;
     }
 
     public String getType() {
