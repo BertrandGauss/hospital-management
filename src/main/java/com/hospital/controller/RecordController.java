@@ -93,6 +93,7 @@ public class RecordController {
     // 对患者已缴费的药品确认进行完成退药
     @RequestMapping(value = "/setRecordsnothavedone",method = {RequestMethod.POST})
     private JSONObject setRecordsnothavedone(@RequestBody SomeRecipe someRecipe){
+        System.out.println("hhh"+someRecipe.getRecipeName().get(0));
         recordService.setRecordsnotHaveDone(someRecipe);
         JSONObject json = new JSONObject();
         json.put("code",0);
@@ -113,6 +114,7 @@ public class RecordController {
     //查找某一患者已给出的药品
     @RequestMapping(value = "/searchreturnrecord",method = {RequestMethod.POST})
     private JSONObject searchreturnrecord(@RequestParam("pIdentificationNum")String pIdentificationNum){
+        System.out.println("开始退药");
         List<Recipe> records =recordService.searchreturnrecord(pIdentificationNum);
         JSONObject json = new JSONObject();
         json.put("code",0);

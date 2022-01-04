@@ -11,7 +11,7 @@ public class Recipe {
     private String recipeName;   // 检查或药品的名字
     private Double price;        // 金额
     private String dName;        // 医生名字
-    private Date rdate;          // 开单时间
+    private Date oDate;          // 开单时间
     private String state;        // 当前状态
     private Integer dosage;      // 用量
 
@@ -60,11 +60,11 @@ public class Recipe {
     }
 
     public Date getRdate() {
-        return rdate;
+        return oDate;
     }
 
-    public void setRdate(Date rdate) {
-        this.rdate = rdate;
+    public void setRdate(Date oDate) {
+        this.oDate = oDate;
     }
 
     public void setdName(String dName) {

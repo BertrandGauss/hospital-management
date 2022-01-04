@@ -63,15 +63,37 @@ layui.use(['laydate', 'jquery', 'admin'], function() {
 		});
 	}
 
-	window.delAll = function (argument) {
-		var data = tableCheck.getData();
-		layer.confirm('确认要删除吗？' , function(index) {
-			//捉到所有被选中的，发异步进行删除
-			layer.msg('删除成功', {
-				icon: 1
-			});
-			$(".layui-form-checked").not('.header').parents('tr').remove();
-		});
-	}
-	
+
+    window.delrAll = function (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要发药吗？' , function(index) {
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('发药成功', {
+                icon: 1
+            });
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+
+    window.deliAll = function (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认完成了检查吗？' , function(index) {
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('确认成功', {
+                icon: 1
+            });
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+
+    window.deltAll = function (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认药品无误吗？' , function(index) {
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('确认成功', {
+                icon: 1
+            });
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
 });

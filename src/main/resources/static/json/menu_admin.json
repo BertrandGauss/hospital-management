@@ -35,7 +35,7 @@
       "id": 28,
       "name": "退药审核",
       "icon": "&#xe705;",
-      "url": "../../templates/admin/RefundinspectVerification.html"
+      "url": "../../templates/admin/RefundmedicineVerification.html"
 
     }
   ]

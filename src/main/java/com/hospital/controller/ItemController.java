@@ -88,7 +88,7 @@ public class ItemController {
 
     //对患者某个检查进行确认
     @RequestMapping(value = "/setItemhavedone",method = {RequestMethod.POST})
-    private JSONObject setItemhavedone(@RequestParam("recipeName") String recipeName, @RequestParam("medName")String pIdentificationNum){
+    private JSONObject setItemhavedone(@RequestParam("recipeName") String recipeName, @RequestParam("pIdentificationNum")String pIdentificationNum){
         itemService.setItemHaveDone(recipeName,pIdentificationNum);
         JSONObject json = new JSONObject();
         json.put("code",0);

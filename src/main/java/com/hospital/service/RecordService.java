@@ -55,8 +55,8 @@ public class RecordService {
     public List<Recipe> showAllRecord(){
         List<Record> records = recordMapper.selectmed();
         List<Recipe> recipes = new LinkedList<>();
-        Recipe recipe = new Recipe();
         for(int i=0; i<records.size(); i++){
+            Recipe recipe = new Recipe();
             String pIdentificationNum = patientMapper.selectbyid(records.get(i).getPatientId()).getpIdentificationNum();
             Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
             recipe.setdName(doctor.getdName());
@@ -76,8 +76,8 @@ public class RecordService {
     public List<Recipe> showAllGETRecord(){
         List<Record> records = recordMapper.selectmedGet();
         List<Recipe> recipes = new LinkedList<>();
-        Recipe recipe = new Recipe();
         for(int i=0; i<records.size(); i++){
+            Recipe recipe = new Recipe();
             String pIdentificationNum = patientMapper.selectbyid(records.get(i).getPatientId()).getpIdentificationNum();
             Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
             recipe.setdName(doctor.getdName());
@@ -99,8 +99,10 @@ public class RecordService {
         List<Recipe> recipes = new LinkedList<>();
         Recipe recipe = new Recipe();
         for(int i=0; i<records.size(); i++){
+
             Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
             recipe.setdName(doctor.getdName());
+
             recipe.setRecipeName(records.get(i).getMedName());
             recipe.setPrice(records.get(i).getMedPrice());
             recipe.setDosage(records.get(i).getDosage());

@@ -27,13 +27,13 @@
         WHERE havePay = 1 AND  medHaveDone=0;
     </select>
 
-    <select id="selectmedGET" resultType="com.hospital.entity.Record" >
+    <select id="selectmedGet" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
         WHERE havePay = 1 AND  medHaveDone=1;
     </select>
 
-    <select id="getRdate" >
+    <select id="getRdate"  resultType="java.sql.Date">
         SELECT recordDate
         FROM record
         WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
@@ -57,7 +57,7 @@
         WHERE havePay = 1 AND  medHaveDone=1 AND pIdentificationNum=#{pIdentificationNum};
     </select>
 
-    <select id="getRecord" >
+    <select id="getRecord" resultType="com.hospital.entity.Record">
         SELECT *
         FROM record
         WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
