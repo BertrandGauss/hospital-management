@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>健康管理系统</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" href="../../static/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/weadmin.css">
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+<!--    <script type="text/javascript" src="../../lib/layui-layer-v3.5.1/layer/layer.js"></script>-->
+</head>
+
+<body>
+
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo">
+        <a>Health Care</a>
+    </div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="layui-icon layui-icon-shrink-right"></i>
+    </div>
+
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;" th:text="1222">
+                <img src="../../static/images/toux.jpg" class="layui-nav-img">
+
+                <!--姓名展示-->
+                <cite class="cite-user-name"></cite>
+
+                <!--<label ></label>-->
+            </a>
+            <dl class="layui-nav-child">
+                <!-- 二级菜单 -->
+                <dd>
+                    <a onclick="setting()">个人信息</a>
+                </dd>
+                <dd>
+                    <a onclick="updatepassword()">修改密码</a>
+                </dd>
+                <dd>
+                    <a onclick="WeAdminShow('切换帐号','./login.html')">切换帐号</a>
+                </dd>
+                <dd>
+                    <a class="loginout" href="../login.html">退出</a>
+                </dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item to-index">
+            <a href="doctor_index.html" target="_blank">前台首页</a>
+        </li>
+    </ul>
+
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav"></div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<!-- 左侧菜单结束 -->
+<!-- 右侧主体开始 -->
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+        <ul class="layui-tab-title" id="tabName">
+            <li>我的主页</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='doctor_middle_index.html' frameborder="0" scrolling="yes" class="weIframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 右侧主体结束 -->
+<!-- 中部结束 -->
+<!-- 底部开始 -->
+<div class="footer">
+    <div class="copyright">Copyright ©2022 Hospital Care v1.0 All Rights Reserved</div>
+</div>
+<!-- 底部结束 -->
+<script type="text/javascript">
+    layui.config({
+        base: '../../static/js/'
+        , version: '101100'
+    }).extend({ //设定模块别名
+        admin: 'admin'
+        , menu: 'menu'
+    });
+    layui.use(['jquery', 'admin', 'menu'], function () {
+        var $ = layui.jquery,
+            admin = layui.admin,
+            menu = layui.menu;
+
+        // 本来要加load动画，不知道为什么没有效果，加载动效出不来
+        // $.ajaxSetup({
+        //     beforeSend: function () {
+        //         layui.use('layer', function () {
+        //             layui.layer.load();
+        //             //此处演示关闭
+        //             setTimeout(function(){
+        //                 layui.layer.closeAll('loading');
+        //             }, 3000);
+        //             // $(".layui-layer-shade").css('background', '#000000')
+        //             // $(".layui-layer-shade").css('opacity', '0.2')
+        //         });
+        //     },
+        // });
+
+
+        // 加载左侧菜单栏
+        $(function () {
+            menu.getMenu('../../static/json/menu_doctor.json');
+
+        });
+
+        //显示姓名
+        function init() {
+            $.ajax({
+                type: "GET",   //提交的方法
+                url: "http://localhost:8082/doctor/showdoctorinfo",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType: "application/json",
+                async: false,
+                // error: function(request) {  //失败的话
+                //     alert("Connection error");
+                // },
+                success: function (data) {
+                    console.log(data);
+
+                    if (data.code === 0) {
+                        $('.cite-user-name').text(data.data.dUsername);
+                    }
+                    // else{
+                    // 	alert(data.msg)
+                    // }
+                }
+            })
+
+        }
+
+        init();
+    });
+
+    // 修改个人信息
+    function setting() {
+        WeAdminShow('', '../setting.html', 450, 250);
+
+    }
+
+    // 修改密码
+    function updatepassword() {
+        WeAdminShow('', '../updatepassword.html', 450, 250);
+    }
+</script>
+
+<!--Tab菜单右键弹出菜单-->
+<ul class="rightMenu" id="rightMenu">
+    <li data-type="fresh">刷新</li>
+    <li data-type="current">关闭当前</li>
+    <li data-type="other">关闭其它</li>
+    <li data-type="all">关闭所有</li>
+</ul>
+</body>
+
+
+</html>
