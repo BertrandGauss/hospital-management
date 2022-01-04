@@ -25,40 +25,50 @@
         <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
     </a>
 </div>
-
 <div class="weadmin-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 we-search">
-            信息搜索：
+            已发药品信息搜索：
             <div class="layui-inline">
-                <input class="layui-input" placeholder="身份证" name="pIdentificationNum" id="pIdentificationNum"  />
+                <input class="layui-input" placeholder="患者身份证" name="pIdentificationNum" id="pIdentificationNum"  />
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>
             </button>
         </form>
     </div>
-</div>
-<table class="layui-hide" id="test" lay-filter="test"></table>
-<!--
-<script type="text/html" id="test-dropdown-toolbar-barDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs" lay-event="more">更多 <i class="layui-icon layui-icon-down"></i></a>
-</script>
-
-
-<script src="../../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>-->
-<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
-
-<script type="text/html" id="toolbarDemo">
-    <!--   script将点击事件与控件绑定起来-->
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" onclick="checkSome()">批量审核</button>
+    <div class="weadmin-block" id="topline" name=""topline>
+        <button class="layui-btn layui-icon-add-circle-fine" onclick="checkSome()">
+            <i class="layui-icon layui-icon-delete"></i>批量审核
+        </button>
     </div>
-</script>
+    <table class="layui-table"  lay-data="{ url:'http://localhost:8082/record/showGetRecord', page:true, id:'allRecord'}" lay-filter="allRecord">
+        <thead>
+        <tr>
+            <!--<th>-->
+            <!--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">-->
+            <!--<i class="layui-icon">&#xe605;</i>-->
+            <!--</div>-->
+            <!--</th>-->
+            <th lay-data="{type:'checkbox', }"></th>
+            <th lay-data="{field:'patientId'}">患者ID</th>
+            <!--<th lay-data="{field:'date', sort: true , templet: '#titleTpl'}">提交时间</th>-->
+            <th lay-data="{field:'pIdentificationNum'}">患者身份证</th>
+            <th lay-data="{field:'recipeName'}">药品名称</th>
+            <th lay-data="{field:'dosage'}">药品名称</th>
+            <th lay-data="{field:'price'}">药品单价</th>
+            <th lay-data="{field:'rdate'}">开单时间</th>
+            <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
+</div>
+<script src="../../lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="send">确认退药</a>
+    <a title="确认检查" lay-event="send"  class="layui-btn layui-btn-xs" ><i class="layui-icon">确认检查</i></a>
 </script>
 
 
@@ -69,26 +79,9 @@
     layui.use('table', function(){
         var table = layui.table;
 
-        table.render({
-            elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:8082/record/showRecord'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
-            , toolbar: '#toolbarDemo'
-            , title: '配药表'
-            , totalRow: true
-            , cols: [[
-                {type: 'checkbox', fixed: 'left'}   // 复选框
-                , {field: 'patientId', title: '患者ID', width: 150, fixed: 'left', unresize: true, sort: true}
-                , {field: 'pIdentificationNum', title: '患者身份证号', width: 300}
-                , {field: 'recipeName', title: '药品名称', width: 200,edit: 'text' }
-                , {field: 'price', title: '药品单价', width: 150}
-                , {field: 'dosage', title: '用量', width: 150}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-            ]]
-            , page: true
-        });
         //监听工具条
         //监听工具条，修改表格内容，在表格内，跟lay-filter绑定
-        table.on('tool(test)', function (obj) {
+        table.on('tool(allRecord)', function (obj) {
             var data = obj.data;
             var json={
                 "recipeName":data.recipeName,
@@ -96,10 +89,10 @@
             }
             console.log(json)
             if (obj.event === 'send') {
-                layer.confirm('确定发药吗', function (index) {
+                layer.confirm('确定退药吗', function (index) {
                     $.ajax({
                         type: "POST",   //提交的方法
-                        url: "http://localhost:8082/record/setRecordhavedone",
+                        url: "http://localhost:8082/record/setRecordnothavedone",
                         xhrFields: {
                             withCredentials: true,
                         },
@@ -111,7 +104,7 @@
                                 layer.close(index);
                                 layui.table.reload("test",{page:{curr:1}});
                             }else{
-                                layer.msg("发药错误", {
+                                layer.msg("退药错误", {
                                     icon: 5
                                 });
                             }
@@ -133,7 +126,7 @@
         var table = layui.table;
         var recipeNames = [];
         var pIdentificationNums = []
-        table.on('checkbox(test)', function (obj) {
+        table.on('checkbox(allRecord)', function (obj) {
             console.log(obj.data)
             var flag = 0;
             for (let i = 0; i < recipeNames.length; i++) {
@@ -158,7 +151,7 @@
             var $ = layui.jquery;
             $.ajax({
                 type: "POST",   //提交的方法
-                url: "http://localhost:8082/record/setRecordshavedone",
+                url: "http://localhost:8082/record/setRecordsnothavedone",
                 xhrFields: {
                     withCredentials: true,
                 },
@@ -187,8 +180,8 @@
             table = layui.table;
         form.on('submit(search)',function (data){ (
 
-            layui.table.reload('test', {
-                url:"http://localhost:8082/record/searchrecord",
+            layui.table.reload('allItem', {
+                url:"http://localhost:8082/record/searchreturnrecord",
                 method: 'POST',
                 contentType:'application/x-www-form-urlencoded'
                 , where: {

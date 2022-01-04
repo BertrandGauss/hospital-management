@@ -15,6 +15,12 @@
         WHERE patientId = #{patientId} AND medName=#{medName};
     </update>
 
+    <update id="setMednotHaveDone" >
+        UPDATE record
+        SET medHaveDone=0
+        WHERE patientId = #{patientId} AND medName=#{medName};
+    </update>
+
     <select id="selectmed" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
@@ -43,5 +49,17 @@
         SELECT *
         FROM record
         WHERE havePay = 1 AND  medHaveDone=0 AND pIdentificationNum=#{pIdentificationNum};
+    </select>
+
+    <select id="selectnotmedbypIdentificationNum" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND  medHaveDone=1 AND pIdentificationNum=#{pIdentificationNum};
+    </select>
+
+    <select id="getRecord" >
+        SELECT *
+        FROM record
+        WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
     </select>
 </mapper>

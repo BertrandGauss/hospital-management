@@ -93,7 +93,7 @@ public class RecordService {
         return recipes;
     }
 
-    //显示所有已缴费的处方
+    //显示固定患者已缴费的处方
     public List<Recipe> searchrecord(String pIdentificationNum){
         List<Record> records = recordMapper.selectmedbypIdentificationNum(pIdentificationNum);
         List<Recipe> recipes = new LinkedList<>();
@@ -142,5 +142,48 @@ public class RecordService {
                 return  0;
         }
         return 1;
+    }
+
+    //批量退药审核
+    public void setRecordsnotHaveDone(SomeRecipe someRecipe) {
+        List<String> Names = someRecipe.getRecipeName();
+        List<String> pIdentificationNums = someRecipe.getpIdentificationNum();
+        for (int i=0;i<Names.size();i++){
+            Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNums.get(i));
+            recordMapper.setMednotHaveDone(patientId,Names.get(i));
+            traceMapper.updateTrace(patientId,3);
+            Integer doages = recordMapper.getRecord(patientId,Names.get(i)).getDosage();
+            medicineMapper.returnRemains(doages);
+
+        }
+    }
+
+    //设置某项配药已配
+    public void setRecordnotHaveDone(String recordname, String pIdentificationNum) {
+        Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
+        recordMapper.setMednotHaveDone(patientId,recordname);
+        traceMapper.updateTrace(patientId,3);
+        Integer doages = recordMapper.getRecord(patientId,recordname).getDosage();
+        medicineMapper.returnRemains(doages);
+    }
+
+    //显示固定患者可退药的处方
+    public List<Recipe> searchreturnrecord(String pIdentificationNum){
+        List<Record> records = recordMapper.selectnotmedbypIdentificationNum(pIdentificationNum);
+        List<Recipe> recipes = new LinkedList<>();
+        Recipe recipe = new Recipe();
+        for(int i=0; i<records.size(); i++){
+            Doctor doctor = doctorMapper.selectbyid(records.get(i).getDoctorId());
+            recipe.setdName(doctor.getdName());
+            recipe.setRecipeName(records.get(i).getMedName());
+            recipe.setPrice(records.get(i).getMedPrice());
+            recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
+            recipe.setpIdentificationNum(pIdentificationNum);
+            recipe.setState("等待退费");
+            recipes.add(recipe);
+        }
+        return recipes;
     }
 }
