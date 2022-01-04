@@ -11,7 +11,7 @@
       "id": 8,
       "name": "线下挂号",
       "icon": "&#xe705;",
-      "url": "../../templates/admin/registerVerification.html"
+      "url": "../../templates/admin/register_index.html"
     },
     {
       "id": 11,
