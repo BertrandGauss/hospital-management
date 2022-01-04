@@ -47,56 +47,21 @@
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md6">
                         <div class="layui-card">
-                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>待办事项</div>
+                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>日历</div>
                             <div class="layui-card-body">
                                 <div class="welcome-module">
                                     <div class="layui-row layui-col-space10">
-                                        <fieldset class="layui-elem-field">
-                                            <legend style="font-size:1em; font-weight: bold">紧急事项</legend>
-                                            <div class="layui-field-box">
-                                                2022年1月2日-6日将进行系统升级维护，届时带来的不便敬请谅解！
+
+                                            <div class="site-demo-laydate">
+                                                <div class="layui-inline" id="test-n1"></div>
                                             </div>
-                                        </fieldset>
                                     </div>
-                                    <div class="layui-row layui-col-space10">
-                                        <fieldset class="layui-elem-field">
-                                            <legend style="font-size:1em; font-weight: bold">普通事项</legend>
-                                            <div class="layui-field-box">
-                                                ①注意核对信息
-                                                <br>
-                                                ②注意时间冲突
-                                            </div>
-                                        </fieldset>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md6">
-                        <div class="layui-card">
-                            <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
-                            <div class="layui-card-body">
-                                <div class="welcome-module">
-                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
-                                        <div class="layui-col-xs3 layuimini-qiuck-module">
-                                            <a href="./member/list.html" data-title="安排事宜" data-icon="layui-icon-user">
-                                                <i class="layui-icon">&#xe770;</i>
-                                                <cite>安排事宜</cite>
-                                            </a>
-                                        </div>
-                                        <div class="layui-col-xs3 layuimini-qiuck-module">
-                                            <a href="./food/list.html" data-title="通知发放" data-icon="layui-icon-tabs">
-                                                <i class="layui-icon">&#xe62a;</i>
-                                                <cite>通知发放</cite>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="layui-col-md12">
                         <div class="layui-card">
                             <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>意见反馈</div>
                             <div class="layui-card-body">
@@ -106,7 +71,33 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
+                            <div class="layui-card-body">
+                                <div class="welcome-module">
+                                    <div class="layui-row layui-col-space10 layuimini-qiuck">
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="registerVeri/registerVerification.html" data-title="安排事宜" data-icon="layui-icon-user">
+                                                <i class="layui-icon">&#xe770;</i>
+                                                <cite>挂号</cite>
+                                            </a>
+                                        </div>
+                                        <div class="layui-col-xs3 layuimini-qiuck-module">
+                                            <a href="MedicineVeri/MedicineVerification.html" data-title="通知发放" data-icon="layui-icon-tabs">
+                                                <i class="layui-icon">&#xe62a;</i>
+                                                <cite>配药审核</cite>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -176,7 +167,21 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../static/layui/layui.js" charset="utf-8"></script>
 <!--<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>-->
+
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //直接嵌套显示
+        laydate.render({
+            elem: '#test-n1'
+            ,position: 'static'
+        });
+
+    });
+</script>
+
 </body>
 </html>

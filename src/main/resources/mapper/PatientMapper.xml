@@ -29,7 +29,7 @@
 
     <update id="update" parameterType="com.hospital.entity.Patient">
         UPDATE patient
-        SET pUsername=#{pUsername} , pName = #{pName}, pAge = #{pAge} , pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
+        SET pUsername=#{pUsername} , pName = #{pName}, pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
         WHERE patientId=#{patientId}
     </update>
 
