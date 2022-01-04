@@ -42,6 +42,7 @@ public class OrderController {
         json.put("code",0);
         json.put("data",orders);
         json.put("msg","返回预约信息成功");
+        json.put("count",orders.size());
         return json;
     }
 
@@ -49,8 +50,7 @@ public class OrderController {
     @RequestMapping(value = "/cancleorder",method = {RequestMethod.POST})
     private JSONObject cancleOrder(@RequestBody Order order){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
-        order.setPatientId(id);
-        JSONObject json = orderService.cancleOrder(order.getPatientId(), order.getOrderId());
+        JSONObject json = orderService.cancleOrder(id, order.getOrderId());
         return json;
     }
 
@@ -63,6 +63,7 @@ public class OrderController {
         json.put("code",0);
         json.put("msg","查询预约记录成功");
         json.put("data",orders);
+        json.put("count",orders.size());
         return json;
     }
 }

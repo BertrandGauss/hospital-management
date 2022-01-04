@@ -26,15 +26,10 @@
 		},
 		{
 			"id": 5,
-			"name": "缴费",
+			"name": "缴费退费",
 			"icon": "&#xe723;",
-			"url": "../../templates/patient/patient_jiaofei.html",
-			"children": [{
-				"id": 6,
-				"name": "退费",
-				"icon": "",
-				"url": "../../templates/patient/patient_tuifei.html"
-			}]
+			"url": "../../templates/patient/patient_jiaofei.html"
+
 		}
 	]
 

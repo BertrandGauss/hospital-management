@@ -100,8 +100,16 @@ public class OrderService {
     public void checkOrder(){
         Date today = new Date();
         System.out.println("today"+today);
-        Time time =Time.valueOf(LocalTime.now());
-
+        Time time =Time.valueOf(LocalTime.now().plusHours(-1));
+        List<Integer> pIds= orderMapper.checkOrder();
+        for(int i=0;i<pIds.size();i++){
+            //过时算取消预约
+            patientMapper.updateorderTimes(pIds.get(i));
+            if(patientMapper.showcancleorder(pIds.get(i))>=20){//取消次数大于上限
+                patientMapper.updateBlacklist(pIds.get(i));//把患者拉入黑名单
+            }
+        }
         orderMapper.updateisValid(today, time);
+
     }
 }

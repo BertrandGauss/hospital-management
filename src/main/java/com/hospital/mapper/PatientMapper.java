@@ -29,4 +29,5 @@ public interface PatientMapper {
 
     void  updateBlacklist(Integer patientId);
 
+
 }

@@ -46,4 +46,16 @@
     <select id="selectBlacklist" resultType="java.lang.Integer" >
         SELECT isInBlacklist FROM patient WHERE patientId = #{patientId}
     </select>
+
+    <update id="updateorderTimes" parameterType="java.lang.Integer">
+        UPDATE patient
+        SET orderTimes=orderTimes+1
+        WHERE patientId=#{patientId}
+    </update>
+
+    <update id="updateBlacklist" parameterType="java.lang.Integer">
+        UPDATE patient
+        SET isInBlacklist=1
+        WHERE patientId=#{patientId}
+    </update>
 </mapper>

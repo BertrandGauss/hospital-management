@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.mapper.RecordMapper">
-    <insert id="addT" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">
+    <insert id="add" parameterType="com.hospital.mapper.RecordMapper" useGeneratedKeys="true" keyProperty="recipeId">
         INSERT INTO record (medName,doctorId, patientId, dosage, units, frequency,
-        days, `usage`, medPrice)
+        days, `usage`, medPrice,recordDate)
         VALUES (#{medName},#{doctorId},#{patientId}, #{dosage}, #{units}, #{frequency},
-        #{days}, #{usage}, #{medPrice});
+        #{days}, #{usage}, #{medPrice},#{recordDate});
     </insert>
 
     <update id="setMedHaveDone" >
@@ -19,6 +19,12 @@
         SELECT *
         FROM record
         WHERE havePay = 1 AND  medHaveDone=0;
+    </select>
+
+    <select id="getRdate" >
+        SELECT recordDate
+        FROM record
+        WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
     </select>
 
 </mapper>

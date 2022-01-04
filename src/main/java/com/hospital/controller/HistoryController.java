@@ -22,7 +22,7 @@ public class HistoryController {
     // 初始化病历
     @RequestMapping(value = "/originatecasehis",method = {RequestMethod.GET})
     private JSONObject originateCaseHis(){
-        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("USER");
         String dept = historyService.showdepartmentofhis(id);
         JSONObject json = new JSONObject();
         json.put("data", dept);
@@ -35,6 +35,20 @@ public class HistoryController {
     @RequestMapping(value = "/getpatientinfobypid",method = {RequestMethod.POST})
     private JSONObject getPatientInfoByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
         Patient patientinfo = historyService.originatebypid(pIdentificationNum);
+        //把患者Id保存在session中
+        this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
+        JSONObject json = new JSONObject();
+        json.put("data", patientinfo);
+        json.put("code",0);
+        json.put("msg","成功获取病历中患者相关信息");
+        return json;
+    }
+
+    @RequestMapping(value = "/showpatientinfo",method = {RequestMethod.GET})
+    private JSONObject showPatientInfo(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("USER");
+        System.out.println(id);
+        Patient patientinfo = historyService.showpatientInfo(id);
         //把患者Id保存在session中
         this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
         JSONObject json = new JSONObject();

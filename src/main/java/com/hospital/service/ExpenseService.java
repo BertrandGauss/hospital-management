@@ -6,18 +6,17 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.hospital.config.AlipayConfig;
-import com.hospital.entity.Item;
-import com.hospital.entity.Medicine;
-import com.hospital.entity.Recipe;
-import com.hospital.entity.Record;
-import com.hospital.mapper.ExpenseMapper;
-import com.hospital.mapper.HistoryMapper;
-import com.hospital.mapper.TraceMapper;
+import com.hospital.entity.*;
+import com.hospital.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -26,6 +25,12 @@ public class ExpenseService {
     private ExpenseMapper expenseMapper;
     @Resource
     private TraceMapper traceMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
+    @Resource
+    private RecordMapper recordMapper;
+    @Resource
+    private ItemMapper itemMapper;
 
     public Double countExpense(Integer patientId){
         List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
@@ -44,23 +49,47 @@ public class ExpenseService {
     public List<Recipe> showallPay(Integer patientId){
         List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
         List<Record> med = expenseMapper.selectmebypatientId(patientId);
-        List<Recipe> recipes = null;
+        List<Recipe> recipes = new LinkedList<>();
+        System.out.println(patientId);
         for(int i=0; i<items.size(); i++){
+            System.out.println(items.get(i).getDoctorId());
+            Doctor doctor = doctorMapper.selectbyid(items.get(i).getDoctorId());
             Recipe recipe = new Recipe();
+            recipe.setType("检查");
+            recipe.setdName(doctor.getdName());
+            recipe.setRdate(items.get(i).getItemDate());
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
+            if(items.get(i).getHavePay()==0)
+                recipe.setState("未缴费");
+            else if(items.get(i).getItemHaveDone()==0)
+                recipe.setState("等待检查");
+            else
+                recipe.setState("检查完成");
             recipes.add(recipe);
         }
         for(int i=0; i<med.size(); i++){
+            Doctor doctor = doctorMapper.selectbyid(med.get(i).getDoctorId());
             Recipe recipe = new Recipe();
+            recipe.setType("处方");
+            recipe.setdName(doctor.getdName());
+            recipe.setRdate(med.get(i).getRecordDate());
             recipe.setRecipeName(med.get(i).getMedName());
-            recipe.setPrice(med.get(i).getMedPrice());
-            recipe.setDosage(med.get(i).getDosage());
+            recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
+            Integer state = traceMapper.selectById(patientId);
+            if(state==3)
+                recipe.setState("等待退费");
+            else if(med.get(i).getHavePay() == 0)
+                recipe.setState("未缴费");
+            else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==0)
+                recipe.setState("等待配药");
+            else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==1)
+                recipe.setState("配药完成");
             recipes.add(recipe);
+
         }
         return recipes;
     }
-
     public JSONObject payPrice(Integer patientId){
         Double totalPrice = countExpense(patientId);
         expenseMapper.payItems(patientId);
@@ -115,7 +144,12 @@ public class ExpenseService {
     public JSONObject refund(Integer patientId, List<String> recipeIds){
         JSONObject json = new JSONObject();
         Double prices = 0.0;
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime = localDateTime.plusHours(12);//12小时
+        Date date =Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
         for(int i = 0 ;i<recipeIds.size();i++){
+            Date rDateRecord = recordMapper.getRdate(patientId,recipeIds.get(i));
+            Date iDateItem = itemMapper.getIdate(patientId,recipeIds.get(i));
             Item item = expenseMapper.checkitem(patientId,recipeIds.get(i));
             Record record = expenseMapper.checkmedicine(patientId,recipeIds.get(i));
             if(item==null && record==null){
@@ -132,7 +166,16 @@ public class ExpenseService {
                 json.put("code",3);
                 json.put("msg","退费药品未退回");
                 return  json;
-            }else if(item!=null){
+            }else if(rDateRecord!=null&&rDateRecord.after(date)){
+                json.put("code",4);
+                json.put("msg","必须缴费12小时以内才可以退费");
+                return  json;
+            }else if(iDateItem!=null&&iDateItem.after(date)){
+                json.put("code",4);
+                json.put("msg","必须缴费12小时以内才可以退费");
+                return  json;
+            }
+            else if(item!=null){
                 prices = prices + item.getItemPrice();
                 expenseMapper.deleteItem(patientId,recipeIds.get(i));
             }else if(record!=null){
@@ -158,7 +201,7 @@ public class ExpenseService {
         //商户订单号，后台可以写一个工具类生成一个订单号，必填
         String out_trade_no = orderSn;
         //支付宝交易号，后台可以写一个工具类生成一个订单号，必填
-        String trade_no  = new String("2021021022001468560501398642");
+        String trade_no  = new String(orderSn);
         //付款金额，从前台获取，必填
         String refund_amount = prices.toString();
         //订单名称/标题，可自定义
@@ -184,7 +227,7 @@ public class ExpenseService {
             json.put("msg","支付失败");
         }
         return json;
-
-
     }
+
+
 }

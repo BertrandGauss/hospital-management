@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.PatientMapper">
+
+    <insert id="add"  parameterType="com.hospital.mapper.PatientMapper" useGeneratedKeys="true" keyProperty="patientId">
+        INSERT INTO patient (pUsername,pPassword,pIdentificationNum,pName,pGender,pAge,pOccupation,pPhone,pAddress) VALUES (#{pUsername},#{pPassword},#{pIdentificationNum},#{pName},#{pGender},#{pAge},#{pOccupation},#{pPhone},#{pAddress})
+    </insert>
+
+    <select id="selectByIdentificationNum" resultType="java.lang.Integer" >
+        SELECT patientId FROM patient WHERE pIdentificationNum = #{pIdentificationNum}
+    </select>
+
+    <select id="selectidbyphone" resultType="java.lang.Integer" >
+        SELECT patientId FROM patient WHERE pPhone = #{pPhone}
+    </select>
+
+    <select id="selectpwbyphone" resultType="java.lang.String" >
+        SELECT pPassword FROM patient WHERE pPhone = #{pPhone}
+    </select>
+
+    <select id="selectbyid" resultType="com.hospital.entity.Patient" >
+        SELECT * FROM patient WHERE patientId = #{patientId}
+    </select>
+
+    <select id="selectPasswdById" resultType="java.lang.String" >
+        SELECT pPassword FROM patient WHERE patientId = #{patientId}
+    </select>
+
+    <update id="update" parameterType="com.hospital.entity.Patient">
+        UPDATE patient
+        SET pUsername=#{pUsername} , pName = #{pName}, pOccupation=#{pOccupation} , pPhone = #{pPhone},pAddress = #{pAddress}
+        WHERE patientId=#{patientId}
+    </update>
+
+    <update id="updatepw" parameterType="com.hospital.entity.Patient">
+        UPDATE patient
+        SET pPassword=#{pPassword}
+        WHERE patientId=#{patientId}
+    </update>
+
+    <select id="showcancleorder" resultType="java.lang.Integer" >
+        SELECT orderTimes FROM patient WHERE patientId = #{patientId}
+    </select>
+
+    <select id="selectBlacklist" resultType="java.lang.Integer" >
+        SELECT isInBlacklist FROM patient WHERE patientId = #{patientId}
+    </select>
+
+    <update id="updateorderTimes" parameterType="java.lang.Integer">
+        UPDATE patient
+        SET orderTimes=orderTimes+1
+        WHERE patientId=#{patientId}
+    </update>
+
+    <update id="updateBlacklist" parameterType="java.lang.Integer">
+        UPDATE patient
+        SET isInBlacklist=1
+        WHERE patientId=#{patientId}
+    </update>
+</mapper>

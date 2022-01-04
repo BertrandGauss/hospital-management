@@ -64,8 +64,8 @@
                 <div class="welcome-module">
                   <div class="layui-row layui-col-space10">
                     <br>
-                    <div class="aa" style="font-size: 20px; text-align:center; font-family: '等线 Light'; color: #5FB878; font-weight: bold">
-                      排队中，前方人数
+                    <div class="aa" style="font-size: 20px; text-align:center; font-family: '等线 Light'; color: green; font-weight: bold">
+                      排队中，前方人数：
                     </div>
                     <br>
                     <div class="aa" style="font-size: 50px; text-align:center; font-family: 'Lucida Handwriting'; color: olivedrab; font-weight: bold">
@@ -138,7 +138,8 @@
                     <div class="aa" style="font-size: large; color: #8D8D8D" >账号安全状况分析</div>
                     <div class="aa" style="font-size: large; color: #8D8D8D" >目前账号健康指数为：</div>
                     <br><br>
-                    <div class="yishu" style="font-size: 100px; color: darkseagreen" >70</div>
+                    <div id= "user-cancleTimes" class="yishu" style="font-size: 100px; color: darkseagreen; text-align: center" >
+                    </div>
                     <br>
                     <hr class="layui-border-green">
                     <blockquote class="layui-elem-quote">
@@ -301,8 +302,6 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
-<!--<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>-->
 
 <script>
   layui.use(['layer', 'miniTab'], function () {
@@ -312,6 +311,32 @@
 
     miniTab.listen();
 
+      $(document).ready(function() {
+          $.ajax({
+              type: "GET",   //提交的方法
+              url:"http://localhost:8082/patient/showcancleorder",
+              xhrFields: {
+                  withCredentials: true,
+              },
+              dataType:"json",
+              contentType: "application/json",
+              async: false,
+              error: function(request) {  //失败的话
+                  alert("Connection error");
+              },
+              success: function(data) {
+                  if (data.code==0){
+                      console.log(100*(20-data.data)/20)
+                      $('user-cancleTimes').text(100*(20-data.data)/20);
+                  }
+                  else{
+                      alert(data.msg)
+                  }
+              }
+
+          })
+
+      })
     /**
      * 查看公告信息
      **/
@@ -381,160 +406,13 @@
   });
 </script>
 <script>
-  layui.use(['form','jquery'], function () {
-    var $ = layui.jquery
-    $(document).ready(
-            $.ajax({
-              type: "GET",   //提交的方法
-              url: "http://localhost:8081/admin/shownotice",
-              xhrFields: {
-                withCredentials: true,
-              },
-              dataType: "json",
-              contentType: "application/json",
-              async: false,
-              error: function (request) {  //失败的话
-                alert("Connection error");
-              },
-              success: function (data) {
-                var f = data.data
-                for (var i = 0; i < f.length; i++) {
-                  var h = i + 1
-                  var content = f[i]["content"]
-                  var timenow = f[i]["date"].split("T")[0]
-                  $("#notice").append(
-                          '<div class="layuimini-notice-title">'+
-                          content+'      '+
-                          // '</div>'+
-                          // '<div class="layuimini-notice-extra">'+
-                          timenow+
-                          '</div>'
-
-                  )
-                }
-
-              }
-
-            })
-    )
-  })
-</script>
-<script type="text/javascript">
-    /**
-     * 报表功能
-     */
-    // 基于准备好的dom，初始化echarts实例
-    layui.use(['layer'], function () {
-      var $ = layui.jquery
-      var myChart = echarts.init(document.getElementById('main'));
-      $(document).ready(
-              $.ajax({
-                type: "GET",
-                url: "http://localhost:8081/user/showallcalorie",
-                xhrFields: {
-                  withCredentials: true,
-                },
-                dataType: "json",
-                contentType: "application/json",
-                async: false,
-                error: function (request) {  //失败的话
-                  alert("Connection error");
-                },
-                success: function (data) {
-                  // window.location.reload();
-                  var fca = new Array();
-                  var eca = new Array();
-                  var chazhi = new Array();
-                  var dates = new Array();
-                  var f = data.data;
-                  for (var i = 0; i < f.length; i++) {
-                    json1 = f[i];
-                    fca.unshift(json1["food_calorie"]);
-                    temp = -json1["exercise_calorie"]
-                    eca.unshift(temp)
-                    chazhi.unshift(json1["food_calorie"] - json1["exercise_calorie"])
-                    temp_date = json1["date"].split("T")[0]
-                    dates.unshift(temp_date);
-
-                  }
-                  option = {
-                    tooltip: {
-                      trigger: 'axis',
-                      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                      }
-                    },
-                    legend: {
-                      data: ['总变化', '消耗卡路里', '摄入卡路里']
-                    },
-                    grid: {
-                      left: '3%',
-                      right: '4%',
-                      bottom: '3%',
-                      containLabel: true
-                    },
-                    xAxis: [
-                      {
-                        type: 'value'
-                      }
-                    ],
-                    yAxis: [
-                      {
-                        type: 'category',
-                        axisTick: {
-                          show: false
-                        },
-                        data: dates
-                      }
-                    ],
-                    series: [
-                      {
-                        name: '总变化',
-                        type: 'bar',
-                        label: {
-                          show: true,
-                          position: 'inside'
-                        },
-                        emphasis: {
-                          focus: 'series'
-                        },
-                        data: chazhi
-                      },
-                      {
-                        name: '消耗卡路里',
-                        type: 'bar',
-                        stack: '总量',
-                        label: {
-                          show: true
-                        },
-                        emphasis: {
-                          focus: 'series'
-                        },
-                        data: eca
-                      },
-                      {
-                        name: '摄入卡路里',
-                        type: 'bar',
-                        stack: '总量',
-                        label: {
-                          show: true,
-                          position: 'left'
-                        },
-                        emphasis: {
-                          focus: 'series'
-                        },
-                        data: fca
-                      }
-                    ]
-                  };
+    layui.use(['jquery', 'admin', 'menu'], function(){
+        var $ = layui.jquery,
+            admin = layui.admin,
+            menu = layui.menu;
 
 
-                  // 使用刚指定的配置项和数据显示图表。
-                  myChart.setOption(option);
-                }
-              })
-      )
-    });
+    })
 </script>
 </body>
 </html>

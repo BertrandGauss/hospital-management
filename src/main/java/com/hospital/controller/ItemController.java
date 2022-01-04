@@ -50,10 +50,12 @@ public class ItemController {
     // 开具检查单
     @RequestMapping(value = "/addcheckitem", method = {RequestMethod.POST})
     private JSONObject addCheckItem(@RequestBody Item item){
-        Integer did=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");//医生ID
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
         item.setDoctorId(did);
         item.setPatientId(pid);
+        Date date = new Date();
+        item.setItemDate(date);
         itemService.addCheckItem(item);
         JSONObject json = new JSONObject();
         json.put("code",0);

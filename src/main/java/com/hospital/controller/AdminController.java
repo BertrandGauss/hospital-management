@@ -44,14 +44,23 @@ public class AdminController {
         return json;
     }
 
-    // 审核医生注册
+    // 审核医生注册通过
     @RequestMapping(value = "/checkdoctorregister",method = {RequestMethod.POST})
     private JSONObject checkDoctorRegister(@RequestBody Doctor doctor){
         adminService.checkDoctorRegister(doctor);
-
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","医生注册审核通过");
+        return json;
+    }
+
+    // 审核医生不通过
+    @RequestMapping(value = "/deletedoctorregister",method = {RequestMethod.POST})
+    private JSONObject deleteDoctorRegister(@RequestBody Doctor doctor){
+        adminService.deleteDoctorRegister(doctor);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","拒绝医生");
         return json;
     }
 
@@ -101,18 +110,11 @@ public class AdminController {
         return json;
     }
 
-    // 配药状态修改
+    // 配药状态修改(包括发药和退药）
     @RequestMapping(value = "/changetracestate",method = {RequestMethod.POST})
     private JSONObject changeTraceState(@RequestBody PatientVo patientVo){
         adminService.changeTraceState(patientVo);
-        Integer patientId = patientVo.getPatientId();
-        // 发药
-        if(patientVo.getState() == 3){
-            adminService.updateMedIsInPatient(patientId, 1);
-            adminService.updateMedRemainsPut(patientVo);
-        }
-
-        JSONObject json = new JSONObject();
+        JSONObject json = adminService.updateState(patientVo);
         json.put("code",0);
         json.put("msg","配药状态修改成功");
         return json;

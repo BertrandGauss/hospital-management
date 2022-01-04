@@ -7,8 +7,11 @@ import com.hospital.utils.MD5Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +29,8 @@ public class AdminService {
     private RecordMapper recordMapper;
     @Resource
     private TraceMapper traceMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
 
     //登陆
     public JSONObject login(String username, String password){
@@ -55,6 +60,11 @@ public class AdminService {
         adminMapper.checkDoctorRegister(doctor);
     }
 
+    // 审核不通过医生账号
+    public void deleteDoctorRegister(Doctor doctor) {
+        doctorMapper.deleteDoctorRegister(doctor.getdIdentificationNum());
+    }
+
     public List<Doctor> showDoctorRegister() {
         List<Doctor> doctors = adminMapper.showDoctorRegister();
         return doctors;
@@ -67,6 +77,7 @@ public class AdminService {
         List<Recipe> recipes = null;
         for(int i=0; i<items.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setPatientId(patientId);
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
             recipes.add(recipe);
@@ -74,8 +85,9 @@ public class AdminService {
 
         for(int i=0; i<med.size(); i++){
             Recipe recipe = new Recipe();
+            recipe.setPatientId(patientId);
             recipe.setRecipeName(med.get(i).getMedName());
-            recipe.setPrice(med.get(i).getMedPrice());
+            recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             recipe.setDosage(med.get(i).getDosage());
             recipes.add(recipe);
         }
@@ -91,6 +103,8 @@ public class AdminService {
             Recipe recipe = new Recipe();
             recipe.setRecipeName(items.get(i).getItemName());
             recipe.setPrice(items.get(i).getItemPrice());
+            recipe.setPatientId(items.get(i).getPatientId());
+            recipe.setRdate(items.get(i).getItemDate());
             recipes.add(recipe);
         }
 
@@ -99,6 +113,8 @@ public class AdminService {
             recipe.setRecipeName(records.get(i).getMedName());
             recipe.setPrice(records.get(i).getMedPrice());
             recipe.setDosage(records.get(i).getDosage());
+            recipe.setPatientId(records.get(i).getPatientId());
+            recipe.setRdate(records.get(i).getRecordDate());
             recipes.add(recipe);
         }
         return recipes;
@@ -142,5 +158,35 @@ public class AdminService {
 
     public void updateMedRemainsGet(PatientVo patientVo){
         adminMapper.updateMedRemainsGet(patientVo);
+    }
+
+    //修改配药状态，包括退药和发药
+    public JSONObject updateState(PatientVo patientVo){
+        JSONObject jsonObject = new JSONObject();
+        //表示发药
+        if(patientVo.getState()==2){
+            updateMedIsInPatient(patientVo.getPatientId(), 1);
+            updateMedRemainsPut(patientVo);
+            traceMapper.updateTrace(patientVo.getPatientId(),2);
+        }
+        //退药
+        else if(patientVo.getState()==3){
+            Date rDate = recordMapper.getRdate(patientVo.getPatientId(), patientVo.getMedName());
+            LocalDateTime localDateTime = LocalDateTime.now();
+            localDateTime = localDateTime.plusHours(12);//12小时
+            Date date =Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
+            if(rDate.after(date)){
+                jsonObject.put("code",1);
+                jsonObject.put("msg","退药时间超过了缴费时间的12小时");
+                return jsonObject;
+            }
+            updateMedIsInPatient(patientVo.getPatientId(), 0);
+            updateMedRemainsGet(patientVo);
+            traceMapper.updateTrace(patientVo.getPatientId(),3);
+        }
+        jsonObject.put("code",0);
+        jsonObject.put("msg","修改配药状态成功");
+        return  jsonObject;
+
     }
 }
