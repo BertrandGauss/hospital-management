@@ -28,7 +28,8 @@ public class ExpenseController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","处方显示成功");
-        json.put("date",recipes);
+        json.put("data",recipes);
+        json.put("count",recipes.size());
 
         return  json;
     }
@@ -41,7 +42,7 @@ public class ExpenseController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","返回总金额");
-        json.put("date",totalPrice);
+        json.put("data",totalPrice);
         return json;
     }
 

@@ -3,7 +3,7 @@
 	"msg": "ok",
 	"data": [{
 			"id": 1,
-			"name": "编辑病例",
+			"name": "编辑病历",
 			"icon": "&#xe6b8;",
 			"url": "../../templates/doctor/doctor_middle_editCase.html"
 		},
@@ -22,7 +22,7 @@
 
 		{
 			"id": 4,
-			"name": "查看病例",
+			"name": "查看病历",
 			"icon": "&#xe705;",
 			"url": "../../templates/doctor/doctor_middle_checkCase.html"
 		},
