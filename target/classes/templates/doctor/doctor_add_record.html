@@ -148,58 +148,6 @@
         lay('#date').val(str2);
     });
 </script>
-<script>
-    layui.use(['form','layer','util'], function(){
-        var form = layui.form,
-            $ = layui.jquery,
-            util = layui.util,
-            layer = layui.layer;
-        //监听提交
-        form.on('submit(demo1)', function(data){
-            data = data.field;
-            console.log(data)
-            //发异步，把数据提交给php
 
-            // 获得frame索引
-            var index = parent.layer.getFrameIndex(window.name);
-
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8082/order/startorder",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    "department": data.department,
-                    "oType": data.oType,
-                    "oTime": data.oTime,
-                    "dName": data.dName
-                }),
-
-                async: false,
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-                    if (data.code==0){
-                        parent.layer.close(index);
-                        window.parent.location.reload();
-                    }
-                    else{
-                        layer.alert(data.msg)
-                    }
-                }
-
-            })
-
-            return false;
-        });
-
-    });
-
-
-</script>
 </body>
 </html>

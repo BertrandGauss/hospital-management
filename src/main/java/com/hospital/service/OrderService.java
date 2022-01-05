@@ -40,7 +40,7 @@ public class OrderService {
         Date tomorrow = c.getTime();
 
         order.setoDate(tomorrow);
-        if(doctorId==null){
+        if(!order.getoType().equals("普通") && doctorId==null){
             json.put("msg","不存在该医生");
             json.put("code",1);
             return json;
