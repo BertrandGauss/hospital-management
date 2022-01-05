@@ -3,14 +3,14 @@ package com.hospital.entity;
 import java.util.List;
 
 public class SomeRecipe {
-    private String pIdentificationNum;
+    private List<String> pIdentificationNum;
     private List<String> recipeName;
 
-    public String getpIdentificationNum() {
+    public List<String> getpIdentificationNum() {
         return pIdentificationNum;
     }
 
-    public void setpIdentificationNum(String pIdentificationNum) {
+    public void setpIdentificationNum(List<String> pIdentificationNum) {
         this.pIdentificationNum = pIdentificationNum;
     }
 

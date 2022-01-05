@@ -14,158 +14,130 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>新增预约</legend>
 </fieldset>
-<form class="layui-form" action="">
-    <div class="layui-form-item">
-        <label class="layui-form-label">验证身份证</label>
-        <div class="layui-input-block">
-            <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+<form class="layui-form"  lay-filter="startorder">
 
     <div class="layui-form-item">
         <label class="layui-form-label">选择医生</label>
         <div class="layui-input-inline">
-            <select name="keshi">
+            <select name="department" id="department" lay-verify="required">
                 <option value="">科室</option>
-                <option value="内科">内科</option>
                 <option value="外科">外科</option>
+                <option value="内科">内科</option>
+                <option value="妇科">妇科</option>
+                <option value="儿科">儿科</option>
+                <option value="口腔科">口腔科</option>
+                <option value="五官科">五官科</option>
+                <option value="皮肤科">皮肤科</option>
+                <option value="放射科">放射科</option>
+                <option value="生化室">生化室</option>
+                <option value="化验室">化验室</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="类型">
+            <select id="oType" name="oType">
                 <option value="">请选择门诊形式</option>
-                <option value="专家门诊">专家门诊</option>
-                <option value="普通门诊">普通门诊</option>
+                <option value="专家">专家门诊</option>
+                <option value="普通">普通门诊</option>
             </select>
         </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="医生姓名" name="dName" id="dName"  />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">预约日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                <!--lay-verify="date"-->
+                <input type="text" name="date" id="date" class="layui-input layui-disabled"
+                       readonly>
             </div>
         </div>
+        <label class="layui-form-label">可选时间</label>
         <div class="layui-input-inline">
-            <select name="quiz3">
-                <option value="">请选择医生</option>
-                <option value="赵一">赵一</option>
-                <option value="钱二">钱二</option>
-                <option value="孙三">孙三</option>
+            <select name="oTime" id="oTime" lay-verify="required">
+                <option value="9:00:00">9:00-10:00</option>
+                <option value="10:00:00">10:00-11:00</option>
+                <option value="11:00:00">11:00-12:00</option>
+                <option value="14:00:00">14:00-15:00</option>
+                <option value="15:00:00">15:00-16:00</option>
+                <option value="16:00:00">16:00-17:00</option>
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">可选时间</label>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">9:00-9:30</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">9:30-10:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">10:00-10:30</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">10:30-11:00</button></div>
-        <div class="layui-input-inline">
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-radius">11:00-11:30</button></div>
-
-
-
-    </div>
     <br>
-        <div class="layui-row">
-            <div class="layui-col-xs3 layui-col-md-offset4">
-                <blockquote class="layui-elem-quote" >
-                    <div class="aa" style="font-size: large;color: #8D8D8D;text-align: center">
-                        该医生该时段剩余号数：
-                    </div>
-                    <br>
-                    <div class="layui-row">
-                        <div class="layui-col-xs3 layui-col-md-offset5">
-                            <button type="button" class="layui-btn"><i class="layui-icon"> 30 </i></button>
-                        </div>
-                    </div>
-
-                </blockquote>
-
-            </div>
-            <div class="layui-col-xs3 layui-col-md-offset4">
-                <br>
-                <button type="submit" class="layui-btn layui-col-md-offset5" lay-submit="" lay-filter="demo1">确认预约</button>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn layui-col-md-offset5" lay-submit="" lay-filter="demo1">
+                    确认预约
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     <br>
-
+</form>
 
 <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate;
 
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
+</script>
+<script>
+    layui.use(['util', 'laydate', 'layer'], function () {
+        // 记录当前时间并展示
+        function getNow(s) {
+            return s < 10 ? '0' + s : s;
+        }
 
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
-                }
-            }
-            ,pass: [
-                /^[\S]{6,12}$/
-                ,'密码必须6到12位，且不能出现空格'
-            ]
-            ,content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
+        var currTime = new Date();
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
+        lay('#date').val(str2);
+    });
+</script>
+<script>
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            data = data.field;
+            console.log(data)
+            $.ajax({
+                type: "POST",   //提交的方法
+                url:"http://localhost:8082/order/startorder",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType:"json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "department": data.department,
+                    "oType": data.oType,
+                    "oTime": data.oTime,
+                    "dName": data.dName
+                }),
+
+                async: false,
+                error: function(request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function(data) {
+
+                }
+
             })
-            return false;
-        });
-
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function(){
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                ,"password": "123456"
-                ,"interest": 1
-                ,"like[write]": true //复选框选中状态
-                ,"close": true //开关状态
-                ,"sex": "女"
-                ,"desc": "我爱 layui"
-            });
-        });
-
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function(){
-            var data = form.val('example');
-            alert(JSON.stringify(data));
         });
 
     });
+
+
 </script>
-</form>
 </body>
 </html>

@@ -15,6 +15,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class RegistrationService {
@@ -74,5 +75,13 @@ public class RegistrationService {
         return json;
     }
 
-
+    public JSONObject showregistration(){
+        List<Registration> registrations = registrationMapper.showAll();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","挂号显示完成");
+        json.put("data",registrations);
+        json.put("count",registrations.size());
+        return json;
+    }
 }

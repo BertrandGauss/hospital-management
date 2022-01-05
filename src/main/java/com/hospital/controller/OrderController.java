@@ -2,7 +2,7 @@ package com.hospital.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Order;
-import com.hospital.entity.Patient;
+import com.hospital.entity.SomeDate;
 import com.hospital.service.OrderService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,6 @@ public class OrderController {
     private JSONObject startorder(@RequestBody Order order){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         order.setPatientId(id);
-        System.out.println(order.getDoctorId());
         JSONObject json = new JSONObject();
         json= orderService.addOrder(order);
         return json;
@@ -56,9 +55,9 @@ public class OrderController {
 
     //查询一段时间内的预约记录
     @RequestMapping(value = "/searchorder",method = {RequestMethod.POST})
-    private  JSONObject searchOrder(@RequestParam("startDate") Date startDate, @Param("endDate") Date endDate){
+    private  JSONObject searchOrder(@RequestBody SomeDate someDate){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
-        List<Order> orders = orderService.searchOrder(id, startDate,endDate);
+        List<Order> orders = orderService.searchOrder(id, someDate.getStartDate(),someDate.getEndDate());
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","查询预约记录成功");

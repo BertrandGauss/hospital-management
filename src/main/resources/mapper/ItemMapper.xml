@@ -26,4 +26,10 @@
         FROM item
         WHERE patientId = #{patientId} AND itemName=#{itemName} AND havePay = 1 AND  medHaveDone = 1;
     </select>
+
+    <select id="selectitemsbyPid" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE havePay = 1  AND itemHaveDone=0 AND patientId=#{patientId};
+    </select>
 </mapper>

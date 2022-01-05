@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css" tppabs="https://www.layui.site/layui/dist/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>新增挂号</legend>
+</fieldset>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者身份证</label>
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="患者身份证" name="identity" id="identity"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择科室</label>
+        <div class="layui-input-inline"  lay-filter="doctorSel">
+            <select name="department" id="department" lay-verify="required">
+                <option value="">科室</option>
+                <option value="外科">外科</option>
+                <option value="内科">内科</option>
+                <option value="妇科">妇科</option>
+                <option value="儿科">儿科</option>
+                <option value="口腔科">口腔科</option>
+                <option value="五官科">五官科</option>
+                <option value="皮肤科">皮肤科</option>
+                <option value="放射科">放射科</option>
+                <option value="生化室">生化室</option>
+                <option value="化验室">化验室</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">挂号类型</label>
+        <div class="layui-input-inline"  lay-filter="l">
+            <select name="title">
+                <option value="">请选择门诊形式</option>
+                <option value="专家">专家门诊</option>
+                <option value="普通">普通门诊</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">挂号医生</label>
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="医生姓名" name="dName" id="dName"/>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn layui-col-md-offset5" lay-submit="" lay-filter="registerSubmit">
+                确认挂号
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use(['form', 'layer', 'util'], function () {
+            var form = layui.form,
+                $ = layui.jquery,
+                util = layui.util,
+                layer = layui.layer;
+            // console.log(yzm)
+            //监听提交
+            form.on('submit(registerSubmit)', function (data) {
+                data = data.field;
+                $.ajax({
+                    type: "POST",   //提交的方法
+                    url: "http://localhost:8082/registration/addregistration",
+                    xhrFields: {
+                        withCredentials: true,
+                    },
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "pIdentificationNum": data.identity,
+                        "department": data.department,
+                        "dName": data.dName,
+                    }),
+
+                    async: false,
+                    error: function (request) {  //失败的话
+                        alert("Connection error");
+                    },
+                    success: function (data) {
+                        layer.msg(data.msg)
+                    }
+                })
+                return false;
+            })
+
+        });
+
+    </script>
+<!--<script>-->
+<!--layui.use(['form', 'select', 'layer'], function() {-->
+<!--var form = layui.form,-->
+<!--select = layui.select,-->
+<!--layer = layui.layer,-->
+<!--$ = layui.jquery;-->
+
+<!--layer.on('layer(layerSel)', function (obj) {-->
+<!--var data = obj.data;-->
+<!--console.log(data.identify) //身份证号-->
+<!--console.log(data.date)   //挂号日期-->
+<!--$.ajax({-->
+<!--//几个参数需要注意一下-->
+<!--type: "POST",//方法类型-->
+
+<!--url: "http://localhost:8082//registration//addregistration",//url-->
+<!--xhrFields: {-->
+<!--withCredentials: true,-->
+<!--},-->
+<!--dataType: "json",-->
+<!--contentType: "application/json",-->
+<!--data: JSON.stringify({-->
+<!--"identification": data.identify,-->
+<!--"date": data.date-->
+<!--})-->
+<!--});-->
+<!--});-->
+
+<!--//监听下拉选择-->
+<!--select.on('select(doctorSel)', function (obj) {-->
+<!--var data = obj.data;-->
+<!--console.log(data.office)  //挂号科室-->
+<!--console.log(data.title)  //医生职称-->
+<!--console.log(data.doctor)  //挂号医生-->
+<!--$.ajax({-->
+<!--type: "POST",//方法类型-->
+
+<!--url: "http://localhost:8082//registration//addregistration",//url-->
+<!--xhrFields: {-->
+<!--withCredentials: true,-->
+<!--},-->
+<!--dataType: "json",-->
+<!--contentType: "application/json",-->
+<!--data: JSON.stringify({-->
+<!--"office": data.identity,-->
+<!--"pIdentificationNum": data.title,-->
+<!--"doctor": data.doctor-->
+<!--})-->
+<!--});-->
+
+<!--});-->
+
+<!--//监听单项选择-->
+<!--form.on('radio(timeSel)', function (obj) {-->
+<!--var data = obj.data;-->
+<!--console.log(data.time)  //挂号时间-->
+<!--$.ajax({-->
+<!--//几个参数需要注意一下-->
+<!--type: "POST",//方法类型-->
+
+<!--url: "http://localhost:8082//registration//addregistration",//url-->
+<!--xhrFields: {-->
+<!--withCredentials: true,-->
+<!--},-->
+<!--dataType: "json",-->
+<!--contentType: "application/json",-->
+<!--data: JSON.stringify({-->
+<!--"identification": data.identify,-->
+<!--"office": data.office,-->
+<!--"title": data.title,-->
+<!--"date": data.date,-->
+<!--"doctor": data.doctor,-->
+<!--"time": data.time-->
+<!--})-->
+<!--});-->
+<!--});-->
+
+<!--//监听提交-->
+<!--form.on('submit(registerSubmit)', function (data) {-->
+<!--layer.alert(JSON.stringify(data.field), {-->
+<!--title: '最终的提交信息'-->
+<!--})-->
+<!--return false;-->
+<!--});-->
+<!--})-->
+
+<!--</script>-->
+<!--</form>-->
+</body>
+</html>

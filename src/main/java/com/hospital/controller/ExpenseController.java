@@ -1,6 +1,7 @@
 package com.hospital.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.hospital.entity.Recipe;
+import com.hospital.entity.SomeDate;
 import com.hospital.entity.SomeRecipe;
 import com.hospital.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class ExpenseController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","处方显示成功");
-        json.put("date",recipes);
+        json.put("data",recipes);
+        json.put("count",recipes.size());
 
         return  json;
     }
@@ -41,7 +43,7 @@ public class ExpenseController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","返回总金额");
-        json.put("date",totalPrice);
+        json.put("data",totalPrice);
         return json;
     }
 
@@ -62,5 +64,18 @@ public class ExpenseController {
         return json;
     }
 
+    //查询一段时间内的待缴费记录
+    @RequestMapping(value = "/searchExpense",method = {RequestMethod.POST})
+    private  JSONObject searchExpense(@RequestBody SomeDate someDate){
+        System.out.println(someDate.getEndDate());
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        List<Recipe> orders = expenseService.searchRecipes(id, someDate.getStartDate(),someDate.getEndDate());
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","查询成功");
+        json.put("data",orders);
+        json.put("count",orders.size());
+        return json;
+    }
 
 }

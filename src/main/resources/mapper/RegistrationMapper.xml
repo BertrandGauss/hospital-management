@@ -8,7 +8,7 @@
     </insert>
 
     <select id="selectById" resultType="com.hospital.entity.Registration">
-        SELECT * FROM registration WHERE patientId=#{patientId} AND isValid=1
+    SELECT * FROM registration WHERE patientId=#{patientId} AND isValid=1
     </select>
 
     <select id="TodayRNumz" resultType="java.lang.String">
@@ -33,5 +33,9 @@
 
     <select id="selectPre" resultType="java.lang.String">
         SELECT rNum FROM registration WHERE patientId=#{patientId} AND isValid=0 ORDER BY registrationId desc LIMIT 1
+    </select>
+
+    <select id="showAll" resultType="com.hospital.entity.Registration">
+        SELECT * FROM registration WHERE  isValid=1
     </select>
 </mapper>

@@ -10,4 +10,8 @@
         UPDATE medicine SET  remains = remains - #{dosage}
     </update>
 
+    <update id="returnRemains">
+        UPDATE medicine SET  remains = remains + #{dosage}
+    </update>
+
 </mapper>

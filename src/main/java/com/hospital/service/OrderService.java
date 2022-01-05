@@ -2,7 +2,9 @@ package com.hospital.service;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.hospital.entity.Doctor;
 import com.hospital.entity.Order;
+import com.hospital.mapper.DoctorMapper;
 import com.hospital.mapper.OrderMapper;
 import com.hospital.mapper.PatientMapper;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,9 +25,13 @@ public class OrderService {
     private OrderMapper orderMapper;
     @Resource
     private PatientMapper patientMapper;
+    @Resource
+    private DoctorMapper doctorMapper;
 
     public JSONObject addOrder(Order order){
         Integer isInBlackList = patientMapper.selectBlacklist(order.getPatientId());
+        Integer doctorId = doctorMapper.selectbyName(order.getDepartment(),order.getdName());
+
         JSONObject json = new JSONObject();
         Date today = new Date();
         Calendar c = Calendar.getInstance();
@@ -34,7 +40,12 @@ public class OrderService {
         Date tomorrow = c.getTime();
 
         order.setoDate(tomorrow);
-
+        if(doctorId==null){
+            json.put("msg","不存在该医生");
+            json.put("code",1);
+            return json;
+        }
+        order.setDoctorId(doctorId);
         if(orderMapper.selectbyorderTime(order.getPatientId())!=null){
             json.put("msg","您今日已有预约");
             json.put("code",1);
@@ -69,6 +80,11 @@ public class OrderService {
 
     public List<Order> showallOrder(Integer patientId){
         List<Order> orders = orderMapper.selectbyId(patientId);
+        for(int i=0;i<orders.size();i++){
+            if(orders.get(i).getDoctorId()!=null){
+                orders.get(i).setdName(doctorMapper.selectbyid(orders.get(i).getDoctorId()).getdName());
+            }
+        }
         return orders;
     }
 
@@ -92,6 +108,11 @@ public class OrderService {
 
     public List<Order> searchOrder(Integer patientId, Date startDate,Date endDate){
         List<Order> orders = orderMapper.selectbydate(patientId,startDate,endDate);
+        for(int i=0;i<orders.size();i++){
+            if(orders.get(i).getDoctorId()!=null){
+                orders.get(i).setdName(doctorMapper.selectbyid(orders.get(i).getDoctorId()).getdName());
+            }
+        }
         return  orders;
     }
 

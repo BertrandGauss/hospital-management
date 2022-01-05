@@ -1,8 +1,7 @@
 package com.hospital.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hospital.entity.Item;
-import com.hospital.entity.Patient;
+import com.hospital.entity.*;
 import com.hospital.service.HistoryService;
 import com.hospital.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/item")
@@ -60,6 +60,51 @@ public class ItemController {
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","检查单开具完成");
+        return json;
+    }
+
+
+    //显示所有已缴费的处方
+    @RequestMapping(value = "/showItem", method = {RequestMethod.GET})
+    private JSONObject showItem(){
+        List<Recipe> items = itemService.showAllItem();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","显示成功");
+        json.put("data",items);
+        json.put("count",items.size());
+        return json;
+    }
+
+    // 对患者已缴费的检查确认进行完成检查
+    @RequestMapping(value = "/setItemshavedone",method = {RequestMethod.POST})
+    private JSONObject setItemshavedone(@RequestBody SomeRecipe someRecipe){
+        itemService.setItemsHaveDone(someRecipe);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","确认完成");
+        return json;
+    }
+
+    //对患者某个检查进行确认
+    @RequestMapping(value = "/setItemhavedone",method = {RequestMethod.POST})
+    private JSONObject setItemhavedone(@RequestParam("recipeName") String recipeName, @RequestParam("pIdentificationNum")String pIdentificationNum){
+        itemService.setItemHaveDone(recipeName,pIdentificationNum);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","确认完成");
+        return json;
+    }
+
+    //查找某个患者的检查
+    @RequestMapping(value = "/searchitem",method = {RequestMethod.POST})
+    private JSONObject searchitem(@RequestBody Patient patient){
+        List<Recipe> items =itemService.searchitem(patient.getpIdentificationNum());
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","查找完成");
+        json.put("data",items);
+        json.put("count",items.size());
         return json;
     }
 }

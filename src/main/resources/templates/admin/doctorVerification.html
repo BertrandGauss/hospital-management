@@ -11,14 +11,20 @@
     <link rel="stylesheet" href="../../static/layui-v2.6.8/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/css/font.css">
     <link rel="stylesheet" href="../../static/layui/css/public.css" media="all">
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 </head>
 <body>
-
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">医生审核</a>
+			</span>
+    <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+        <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
+    </a>
+</div>
 <table class="layui-form" id="LAY_table_user" lay-filter="user" style="table-layout: fixed;"></table>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="pass">通过</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="reject">拒绝</a>
 </script>
@@ -31,15 +37,15 @@
         //方法级渲染
         table.render({
             elem: '#LAY_table_user'
-            ,type: 'POST'
-            ,url: './testDemo.json'
+            ,type: 'GET'
+            ,url: 'http://localhost:8082/admin/showdoctorregister'
             ,cols: [
                 [
-                    {field:'phone', title: 'phone', width:200, sort: true, fixed: true}
-                    ,{field:'name', title: '姓名', width:200}
-                    ,{field: 'identification', title: '身份证号', width: 200}
-                    ,{field:'office', title: '科室', width:200}
-                    ,{field:'title', title: '职称', width:200}
+                    {field:'dPhone', title: '手机号', width:200, sort: true, fixed: true}
+                    ,{field:'dName', title: '姓名', width:200}
+                    ,{field: 'dIdentificationNum', title: '身份证号', width: 200}
+                    ,{field:'dOffice', title: '科室', width:200}
+                    ,{field:'dTitle', title: '职称', width:200}
                     ,{fixed: 'right', title:'操作', width:200, align:'center', toolbar: '#barDemo'}
                 ]
             ]
@@ -48,7 +54,7 @@
             ,width: 1200
             ,response:{
                 statusName:'code', //规定返回的状态码字段为code
-                statusCode:200 //规定成功的状态码味200
+                statusCode:0 //规定成功的状态码味200
             },
             parseData:function(res){
                 console.log(res);
@@ -84,41 +90,74 @@
         });
 
         //监听工具条
-        table.on('tool(demo)', function(obj){
+        table.on('tool(user)', function(obj){
             var data = obj.data;
+            console.log(data.dIdentificationNum)
             var $ = layui.jquery;
             if(obj.event === 'detail'){ //这个操作还没实现
                 layer.msg('ID：'+ data.id + ' 的查看操作');
             }
             else if(obj.event === 'reject'){
-                layer.confirm('真的拒绝通过吗？', function(){
+                layer.confirm('真的拒绝通过吗？', function(index){
                     $.ajax({
                         type: "POST",   //提交的方法
-                        url: "http://localhost:8082/admin/showdoctorregister",
+                        url: "http://localhost:8082/admin/deletedoctorregister",
                         xhrFields: {
                             withCredentials: true,
                         },
                         dataType: "json",
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            "identification": $("identification").val()
-                        })
+                            "dIdentificationNum": data.dIdentificationNum
+                        }),
+                        success: function (result) {
+                            if (result.code == "0") {
+                                layer.close(index);
+                                layer.msg('医生审核不通过');
+                                layui.table.reload("test",{page:{curr:1}});
+                            }else{
+                                layer.msg('医生审核不通过失败', {
+                                    icon: 5
+                                });
+                            }
+                        },
+                        error : function() {
+                            layer.msg('服务器错误', {
+                                icon: 5
+                            });
+                        }
                     })
                 });
             }
             else if(obj.event === 'pass'){
-                layer.confirm('真的同意通过吗？', function(){
+                layer.confirm('真的同意通过吗？', function(index){
                     $.ajax({
                         type: "POST",   //提交的方法
-                        url: "http://localhost:8082/admin/showdoctorregister",
+                        url: "http://localhost:8082/admin/checkdoctorregister",
                         xhrFields: {
                             withCredentials: true,
                         },
                         dataType: "json",
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            "identification": $("identification").val()
-                        })
+                            "dIdentificationNum": data.dIdentificationNum
+                        }),
+                        success: function (result) {
+                            if (result.code == "0") {
+                                layer.close(index);
+                                layer.msg('医生审核通过');
+                                layui.table.reload("test",{page:{curr:1}});
+                            }else{
+                                layer.msg('医生审核通过失败', {
+                                    icon: 5
+                                });
+                            }
+                        },
+                        error : function() {
+                            layer.msg('服务器错误', {
+                                icon: 5
+                            });
+                        }
                     })
                 });
             }

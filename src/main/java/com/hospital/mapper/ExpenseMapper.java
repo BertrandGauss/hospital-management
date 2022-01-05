@@ -5,6 +5,7 @@ import com.hospital.entity.Item;
 import com.hospital.entity.Record;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ExpenseMapper {
@@ -12,6 +13,10 @@ public interface ExpenseMapper {
     List<Item> selectitemsbypatientId(Integer patientId);
 
     List<Record> selectmebypatientId(Integer patientId);
+
+    List<Record> selectmedbydate(@Param("patientId") Integer patientId, @Param("startDate") Date startDate, @Param("endDate")Date endDate);
+
+    List<Item> selectitembydate(@Param("patientId") Integer patientId, @Param("startDate") Date startDate, @Param("endDate")Date endDate);
 
     void payItems(Integer patientId);
 
