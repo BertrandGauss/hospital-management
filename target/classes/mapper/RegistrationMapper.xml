@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.mapper.RegistrationMapper">
+    <insert id="add" parameterType="com.hospital.mapper.RegistrationMapper" useGeneratedKeys="true" keyProperty="registrationId">
+        INSERT INTO registration (patientId,doctorId,department,rNum)
+        VALUES (#{patientId},#{doctorId},#{department},#{rNum});
+    </insert>
+
+    <select id="selectById" resultType="com.hospital.entity.Registration">
+    SELECT * FROM registration WHERE patientId=#{patientId} AND isValid=1
+    </select>
+
+    <select id="TodayRNumz" resultType="java.lang.String">
+        SELECT rNum FROM registration WHERE doctorId=#{doctorId}
+    </select>
+
+    <select id="TodayRNum" resultType="java.lang.String">
+        SELECT rNum FROM registration WHERE department=#{department}
+    </select>
+
+    <update id="updateValid">
+        UPDATE registration SET isValid = 0 WHERE patientId=#{ptiendId}
+    </update>
+
+    <select id="selectByrNum" resultType="java.lang.Integer">
+        SELECT patientId FROM registration WHERE department=#{department} AND doctorId=#{doctorId} AND rNum=#{rNum} AND isValid=1
+    </select>
+
+    <select id="selectPatient" resultType="java.lang.Integer">
+        SELECT patientId FROM registration WHERE department=#{department} AND rNum=#{rNum} AND isValid=1
+    </select>
+
+    <select id="selectPre" resultType="java.lang.String">
+        SELECT rNum FROM registration WHERE patientId=#{patientId} AND isValid=0 ORDER BY registrationId desc LIMIT 1
+    </select>
+
+    <select id="showAll" resultType="com.hospital.entity.Registration">
+        SELECT * FROM registration WHERE  isValid=1
+    </select>
+</mapper>

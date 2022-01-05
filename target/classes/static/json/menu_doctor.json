@@ -1,0 +1,37 @@
+{
+	"status": 0,
+	"msg": "ok",
+	"data": [{
+			"id": 1,
+			"name": "编辑病历",
+			"icon": "&#xe6b8;",
+			"url": "../../templates/doctor/doctor_middle_editCase.html"
+		},
+		{
+			"id": 2,
+			"name": "开处方",
+			"icon": "&#xe705;",
+			"url": "../../templates/doctor/doctor_middle_prescription.html"
+		},
+		{
+			"id": 3,
+			"name": "开检查",
+			"icon": "&#xe723;",
+			"url": "../../templates/doctor/doctor_middle_examine.html"
+		},
+
+		{
+			"id": 4,
+			"name": "查看病历",
+			"icon": "&#xe705;",
+			"url": "../../templates/doctor/doctor_middle_checkCase.html"
+		},
+
+		{
+			"id": 5,
+			"name": "账号主页",
+			"icon": "&#xe6b8;",
+			"url": "../../templates/doctor/doctor_middle_index.html"
+		}
+	]
+}

@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456 #改成自己数据库的密码
-    url: jdbc:mysql://127.0.0.1:3306/hospital_management?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://127.0.0.1:3306/hospital?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
   resources:
     static-locations: classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
   jackson:
