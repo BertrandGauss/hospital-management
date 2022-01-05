@@ -146,7 +146,7 @@ public class PatientService {
     public String showNum(Integer patientId){
         Registration registration = registrationMapper.selectById(patientId);
         if(registration == null){
-            return "未挂号，暂无排队信息";
+            return "未挂号，暂无信息";
         }
         String rNum = new String();
         rNum = registration.getrNum();
@@ -209,12 +209,17 @@ public class PatientService {
         if(doctor!=null){
             return "请您到"+doctor.getdOffice()+doctor.getdName()+"医生处就诊";
         }
-        return "您前面还有"+number.toString()+"个人";
+        return "排队"+number.toString();
 
     }
 
     public String showName(Integer patientId){
        Patient patient = patientMapper.selectbyid(patientId);
        return patient.getpUsername();
+    }
+
+    public String showRnum(Integer patientId){
+        String runm = registrationMapper.selectById(patientId).getrNum();
+        return runm;
     }
 }

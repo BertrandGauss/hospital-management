@@ -15,5 +15,7 @@ public interface ItemMapper {
 
     List<Item> selectitemsbyPid(Integer patientId);
 
+    List<Item> selectitemsbyPidandDid(@Param("patientId")Integer patientId, @Param("doctorId") Integer doctorId);
+
     Date getIdate(@Param("patientId") Integer patientId, @Param("itemName") String itemName );
 }

@@ -258,56 +258,6 @@
                 </div>
             </form>
 
-                <!--                <div class="layui-form-item">-->
-                <!--                    <div class="layui-inline">-->
-                <!--                        <label class="layui-form-label">就诊科室</label>-->
-                <!--                        <div class="layui-input-inline">-->
-                <!--                            <select name="quiz">-->
-                <!--                                <option value="">请选择科室</option>-->
-                <!--                                <optgroup label="科室1">-->
-                <!--                                    &lt;!&ndash;                            <option value="你工作的第一个城市">你工作的第一个城市</option>&ndash;&gt;-->
-                <!--                                </optgroup>-->
-                <!--                                <optgroup label="科室2">-->
-                <!--                                    &lt;!&ndash;                            <option value="你的工号">你的工号</option>&ndash;&gt;-->
-                <!--                                    &lt;!&ndash;                            <option value="你最喜欢的老师">你最喜欢的老师</option>&ndash;&gt;-->
-                <!--                                </optgroup>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; 搜索选择框，支持搜索和选择&ndash;&gt;-->
-                <!--                    <div class="layui-inline">-->
-                <!--                        <label class="layui-form-label">主治医师</label>-->
-                <!--                        <div class="layui-input-inline">-->
-                <!--                            <select name="modules" lay-verify="required" lay-search="">-->
-                <!--                                <option value="">直接选择或搜索选择</option>-->
-                <!--                                <option value="1">layer</option>-->
-                <!--                                <option value="2">form</option>-->
-                <!--                                <option value="3">layim</option>-->
-                <!--                                <option value="4">element</option>-->
-                <!--                                <option value="5">laytpl</option>-->
-                <!--                                <option value="6">upload</option>-->
-                <!--                                <option value="7">laydate</option>-->
-                <!--                                <option value="8">laypage</option>-->
-                <!--                                <option value="9">flow</option>-->
-                <!--                                <option value="10">util</option>-->
-                <!--                                <option value="11">code</option>-->
-                <!--                                <option value="12">tree</option>-->
-                <!--                                <option value="13">layedit</option>-->
-                <!--                                <option value="14">nav</option>-->
-                <!--                                <option value="15">tab</option>-->
-                <!--                                <option value="16">table</option>-->
-                <!--                                <option value="17">select</option>-->
-                <!--                                <option value="18">checkbox</option>-->
-                <!--                                <option value="19">switch</option>-->
-                <!--                                <option value="20">radio</option>-->
-                <!--                            </select>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-
-
-                <!--表格-->
-
                 <br>
 
 
@@ -325,11 +275,11 @@
                     <div class="layui-block">
                         <div class="weadmin-body ">
 
-                            <div class="layui-btn-container">
-                                <button class="layui-btn" onclick="WeAdminShow('新增检查项','./doctor_add_item.html',750,400);">
-                                    <i class="layui-icon layui-icon-add-circle-fine"></i>新增检查项
-                                </button>
-                            </div>
+<!--                            <div class="layui-btn-container">-->
+<!--                                <button class="layui-btn" onclick="WeAdminShow('新增检查项','./doctor_add_item.html',750,400);">-->
+<!--                                    <i class="layui-icon layui-icon-add-circle-fine"></i>新增检查项-->
+<!--                                </button>-->
+<!--                            </div>-->
 
                             <div class="layui-form-item layui-col-md12">
                                 <!--            <label class="layui-form-label">test</label>-->
@@ -371,49 +321,16 @@
                                     <!--                                    </div>-->
 
                                     <!--   script将点击事件与控件绑定起来-->
-<!--                                    <div class="layui-btn-container">-->
-<!--                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">新增检查项</button>-->
-<!--                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>-->
-<!--                                        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
-<!--                                    </div>-->
 
+                                    <div class="layui-btn-container">
+                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开检查单</button>
+                                    </div>
 
                                 </script>
-                                <script type="text/html" id="barDemo">
-                                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                </script>
-                                <!--            </div>-->
-                                <!--                </div>-->
                             </div>
 
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="layui-form-item layui-form-text layui-col-md10">
-                    <label class="layui-form-label">诊断内容</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">检查总计</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
                 </form>
@@ -426,6 +343,20 @@
 
 <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+<!--展示当前时间-->
+<script>
+    layui.use(['util', 'laydate', 'layer'], function () {
+        // 记录当前时间并展示
+        function getNow(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var currTime = new Date();
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate())
+            + ' ' + getNow(currTime.getHours()) + ':' + getNow(currTime.getMinutes()) + ':' + getNow(currTime.getSeconds());
+        lay('#date').val(str2);
+    });
+</script>
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
@@ -434,9 +365,6 @@
             , laydate = layui.laydate;
 
         //日期
-        laydate.render({
-            elem: '#date'
-        });
         laydate.render({
             elem: '#date1'
         });
@@ -508,7 +436,7 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:9090/list'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
+            , url: 'http://localhost:8082/item/showallItem'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
@@ -523,7 +451,7 @@
                 , {field: 'doctorId', title: '医生编号', width: 90, fixed: 'left', unresize: false, sort: true}
                 , {field: 'itemName', title: '检查名称', width: 90, edit: 'text'}
                 , {field: 'itemPrice', title: '检查价格', width: 90, edit: 'text'}
-                , {field: `skinTestRes`, title: '皮试结果', width: 90, edit: 'text'}
+                , {field: 'skinTestRes', title: '皮试结果', width: 90, edit: 'text'}
                 , {field: 'illnessSummary', title: '病情摘要', width: 90, edit: 'text'}
                 , {field: 'department', title: '执行科室', width: 90, edit: 'text'}
                 , {field: 'checkArea', title: '检查部位', width: 90, edit: 'text'}
@@ -531,7 +459,7 @@
                 , {field: 'checkTime', title: '检查时间', width: 90, edit: 'text'}
                 , {field: 'checkRes', title: '检查结果', width: 90, edit: 'text'}
                 , {field: 'opinion', title: '检查结果', width: 90, edit: 'text'}
-                , {field: 'itemDate', title: '开检查单时间', width: 90, edit: 'text'}
+                , {field: 'itemDate', title: '开检查单时间', width: 120, edit: 'text'}
                 // , {field: 'itemDate', title: '开检查单时间', width: 150, sort: true, totalRow: true,totalRowText: '合计'}
                 // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]]
@@ -611,38 +539,38 @@
 
 
         //监听提交
-        $.ajax({//表单提交
-            type: "POST",   //提交的方法
-            url: "http://localhost:8082/item/addcheckitem",
-            xhrFields: {
-                withCredentials: true,
-            },
-            dataType: "json",
-            contentType: "application/json",
-            async: false,
-            error: function (request) {  //失败的话
-                alert("Connection error");
-            },
-            success: function (data) {
-                console.log(data.data)
-                form.val("examine", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-                    "patientId": data.data.patientId,
-                    "doctorId": data.data.doctorId,
-                    "itemName": data.data.itemName,
-                    "itemPrice": data.data.itemPrice,
-                    "skinTestRes": data.data.skinTestRes,
-                    "illnessSummary": data.data.illnessSummary,
-                    "department": data.data.department,
-                    "checkArea": data.data.checkArea,
-                    "notice": data.data.notice,
-                    "checkTime": data.data.checkTime,
-                    "checkRes": data.data.checkRes,
-                    "opinion": data.data.opinion,
-                    "itemDate": data.data.itemDate
-                });
-            }
-
-        })
+        // $.ajax({//表单提交
+        //     type: "POST",   //提交的方法
+        //     url: "http://localhost:8082/item/addcheckitem",
+        //     xhrFields: {
+        //         withCredentials: true,
+        //     },
+        //     dataType: "json",
+        //     contentType: "application/json",
+        //     async: false,
+        //     error: function (request) {  //失败的话
+        //         alert("Connection error");
+        //     },
+        //     success: function (data) {
+        //         console.log(data.data)
+        //         form.val("examine", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+        //             "patientId": data.data.patientId,
+        //             "doctorId": data.data.doctorId,
+        //             "itemName": data.data.itemName,
+        //             "itemPrice": data.data.itemPrice,
+        //             "skinTestRes": data.data.skinTestRes,
+        //             "illnessSummary": data.data.illnessSummary,
+        //             "department": data.data.department,
+        //             "checkArea": data.data.checkArea,
+        //             "notice": data.data.notice,
+        //             "checkTime": data.data.checkTime,
+        //             "checkRes": data.data.checkRes,
+        //             "opinion": data.data.opinion,
+        //             "itemDate": data.data.itemDate
+        //         });
+        //     }
+        //
+        // })
     });
 </script>
 
