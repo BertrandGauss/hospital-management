@@ -9,5 +9,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/hospital?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8
   resources:
     static-locations: classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+  jackson:
+      time-zone: GMT+8
 mybatis:
   mapper-locations: classpath:mapper/*.xml

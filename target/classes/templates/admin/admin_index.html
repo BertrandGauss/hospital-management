@@ -35,18 +35,12 @@
                 <img src="../../static/images/toux.jpg" class="layui-nav-img">
 
                 <!--姓名展示-->
-                <cite class="cite-user-name"></cite>
+                 管理员
 
                 <!--<label ></label>-->
             </a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
-                <dd>
-                    <a onclick="setting()">个人信息</a>
-                </dd>
-                <dd>
-                    <a onclick="updatepassword()">修改密码</a>
-                </dd>
                 <dd>
                     <a onclick="WeAdminShow('切换帐号','../login.html')">切换帐号</a>
                 </dd>
@@ -54,9 +48,6 @@
                     <a class="loginout" href="../login.html">退出</a>
                 </dd>
             </dl>
-        </li>
-        <li class="layui-nav-item to-index">
-            <a href="../Health-care/index.html" target="_blank">前台首页</a>
         </li>
     </ul>
 
@@ -99,51 +90,14 @@
         admin: 'admin'
         ,menu: 'menu'
     });
-    layui.use(['jquery', 'admin', 'menu'], function(){
+    layui.use(['jquery', 'admin', 'menu'], function() {
         var $ = layui.jquery,
             admin = layui.admin,
             menu = layui.menu;
-        $(function(){
+        $(function () {
             menu.getMenu('../../static/json/menu_admin.json');
         });
-        function init() {
-            //显示姓名
-            $.ajax({
-                type: "GET",   //提交的方法
-                url:"http://localhost:8081/user/getusername",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                contentType: "application/json",
-                async: false,
-                // error: function(request) {  //失败的话
-                //     alert("Connection error");
-                // },
-                success: function(data) {
-
-                    if (data.code===0){
-                        $('.cite-user-name').text(data.data);
-                    }
-                    else{
-                        alert(data.msg)
-                    }
-                }
-
-            })
-
-        }
-
-        init();
-    });
-    function setting() {
-        WeAdminShow('','./setting.html',450,250);
-
-    }
-    function updatepassword() {
-        WeAdminShow('','./updatepassword.html',450,250);
-
-    }
+    })
 </script>
 </body>
 <!--Tab菜单右键弹出菜单-->

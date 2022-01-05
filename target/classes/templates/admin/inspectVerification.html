@@ -12,15 +12,13 @@
     <!--<link rel="stylesheet" href="../../../static/layui/css/public.css" media="all">-->
     <link rel="stylesheet" href="../../static/layui/css/public.css" tppabs="https://www.layui.site/layui/dist/css/layui.css"
           media="all">
-    <!--<script src="http://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>-->
-    <!--<script src="https//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>-->
     <script href="../../static/layui-v2.6.8/layui/layui.js"></script>
-    <title>配药审核</title>
+    <title>检查审核</title>
 </head>
 <div class="weadmin-nav">
 			<span class="layui-breadcrumb">
 				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">项目审核</a>
-				<a href="javascript:;"> <cite>配药审核</cite></a>
+				<a href="javascript:;"> <cite>检查审核</cite></a>
 			</span>
     <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
        title="刷新">
@@ -28,13 +26,10 @@
         <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
     </a>
 </div>
-<body>
-<br>
-<br>
 <div class="weadmin-body">
     <div class="layui-row">
         <form class="layui-form layui-col-md12 we-search">
-            已有药品信息搜索：
+            已有检查信息搜索：
             <div class="layui-inline">
                 <input class="layui-input" placeholder="患者身份证" name="pIdentificationNum" id="pIdentificationNum"  />
             </div>
@@ -48,7 +43,7 @@
            批量审核
         </button>
     </div>
-    <table class="layui-table"  lay-data="{ url:'http://localhost:8082/record/showRecord', page:true, id:'allRecord'}" lay-filter="allRecord">
+    <table class="layui-table"  lay-data="{ url:'http://localhost:8082/item/showItem', page:true, id:'allItem'}" lay-filter="allItem">
         <thead>
         <tr>
             <!--<th>-->
@@ -60,9 +55,8 @@
             <th lay-data="{field:'patientId'}">患者ID</th>
             <th lay-data="{field:'oDate', sort: true , templet: '#titleTpl'}">开单时间</th>
             <th lay-data="{field:'pIdentificationNum'}">患者身份证</th>
-            <th lay-data="{field:'recipeName'}">药品名称</th>
-            <th lay-data="{field:'price'}">药品单价</th>
-            <th lay-data="{field:'dosage'}">药品用量</th>
+            <th lay-data="{field:'recipeName'}">项目名称</th>
+            <th lay-data="{field:'price'}">项目单价</th>
             <th  lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">操作</th>
         </tr>
         </thead>
@@ -83,46 +77,33 @@
     }}
     {{ fn(d.rdate) }}
 </script>
-
-
+<script>
+    layui.extend({
+        admin: '../../static/js/admin'
+    });
+</script>
+<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/js/admin.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
-        // table.render({
-        //     elem: '#test'   // 绑定组件，之前已将table id命名为test
-        //     , url: 'http://localhost:8082/record/showRecord'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
-        //     , toolbar: '#toolbarDemo'
-        //     , title: '配药表'
-        //     , totalRow: true
-        //     , cols: [[
-        //         {type: 'checkbox', fixed: 'left'}   // 复选框
-        //         , {field: 'patientId', title: '患者ID', width: 150, fixed: 'left', unresize: true, sort: true}
-        //         , {field: 'pIdentificationNum', title: '患者身份证号', width: 300}
-        //         , {field: 'recipeName', title: '药品名称', width: 200,edit: 'text' }
-        //         , {field: 'price', title: '药品单价', width: 150}
-        //         , {field: 'dosage', title: '用量', width: 150}
-        //         , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-        //     ]]
-        //     , page: true
-        // });
+        var $ = layui.jquery;
         //监听工具条
         //监听工具条，修改表格内容，在表格内，跟lay-filter绑定
-        table.on('tool(allRecord)', function (obj) {
+        table.on('tool(allItem)', function (obj) {
             var data = obj.data;
-            var $ = layui.jquery;
             var json={
                 "recipeName":data.recipeName,
                 "pIdentificationNum":data.pIdentificationNum
             }
-            console.log(obj.event)
+            console.log(json)
             if (obj.event === 'send') {
-                layer.confirm('确定发药吗', function (index) {
+                layer.confirm('确定检查已完成吗', function (index) {
                     $.ajax({
                         type: "POST",   //提交的方法
-                        url: "http://localhost:8082/record/setRecordhavedone",
+                        url: "http://localhost:8082/item/setItemhavedone",
                         xhrFields: {
                             withCredentials: true,
                         },
@@ -132,9 +113,9 @@
                         success: function (result) {
                             if (result.code == "0") {
                                 layer.close(index);
-                                layui.table.reload("allRecord",{page:{curr:1}});
+                                layui.table.reload("test",{page:{curr:1}});
                             }else{
-                                layer.msg("发药错误", {
+                                layer.msg("检查错误", {
                                     icon: 5
                                 });
                             }
@@ -151,26 +132,20 @@
 
     });
 </script>
-<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
-<script src="../../static/js/admin.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    var recipeNames = [];
-    var pIdentificationNums = []
     layui.use('table', function() {
         var table = layui.table;
-
-        table.on('checkbox(allRecord)', function (obj) {
+        var recipeNames = [];
+        var pIdentificationNums = []
+        table.on('checkbox(allItem)', function (obj) {
             console.log(obj.data)
             var flag = 0;
             for (let i = 0; i < recipeNames.length; i++) {
-                if (pIdentificationNums[i] == obj.data.pIdentificationNum) {
-                    if( recipeNames[i] == obj.data.recipeName) {
-                        alert(i)
-                        pIdentificationNums.splice(i, 1);
-                        recipeNames.splice(i, 1);
-                        i--;
-                        flag = 1;
-                    }
+                if (pIdentificationNums[i] == obj.data.pIdentificationNum && recipeNames[i] == obj.data.recipeName) {
+                    pIdentificationNums.splice(i, 1);
+                    recipeNames.splice(i, 1);
+                    i--;
+                    flag = 1;
                 }
             }
             if (flag == 0) {
@@ -181,33 +156,32 @@
 
 
     })
-
     function checkSome() {
-
+        console.log(recipeNames)
             var $ = layui.jquery;
-                $.ajax({
-                    type: "POST",   //提交的方法
-                    url: "http://localhost:8082/record/setRecordshavedone",
-                    xhrFields: {
-                        withCredentials: true,
-                    },
-                    dataType: "json",
-                    data: JSON.stringify({
-                        "recipeName": recipeNames,
-                        "pIdentificationNum": pIdentificationNums
-                    }),
-                    contentType: "application/json",
-                    async: true,
-                    error: function (request) {  //失败的话
-                        alert("Connection error");
-                    },
-                    success: function (data) {
-                        layer.close(index);
-                        layui.table.reload("allRecord", {page: {curr: 1}});
-                    }
-                })
-        window.delrAll();
-        }
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082/item/setItemshavedone",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                data: JSON.stringify({
+                    "recipeName": recipeNames,
+                    "pIdentificationNum": pIdentificationNums
+                }),
+                contentType: "application/json",
+                async: true,
+
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
+
+                }
+            })
+        window.deltAll();
+    }
 </script>
 <script>
     layui.use(['form', 'jquery','util','admin', 'layer'], function() {
@@ -218,13 +192,12 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)',function (data){(
-            table.reload('allRecord', {
-                url:"http://localhost:8082/record/searchrecord",
+            table.reload('allItem', {
+                url:"http://localhost:8082/item/searchitem",
                 method: 'POST',
                 contentType: 'application/json'
                 , where: {
                     "pIdentificationNum":data.field.pIdentificationNum
-
 
                 }, page: {
                     curr: 1 //重新从第 1 页开始

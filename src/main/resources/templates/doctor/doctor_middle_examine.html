@@ -256,7 +256,7 @@
                         </div>
                     </div>
                 </div>
-
+            </form>
 
                 <!--                <div class="layui-form-item">-->
                 <!--                    <div class="layui-inline">-->
@@ -318,6 +318,7 @@
                 <!--        <div class="layui-card">-->
                 <!--            <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>-->
 
+                <form class="layui-form" action="" lay-filter="examine">
                 <div class="layui-form-item layui-form-text layui-col-md12">
                     <div class="layui-block">
                         <div class="weadmin-body ">
@@ -405,7 +406,8 @@
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                     </div>
                 </div>
-            </form>
+                </form>
+
 
         </div>
     </div>
@@ -599,7 +601,7 @@
             },
             success: function (data) {
                 console.log(data.data)
-                form.val("test", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                form.val("examine", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
                     "patientId": data.data.patientId,
                     "doctorId": data.data.doctorId,
                     "itemName": data.data.itemName,

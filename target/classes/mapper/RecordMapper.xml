@@ -15,16 +15,51 @@
         WHERE patientId = #{patientId} AND medName=#{medName};
     </update>
 
+    <update id="setMednotHaveDone" >
+        UPDATE record
+        SET medHaveDone=0
+        WHERE patientId = #{patientId} AND medName=#{medName};
+    </update>
+
     <select id="selectmed" resultType="com.hospital.entity.Record" >
         SELECT *
         FROM record
         WHERE havePay = 1 AND  medHaveDone=0;
     </select>
 
-    <select id="getRdate" >
+    <select id="selectmedGet" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND  medHaveDone=1;
+    </select>
+
+    <select id="getRdate"  resultType="java.sql.Date">
         SELECT recordDate
         FROM record
         WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
     </select>
 
+    <select id="selectById" resultType="java.lang.Integer" >
+        SELECT medHaveDone
+        FROM record
+        WHERE patientId = #{patientId};
+    </select>
+
+    <select id="selectmedbypIdentificationNum" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND  medHaveDone=0 AND patientId=#{patientId};
+    </select>
+
+    <select id="selectnotmedbypIdentificationNum" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE havePay = 1 AND  medHaveDone=1 AND patientId=#{patientId};
+    </select>
+
+    <select id="getRecord" resultType="com.hospital.entity.Record">
+        SELECT *
+        FROM record
+        WHERE patientId = #{patientId} AND medName=#{medName} AND havePay = 1 AND  medHaveDone = 1;
+    </select>
 </mapper>

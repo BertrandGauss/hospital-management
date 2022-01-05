@@ -3,38 +3,40 @@
   "msg": "ok",
   "data": [{
     "id": 1,
-    "name": "新注册医生资质审核",
+    "name": "医生审核",
     "icon": "&#xe6b8;",
-    "url": "../../templates/admin/doctorVeri/doctorVerification.html"
+    "url": "../../templates/admin/doctorVerification.html"
   },
     {
       "id": 8,
       "name": "线下挂号",
       "icon": "&#xe705;",
-      "url": "../../templates/admin/registerVeri/registerVerification.html"
+      "url": "../../templates/admin/register_index.html"
     },
     {
       "id": 11,
-      "name": "配药审核",
+      "name": "项目审核",
       "icon": "&#xe723;",
-      "url": ""
-    },
-    {
-      "id": 28,
-      "name": "退费审核",
-      "icon": "&#xe705;",
       "url": "",
       "children": [{
         "id": 29,
-        "name": "处方退费审核",
+        "name": "药品审核",
         "icon": "",
-        "url": "./pages/sports/list.html"
+        "url": "../../templates/admin/MedicineVerification.html"
       }, {
         "id": 30,
-        "name": "检查退费审核",
+        "name": "检查审核",
         "icon": "",
-        "url": "./pages/sports/show.html"
+        "url": "../../templates/admin/inspectVerification.html"
       }]
+
+    },
+    {
+      "id": 28,
+      "name": "退药审核",
+      "icon": "&#xe705;",
+      "url": "../../templates/admin/RefundmedicineVerification.html"
+
     }
   ]
 }
