@@ -109,7 +109,12 @@
         form.on('submit(demo1)', function(data){
             data = data.field;
             console.log(data)
-            $.ajax({
+            //发异步，把数据提交给php
+
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+
+                $.ajax({
                 type: "POST",   //提交的方法
                 url:"http://localhost:8082/order/startorder",
                 xhrFields: {
@@ -129,10 +134,18 @@
                     alert("Connection error");
                 },
                 success: function(data) {
-
+                    if (data.code==0){
+                        parent.layer.close(index);
+                        window.parent.location.reload();
+                    }
+                    else{
+                        layer.alert(data.msg)
+                    }
                 }
 
             })
+
+            return false;
         });
 
     });

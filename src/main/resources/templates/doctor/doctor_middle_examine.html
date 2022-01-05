@@ -498,7 +498,7 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:9090/list'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
+            , url: 'http://localhost:8082/item/showallItem'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
@@ -513,7 +513,7 @@
                 , {field: 'doctorId', title: '医生编号', width: 90, fixed: 'left', unresize: false, sort: true}
                 , {field: 'itemName', title: '检查名称', width: 90, edit: 'text'}
                 , {field: 'itemPrice', title: '检查价格', width: 90, edit: 'text'}
-                , {field: `skinTestRes`, title: '皮试结果', width: 90, edit: 'text'}
+                , {field: 'skinTestRes', title: '皮试结果', width: 90, edit: 'text'}
                 , {field: 'illnessSummary', title: '病情摘要', width: 90, edit: 'text'}
                 , {field: 'department', title: '执行科室', width: 90, edit: 'text'}
                 , {field: 'checkArea', title: '检查部位', width: 90, edit: 'text'}

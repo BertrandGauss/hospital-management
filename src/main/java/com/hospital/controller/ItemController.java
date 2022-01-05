@@ -107,4 +107,17 @@ public class ItemController {
         json.put("count",items.size());
         return json;
     }
+
+    //显示医生开具给该患者的所有检查
+    @RequestMapping(value = "/showallItem",method = {RequestMethod.GET})
+    private JSONObject showALlItems(){
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
+        Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
+        List<Item> items = itemService.showAll(did,pid);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",0);
+        jsonObject.put("msg","显示成功");
+        jsonObject.put("data",items);
+        return jsonObject;
+    }
 }

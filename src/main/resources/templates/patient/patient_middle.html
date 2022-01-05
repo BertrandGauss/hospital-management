@@ -102,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="main2" style="width: 50%;min-height:120px"></div>
+
               </div>
             </div>
 
@@ -157,9 +157,9 @@
                           </a>
                         </div>
                         <div class="layui-col-xs6 layuimini-qiuck-module">
-                          <a href="./patient_guahao.html" data-title="挂号情况" data-icon="layui-icon-tabs">
+                          <a href="./setting.html" data-title="挂号情况" data-icon="layui-icon-tabs">
                             <i class="layui-icon">&#xe62a;</i>
-                            <cite>挂号情况</cite>
+                            <cite>个人信息</cite>
                           </a>
                         </div>
                         <div class="layui-col-xs6 layuimini-qiuck-module">
@@ -195,56 +195,68 @@
           </div>
           <div class="layui-card-body layui-text">
             <div class="layuimini-notice" id="notice1" name="notice">
-              <div class="layuimini-notice-title">预约后请勿随意取消挂号！</div>
+              <div class="layuimini-notice-title">预约后请勿随意取消预约！</div>
               <div class="layuimini-notice-extra">2021-01-01 23:06</div>
             </div>
             <div class="layuimini-notice" id="notice2" name="notice">
               <div class="layuimini-notice-title">预约后请及时取号！</div>
               <div class="layuimini-notice-extra">2021-01-02 08:06</div>
             </div>
+            <div class="layuimini-notice" id="notice3" name="notice">
+              <div class="layuimini-notice-title">最多提前30分钟预约挂号</div>
+              <div class="layuimini-notice-extra">2021-01-03 16:06</div>
+            </div>
+            <div class="layuimini-notice" id="notice4" name="notice">
+              <div class="layuimini-notice-title">请记得及时缴费</div>
+              <div class="layuimini-notice-extra">2021-01-04 10:14</div>
+            </div>
+            <div class="layuimini-notice" id="notice5" name="notice">
+              <div class="layuimini-notice-title">取药后退费请记得前到管理员处退药</div>
+              <div class="layuimini-notice-extra">2021-01-06 10:14</div>
+            </div>
           </div>
         </div>
 
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <i class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-              <legend>系统信息</legend>
-            </i>
-          </div>
-          <div class="layui-card-body layui-text">
-            <table class="layui-table">
-              <colgroup>
-                <col width="100">
-                <col>
-              </colgroup>
-              <tbody>
-              <tr>
-                <td>系统名称</td>
-                <td>
-                  医院信息管理系统
-                </td>
-              </tr>
-              <tr>
-                <td>当前版本</td>
-                <td>v1.0.0</td>
-              </tr>
-              <tr>
-                <td>主要特色</td>
-                <td>在线预约\在线挂号\在线缴费</td>
-              </tr>
-              <tr>
-                <td>Github</td>
-                <td style="padding-bottom: 0;">
-                  <div class="layui-btn-container">
-                    <iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-                    <iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <!--<div class="layui-card">-->
+          <!--<div class="layui-card-header">-->
+            <!--<i class="layui-elem-field layui-field-title" style="margin-top: 30px;">-->
+              <!--<legend>系统信息</legend>-->
+            <!--</i>-->
+          <!--</div>-->
+          <!--<div class="layui-card-body layui-text">-->
+            <!--<table class="layui-table">-->
+              <!--<colgroup>-->
+                <!--<col width="100">-->
+                <!--<col>-->
+              <!--</colgroup>-->
+              <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td>系统名称</td>-->
+                <!--<td>-->
+                  <!--医院信息管理系统-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--<tr>-->
+                <!--<td>当前版本</td>-->
+                <!--<td>v1.0.0</td>-->
+              <!--</tr>-->
+              <!--<tr>-->
+                <!--<td>主要特色</td>-->
+                <!--<td>在线预约\在线挂号\在线缴费</td>-->
+              <!--</tr>-->
+              <!--<tr>-->
+                <!--<td>Github</td>-->
+                <!--<td style="padding-bottom: 0;">-->
+                  <!--<div class="layui-btn-container">-->
+                    <!--<iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+                    <!--<iframe src="https://ghbtns.com/github-btn.html?user=BertrandGauss&repo=hospital-management&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+                  <!--</div>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--</tbody>-->
+            <!--</table>-->
+          <!--</div>-->
+        <!--</div>-->
 
         <div class="layui-card">
           <div class="layui-card-header">
@@ -273,15 +285,9 @@
               </div>
             </li>
             <li class="layui-timeline-item">
-              <i class="layui-icon layui-timeline-axis"></i>
-              <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">2012年，医院不断发展</div>
-              </div>
-            </li>
-            <li class="layui-timeline-item">
               <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
               <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">2000年，医院建立</div>
+                <div class="layui-timeline-title">2010年，医院建立</div>
               </div>
             </li>
           </ul>

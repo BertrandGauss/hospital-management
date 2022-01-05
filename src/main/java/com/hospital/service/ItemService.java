@@ -82,4 +82,10 @@ public class ItemService {
         itemMapper.setItemsHaveDone(patientId,recordname);
     }
 
+    public List<Item> showAll(Integer doctorId, Integer patientId){
+        List<Item> items = itemMapper.selectitemsbyPidandDid(patientId,doctorId);
+        return  items;
+
+    }
+
 }
