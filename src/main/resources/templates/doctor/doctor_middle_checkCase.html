@@ -54,16 +54,16 @@
     <!--    </div>-->
 
     <!--这里url改一下，根据实际后台接口-->
-    <table class="layui-table" lay-data="{ url:'http://localhost:8082/history/viewallhisbypid', page:true, id:'allhistory'}"
+    <table class="layui-table" lay-data="{ url:'http://localhost:8082/history/viewallhis', page:true, id:'allhistory'}"
            lay-filter="allhistory">
         <thead>
         <tr>
             <th lay-data="{field:'historyId'}">病历编号</th>
             <!--<th lay-data="{field:'date', sort: true , templet: '#titleTpl'}">提交时间</th>-->
-            <th lay-data="{field:'pName'}">患者姓名</th>
             <th lay-data="{field:'pIdentificationNum'}">患者身份证号</th>
+            <th lay-data="{field:'clinicType'}">就诊类型</th>
             <th lay-data="{field:'diseaseDate', sort: true , templet: '#titleTpl'}">发病日期</th>
-            <th lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">查看/删除记录</th>
+            <th lay-data="{fixed: 'right',align:'left', toolbar: '#barDemo'}">查看记录</th>
         </tr>
         </thead>
         <tbody>
@@ -74,7 +74,6 @@
 <script src="../../lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
     <a title="查看" lay-event="view"><i class="layui-icon">&#xe63c;</i></a>
-    <a title="删除" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
 </script>
 <script type="text/html" id="titleTpl">
     {{#
@@ -82,7 +81,7 @@
     return data.substring(0,10);
     };
     }}
-    {{ fn(d.oDate) }}
+    {{ fn(d.diseaseDate) }}
 </script>
 
 <script>
@@ -90,63 +89,12 @@
     layui.use('table', function () {
         var $ = layui.jquery
         var table = layui.table;
-        //监听表格复选框选择
-        // table.on('checkbox(allhistory)', function (obj) {
-        //     var flag = 0;
-        //     for (var i = 0; i < orders.length; i++) {
-        //         if (orders[i] == obj.data.orderId) {
-        //             console.log("delete")
-        //             dates.splice(i, 1);
-        //             i--;
-        //             flag = 1;
-        //             console.log(orders)
-        //         }
-        //     }
-        //     if (flag == 0) {
-        //         orders.push(obj.data.orderId);
-        //     }
-        // });
 
         //监听工具条
         table.on('tool(allhistory)', function (obj) {
             var data = obj.data;
             console.log(data.historyId)
             // 删除病历操作
-            if (obj.event === 'del') {
-                layer.confirm('确认删除患者历史病历信息吗？', function (index) {
-                    var data = obj.data;
-                    $.ajax({
-                        //几个参数需要注意一下
-                        type: "POST",//方法类型
-                        url: "http://localhost:8082/history/viewallhisbypid",//url
-                        xhrFields: {
-                            withCredentials: true,
-                        },
-                        dataType: "json",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            "historyId": data.historyId
-                        }),
-
-                        success: function (result) {
-                            if (result.code === "0") {
-                                layer.close(index);
-                                layer.msg('删除历史病历成功！');
-                                layui.table.reload("allhistory", {page: {curr: 1}});
-                            } else {
-                                layer.msg('删除历史病历失败！', {
-                                    icon: 5
-                                });
-                            }
-                        },
-                        error: function () {
-                            layer.msg('服务器错误', {
-                                icon: 5
-                            });
-                        }
-                    });
-                });
-            }
             // 查看病历操作
             if (obj.event === 'view') {
                 var data = obj.data;
@@ -156,7 +104,30 @@
         });
     });
 </script>
+<script>
+    layui.use(['form', 'jquery','util','admin', 'layer'], function() {
+        var form = layui.form,
+            table = layui.table,
+            $ = layui.jquery,
+            util = layui.util,
+            admin = layui.admin,
+            layer = layui.layer;
+        form.on('submit(search)',function (data){(
+            table.reload('allRecord', {
+                url:"http://localhost:8082/history/viewallhisbypid",
+                method: 'POST',
+                contentType:'application/x-www-form-urlencoded'
+                , where: {
+                    "pIdentificationNum": data.field.pIdentificationNum
+                }, page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            })
 
+        )
+            return false;
+        })})
+</script>
 
 <script>
     <!--根据查询结果更新数据表格-->
@@ -168,21 +139,6 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)', function (data) {
-            // (
-            //     table.reload('allhistory', {
-            //         // url记得改一下
-            //         url: "http://localhost:8082/history/viewallhisbypid",
-            //         method: 'POST',
-            //         contentType: 'application/json'
-            //         , where: {
-            //             "pIdentificationNum": data.field.identityNum,
-            //         }, page: {
-            //             curr: 1 //重新从第 1 页开始
-            //         }
-            //     })
-            //
-            // )
-
             data = data.field;
             var json={
                 "pIdentificationNum":$("#pIdentificationNum").val()
