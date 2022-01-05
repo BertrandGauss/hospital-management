@@ -131,4 +131,17 @@ public class PatientController {
         json.put("msg","返回用户名成功");
         return json;
     }
+
+    //显示当前排队号
+    @RequestMapping(value = "/showRnum",method = {RequestMethod.GET})
+    private JSONObject showRNum(){
+        Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
+        String runm = patientService.showRnum(id);
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","显示完成");
+        json.put("data",runm);
+        return json;
+
+    }
 }
