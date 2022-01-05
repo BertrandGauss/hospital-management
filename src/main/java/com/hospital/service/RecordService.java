@@ -162,12 +162,14 @@ public class RecordService {
         }
     }
 
-    //设置某项配药已配
+    //设置某项配药已退
     public void setRecordnotHaveDone(String recordname, String pIdentificationNum) {
         Integer patientId = patientMapper.selectByIdentificationNum(pIdentificationNum);
-        recordMapper.setMednotHaveDone(patientId,recordname);
         traceMapper.updateTrace(patientId,3);
+        System.out.println(patientId);
+        System.out.println(recordname);
         Integer doages = recordMapper.getRecord(patientId,recordname).getDosage();
+        recordMapper.setMednotHaveDone(patientId,recordname);
         medicineMapper.returnRemains(doages);
     }
 

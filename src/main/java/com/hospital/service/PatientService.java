@@ -131,14 +131,17 @@ public class PatientService {
     public String showTrace(Integer patientId){
         Integer state = traceMapper.selectById(patientId);
         String trace;
-        if (state == 0){
+        if(state == null){
+            trace ="暂无配药信息";
+        }
+        else if (state == 0){
             trace = "等待配药";
         }else if(state == 1){
             trace = "正在配药";
         }else if(state == 3){
-            trace = "等待发药";
+            trace = "等待退药";
         }else {
-            trace = "正在发药";
+            trace = "配药完成";
         }
         return trace;
     }

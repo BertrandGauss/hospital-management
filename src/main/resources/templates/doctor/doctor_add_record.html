@@ -87,7 +87,7 @@
             <label class="layui-form-label">用法</label>
             <div class="layui-input-inline" style="width:200px;">
                 <div class="layui-inline">
-                    <input class="layui-input" placeholder="用法" name="usage" id="usage"  />
+                    <input class="layui-input" placeholder="用法" name="us" id="us"  />
                 </div>
             </div>
         </div>
@@ -174,7 +174,9 @@
                     "dosage": data.dosage,
                     "units": data.unit,
                     "frequency": data.fre,
-                    "days": data.days
+                    "days": data.days,
+                    "usage":data.us,
+                    "medPrice":data.medPrice
                 }),
 
                 async: false,

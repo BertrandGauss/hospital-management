@@ -82,6 +82,7 @@
             //监听提交
             form.on('submit(registerSubmit)', function (data) {
                 data = data.field;
+                var index = parent.layer.getFrameIndex(window.name);
                 $.ajax({
                     type: "POST",   //提交的方法
                     url: "http://localhost:8082/registration/addregistration",
@@ -101,7 +102,13 @@
                         alert("Connection error");
                     },
                     success: function (data) {
-                        layer.msg(data.msg)
+                        if (data.code==0){
+                            parent.layer.close(index);
+                            window.parent.location.reload();
+                        }
+                        else{
+                            layer.alert(data.msg)
+                        }
                     }
                 })
                 return false;

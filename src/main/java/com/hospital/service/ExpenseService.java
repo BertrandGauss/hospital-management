@@ -118,6 +118,8 @@ public class ExpenseService {
             recipe.setdName(doctor.getdName());
             recipe.setRdate(med.get(i).getRecordDate());
             recipe.setRecipeName(med.get(i).getMedName());
+            System.out.println(med.get(i).getMedPrice());
+            System.out.println(med.get(i).getDosage());
             recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             Integer state = traceMapper.selectById(patientId);
             if(state==3)
