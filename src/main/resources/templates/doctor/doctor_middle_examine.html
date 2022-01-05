@@ -582,6 +582,41 @@
             }
 
         })
+
+
+        //监听提交
+        $.ajax({//表单提交
+            type: "POST",   //提交的方法
+            url: "http://localhost:8082/item/addcheckitem",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType: "json",
+            contentType: "application/json",
+            async: false,
+            error: function (request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function (data) {
+                console.log(data.data)
+                form.val("test", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "patientId": data.data.patientId,
+                    "doctorId": data.data.doctorId,
+                    "itemName": data.data.itemName,
+                    "itemPrice": data.data.itemPrice,
+                    "skinTestRes": data.data.skinTestRes,
+                    "illnessSummary": data.data.illnessSummary,
+                    "department": data.data.department,
+                    "checkArea": data.data.checkArea,
+                    "notice": data.data.notice,
+                    "checkTime": data.data.checkTime,
+                    "checkRes": data.data.checkRes,
+                    "opinion": data.data.opinion,
+                    "itemDate": data.data.itemDate
+                });
+            }
+
+        })
     });
 </script>
 

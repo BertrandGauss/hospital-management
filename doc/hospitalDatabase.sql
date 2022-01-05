@@ -34,35 +34,35 @@ CREATE TABLE `Doctor`(
 -- ----------------------------
 -- Insert values into Doctor
 -- ----------------------------
-# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor1', 'a123456', 1, '张一', '234569833647390534', '外科', '专家');
+# INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dPhone`, `dIdentificationNum`, `dOffice`, `dTitle`, `patientId`)
+# VALUES ('doctor1', 'a123456', 1, '张一', '123489443640', '234569833647390534', '外科', '专家', '1');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor2', 'b123456', 0, '张二', '234569473647390534', '外科', '普通');
+# VALUES ('doctor2', 'b123456', 0, '张二', '167489457640', '234569473647390534', '外科', '普通', '1');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor3', 'c123456', 1, '张三', '234569833647090534', '内科', '普通');
+# VALUES ('doctor3', 'c123456', 1, '张三', '123466457640', '234569833647090534', '内科', '普通', '2');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor4', 'd123456', 1, '张四', '234569833677390534', '内科', '专家');
+# VALUES ('doctor4', 'd123456', 1, '张四', '123489437690', '234569833677390534', '内科', '专家', '5');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor5', 'e123456', 0, '张五', '234569836147390534', '内科', '普通');
+# VALUES ('doctor5', 'e123456', 0, '张五', '122489457640', '234569836147390534', '内科', '普通', '1');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor6', 'f123456', 0, '张六', '234569403647390534', '外科', '专家');
+# VALUES ('doctor6', 'f123456', 0, '张六', '123487757640', '234569403647390534', '外科', '专家', '9');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor7', 'g123456', 1, '张七', '234529403647399834', '外科', '专家');
+# VALUES ('doctor7', 'g123456', 1, '张七', '123489457600', '234529403647399834', '外科', '专家', '1');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor8', 'h123456', 0, '张八', '114569403647390534', '外科', '普通');
+# VALUES ('doctor8', 'h123456', 0, '张八', '123491457640', '114569403647390534', '外科', '普通', '7');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor9', 'i123456', 1, '张九', '344569403647390534', '内科', '普通');
+# VALUES ('doctor9', 'i123456', 1, '张九', '123209457640', '344569403647390534', '内科', '普通', '6');
 #
 # INSERT INTO `Doctor` (`dUsername`, `dPassword`, `isValid`, `dName`, `dIdentificationNum`, `dOffice`, `dTitle`)
-# VALUES ('doctor10', 'j123456', 1, '张十', '234569406473945040', '外科', '普通');
+# VALUES ('doctor10', 'j123456', 1, '张十', '153209457640',  '234569406473945040', '外科', '普通', '1');
 
 
 -- ----------------------------
