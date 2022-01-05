@@ -757,11 +757,13 @@
             , totalRow: true
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}   // 复选框
-                , {field: 'itemId', title: '检查编号', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                , {field: 'itemName', title: '检查名称', width: 120, edit: 'text'}
+                , {field: 'itemId', title: '药品编号', width: 120, fixed: 'left', unresize: false, sort: true}
+                , {field: 'itemName', title: '药品名称', width: 120, edit: 'text'}
                 , {field: 'notice', title: '注意事项', width: 150, edit: 'text'}
-                , {field: 'price', title: '检查价格', width: 150, sort: true, totalRow: true}
+                , {field: 'price', title: '药品价格', width: 150, sort: true, totalRow: true, totalRowText: '合计'}
+                , {field: 'remains', title: '药品库存', width: 150, sort: true, totalRow: true}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+
             ]]
             , page: true
         });
