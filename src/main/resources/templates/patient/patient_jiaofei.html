@@ -45,7 +45,7 @@
         </form>
     </div>
     <div class="weadmin-block" id="topline" name=""topline>
-        <button class="layui-btn">
+        <button class="layui-btn"  onclick="pay()">
             <i class="layui-icon layui-icon-add-circle-fine"></i>缴费
         </button>
         <button class="layui-btn layui-btn-danger" onclick="deleteSome()">
@@ -71,6 +71,11 @@
     </table>
 
 </div>
+<div id="test">
+</div>
+<script type="text/html" id="xuhao">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
 <script src="../../lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/html" id="barDemo">
     <a title="退费" lay-event="del"><i class="layui-icon">&#xe640;</i></a>
@@ -82,132 +87,6 @@
     };
     }}
     {{ fn(d.rdate) }}
-</script>
-
-<script>
-    var dates=[]
-    layui.use('table', function() {
-        var $ = layui.jquery
-        var table = layui.table;
-        //监听表格复选框选择
-
-        table.on('checkbox(allrecipe)', function(obj) {
-            var flag=0;
-            for(let i=0;i<dates.length;i++){
-                if(dates[i]==obj.data.date){
-                    console.log("delete")
-                    dates.splice(i,1);
-                    i--;
-                    flag=1;
-                    console.log(dates)
-                }
-            }
-            if(flag==0){
-                dates.push(obj.data.date);
-            }
-        });
-        //监听工具条
-        table.on('tool(allrecipe)', function(obj) {
-            var data = obj.data;
-            console.log(data.date)
-            if (obj.event === 'del') {
-                layer.confirm('确认退费吗？', function(index) {
-                    var data = obj.data;
-                    $.ajax({
-                        //几个参数需要注意一下
-                        type: "POST",//方法类型
-
-                        url: "http://localhost:8081/food/deletefood",//url
-                        xhrFields: {
-                            withCredentials: true,
-                        },
-                        dataType:"json",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            "date":data.date
-                        }),
-                        success: function (result) {
-                            if (result.code == "0") {
-                                layer.close(index);
-                                layer.msg('退费成功');
-                                layui.table.reload("allfood",{page:{curr:1}});
-                            }else{
-                                layer.msg('退费失败', {
-                                    icon: 5
-                                });
-                            }
-                        },
-                        error : function() {
-                            layer.msg('服务器错误', {
-                                icon: 5
-                            });
-                        }
-                    });
-                });
-            }
-            if (obj.event === 'view') {
-                var data = obj.data;
-                WeAdminShow('编辑','./showfood.html?date='+data.date,600,400);
-            }
-        });
-
-
-
-    });
-    function deleteSome() {
-        console.log(dates)
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteSomeFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-                data: JSON.stringify({
-                    "dates":dates
-                }),
-                contentType: "application/json",
-                async: true,
-
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
-</script>
-
-
-<script>
-    function deleAll() {
-        layui.use(['form', 'jquery','util','admin', 'layer'], function() {
-            var $ = layui.jquery;
-            $.ajax({
-                type: "POST",   //提交的方法
-                url:"http://localhost:8081/food/deleteAllFood",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType:"json",
-
-                contentType: "application/json",
-                async: true,
-                error: function(request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function(data) {
-
-                }
-            })
-        });
-        window.delAll();
-    }
 </script>
 <script>
     layui.use(['form', 'jquery','util','admin', 'layer'], function() {
@@ -236,5 +115,104 @@
         })})
 </script>
 <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var recipeNames = [];
+    layui.use('table', function() {
+        var table = layui.table;
+
+        table.on('checkbox(allRecord)', function (obj) {
+            console.log(obj.data)
+            var flag = 0;
+            for (var i = 0; i < recipeNames.length; i++) {
+                if( recipeNames[i] == obj.data.recipeName) {
+                        recipeNames.splice(i, 1);
+                        i--;
+                        flag = 1;
+                    }
+                }
+                if (flag == 0) {
+                 recipeNames.push(obj.data.recipeName);
+             }
+        });
+    })
+    function pay() {
+
+        var $ = layui.jquery;
+        $.ajax({
+            type: "GET",   //提交的方法
+            url: "http://localhost:8082/expense/payprice",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType: "json",
+            contentType: "application/json",
+            async: true,
+            error: function (request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function (data) {
+                alert("请支付"+data.count);
+                //支付宝支付
+                if(data.code==0){
+                    // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
+                    let divForm = document.getElementsByTagName('divform')
+                    if (divForm.length) {
+                        document.body.removeChild(divForm[0])
+                    }
+                    const div=document.createElement('divform');
+                    div.innerHTML=data.data; // data就是接口返回的form 表单字符串
+                    document.body.appendChild(div);
+                    //document.forms[0].setAttribute('target', '_blank') // 新开窗口跳转
+                    document.forms[0].submit();
+                }else{
+                    this.$alert("错误："+data.msg,"提示",{
+                        confirmButtonText:'确定'
+                    });
+                }
+            }
+        })
+
+    }
+    function refund() {
+        var $ = layui.jquery;
+        $.ajax({
+            type: "POST",   //提交的方法
+            url: "http://localhost:8082/expense/refund",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "recipeName": recipeNames,
+                "pIdentificationNum": pIdentificationNums
+            }),
+            async: true,
+            error: function (request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function (data) {
+                alert("可以退回"+data.count);
+                //支付宝退费
+                if(data.code==0){
+                    // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
+                    let divForm = document.getElementsByTagName('divform')
+                    if (divForm.length) {
+                        document.body.removeChild(divForm[0])
+                    }
+                    const div=document.createElement('divform');
+                    div.innerHTML=data.data; // data就是接口返回的form 表单字符串
+                    document.body.appendChild(div);
+                    //document.forms[0].setAttribute('target', '_blank') // 新开窗口跳转
+                    document.forms[0].submit();
+                }else{
+                    this.$alert("错误："+data.msg,"提示",{
+                        confirmButtonText:'确定'
+                    });
+                }
+            }
+        })
+    }
+</script>
 </body>
 </html>
