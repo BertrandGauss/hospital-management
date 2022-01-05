@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="../../static/layui-v2.6.8/layui/css/layui.css"
           tppabs="https://www.layui.site/layui/dist/css/layui.css" media="all">
 
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
 
     <style>
         .layui-card {
@@ -369,9 +370,10 @@
 <!--                                    </div>-->
 
                                     <!--   script将点击事件与控件绑定起来-->
-                                    <div class="layui-btn-container">
-                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开处方</button>
-                                    </div>
+<div class="layui-btn-container">
+    <input id="btn_getxz" type="button" class="layui-btn layui-btn-sm" value="开处方"
+           onclick="WeAdminShow('开处方','./doctor_add_record.html',600,550);">
+</div>
                                 </script>
                             </div>
 
@@ -680,9 +682,7 @@
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {    // 点击事件
                 case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
+                    WeAdminShow('新增预约', './test.html', 750, 400);
                 case 'getCheckLength':
                     var data = checkStatus.data;
                     layer.msg('选中了：' + data.length + ' 个');
