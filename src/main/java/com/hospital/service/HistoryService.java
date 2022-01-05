@@ -45,13 +45,34 @@ public class HistoryService {
     public void editcasehis(History history) {
         Patient pinfo = historyMapper.getPatientinfo(history.getPatientId());
         history.setpIdentificationNum(pinfo.getpIdentificationNum());
-        registrationMapper.updateValid(history.getPatientId());
         historyMapper.edit(history);
     }
 
     // 查看历史病历
     public List<History> showAllHisByPid(String pIdentificationNum) {
         List<History> history = historyMapper.showAllHisByPid(pIdentificationNum);
+        return history;
+    }
+
+
+
+    //获取当前叫号叫到的患者的信息
+    public Patient showpatientInfo(Integer doctorId) {
+        Doctor doctor = doctorMapper.selectbyid(doctorId);
+        if(doctor.getPatientId()==null){//还未就诊，开始叫号
+            endregistration(doctorId);
+        }
+        Patient patient = historyMapper.getPatientinfo(doctor.getPatientId());
+        return  patient;
+    }
+
+    public List<History> showAllHis(){
+        List<History> histories = historyMapper.showAllHis();
+        return histories;
+    }
+
+    public History showHis(Integer historyId){
+        History history = historyMapper.selectById(historyId);
         return history;
     }
 
@@ -63,9 +84,10 @@ public class HistoryService {
         return false;
     }
 
-    //获取当前叫号叫到的患者的信息
-    public Patient showpatientInfo(Integer doctorId) {
+    //结束当前就诊病人,开始叫下一号
+    public void endregistration(Integer doctorId){
         Doctor doctor = doctorMapper.selectbyid(doctorId);
+        registrationMapper.updateValid(doctor.getPatientId());
         List<String> rNums = new LinkedList<>();
         if(doctor.getdTitle().equals("专家"))
             rNums = registrationMapper.TodayRNumz(doctor.getDoctorId());
@@ -82,10 +104,6 @@ public class HistoryService {
                 Long l = Long.parseLong(rNums.get(i));
                 nNums.add(l);
             }
-        }
-        if(vNums.size()==0 && nNums.size()==0){//如果没有人挂
-            Patient patient = new Patient();
-            return patient;
         }
         //排序
         if(vNums!=null)
@@ -104,24 +122,25 @@ public class HistoryService {
             registration.setDoctorId(doctorId);
             System.out.println("hhh"+registration.getrNum());
             patientId = registrationMapper.selectByrNum(registration);
-            System.out.println("xxxx"+patientId);
         } else if(doctor.getdTitle().equals("专家")&& doctor.getPatientId()!=null){
             String rNum = registrationMapper.selectPre(doctor.getPatientId());
+            System.out.println(nNums.get(0)+"排队号");
             if (vNums.size() > 0 && !rNum.contains("v"))
                 registration.setrNum("v" + String.format("%06d", vNums.get(0)));
             else
                 registration.setrNum(String.format("%06d", nNums.get(0)));
             registration.setDoctorId(doctorId);
             patientId = registrationMapper.selectByrNum(registration);
+            System.out.println("你觉得"+patientId);
 
         }else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
             //List
             List<Integer> allPID = doctorMapper.selectbydepartment(doctor.getdOffice());
             List<String> allRNUM = new LinkedList<>();
             if(allPID.get(0)!=null){//如果有人挂
-            for (int i = 0; i < allPID.size(); i++) {
-                allRNUM.add(registrationMapper.selectById(allPID.get(i)).getrNum());
-             }
+                for (int i = 0; i < allPID.size(); i++) {
+                    allRNUM.add(registrationMapper.selectById(allPID.get(i)).getrNum());
+                }
             }
             for (int i = 0; i < rNums.size(); i++) {
                 if (i < vNums.size()) {
@@ -141,29 +160,14 @@ public class HistoryService {
 
             patientId = registrationMapper.selectPatient(registration);
         }
-        Patient patient;
-        System.out.println(patientId);
+        System.out.println("hhh"+patientId);
+        System.out.println(registrationMapper.selectById(doctor.getPatientId())+"结束看病");
         if (doctor.getPatientId() == null) {
             //更新医生状态
             doctorMapper.updatepId(patientId, doctorId);
-            patient = historyMapper.getPatientinfo(patientId);
         } else if (registrationMapper.selectById(doctor.getPatientId()) == null && patientId!=null) {//看完了上一个病人的状态
             //更新医生状态
             doctorMapper.updatepId(patientId, doctorId);
-            patient = historyMapper.getPatientinfo(patientId);
-        } else {
-            patient = historyMapper.getPatientinfo(doctor.getPatientId());
         }
-        return  patient;
-    }
-
-    public List<History> showAllHis(){
-        List<History> histories = historyMapper.showAllHis();
-        return histories;
-    }
-
-    public History showHis(Integer historyId){
-        History history = historyMapper.selectById(historyId);
-        return history;
     }
 }

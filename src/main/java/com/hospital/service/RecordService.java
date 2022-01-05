@@ -6,6 +6,7 @@ import com.hospital.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -192,7 +193,8 @@ public class RecordService {
     }
 
     //显示所有医生开给某个患者的处方
-    public List<Record> showAllRecord(Integer patientId, Integer doctorId){
+    public List<Record> showAllRecord(Integer patientId,Integer doctorId){
+        System.out.println("nihao"+doctorId);
         List<Record> records =recordMapper.selectnotmedbypIdandDid(patientId,doctorId);
         return records;
     }

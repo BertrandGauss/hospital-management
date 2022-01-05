@@ -157,7 +157,16 @@
 </head>
 <body>
 <!-- 医生开处方 -->
-
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">开处方</a>
+			</span>
+    <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+        <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
+    </a>
+</div>
 <div class="layuimini-container">
     <div class="layuimini-main">
         <div class="layui-col-md12">
@@ -275,48 +284,6 @@
                     </div>
                 </div>
 
-
-                <!--        <div class="layui-form-item">-->
-                <!--            <div class="layui-input-block">-->
-                <!--                &lt;!&ndash;                <button type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-setval">赋值</button>&ndash;&gt;-->
-                <!--                &lt;!&ndash;                <button type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-getval">取值</button>&ndash;&gt;-->
-                <!--                &lt;!&ndash;                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>&ndash;&gt;-->
-                <!--            </div>-->
-                <!--        </div>-->
-
-                <!--        <div class="layui-form-item">-->
-                <!--            <label class="layui-form-label">开药</label>-->
-                <!--            <div class="layui-input-inline">-->
-                <!--                <select name="quiz1">-->
-                <!--                    <option value="">请选择科室</option>-->
-                <!--                    <option value="" selected="">科室1</option>-->
-                <!--                    <option value="">科室2</option>-->
-                <!--                    <option value="">科室3</option>-->
-                <!--                </select>-->
-                <!--            </div>-->
-                <!--            <div class="layui-input-inline">-->
-                <!--                <select name="quiz2">-->
-                <!--                    <option value="">请选择处理事项</option>-->
-                <!--                    <option value="">开药</option>-->
-                <!--                    &lt;!&ndash;                    <option value="宁波" disabled="">检查</option>&ndash;&gt;-->
-                <!--                    <option value="">检查</option>-->
-                <!--                    &lt;!&ndash;                    <option value="温州">台州</option>&ndash;&gt;-->
-                <!--                    &lt;!&ndash;                    <option value="温州">绍兴</option>&ndash;&gt;-->
-                <!--                </select>-->
-                <!--            </div>-->
-                <!--            <div class="layui-input-inline">-->
-                <!--                <select name="quiz3">-->
-                <!--                    <option value="">请选择事项</option>-->
-                <!--                    <option value="">事项1</option>-->
-                <!--                    <option value="">事项2</option>-->
-                <!--                    <option value="">事项3</option>-->
-                <!--                </select>-->
-                <!--            </div>-->
-                <!--            &lt;!&ndash;            <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>&ndash;&gt;-->
-                <!--        </div>-->
-
-                <!--表格-->
-
                 <br>
 
 
@@ -334,47 +301,19 @@
                                 <!--            <label class="layui-form-label">test</label>-->
                                 <!--            <div class="layui-input-inline">-->
 
-                                <table class="layui-hide" id="test" lay-filter="test"></table>
+                                <!--<table class="layui-hide" id="test" lay-filter="test"></table>-->
 
-                                <script type="text/html" id="toolbarDemo">
-
-<!--                                    <div class="layui-form-item">-->
-<!--                                        <label class="layui-form-label">操作</label>-->
-<!--                                        <div class="layui-input-inline">-->
-<!--                                            <select name="quiz1">-->
-<!--                                                <option value="">请选择科室</option>-->
-<!--                                                <option value="" selected="">科室1</option>-->
-<!--                                                <option value="">科室2</option>-->
-<!--                                                <option value="">科室3</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        <div class="layui-input-inline">-->
-<!--                                            <select name="quiz2">-->
-<!--                                                <option value="">请选择处理事项</option>-->
-<!--                                                <option value="">开药</option>-->
-<!--                                                &lt;!&ndash;                    <option value="宁波" disabled="">检查</option>&ndash;&gt;-->
-<!--                                                <option value="">检查</option>-->
-<!--                                                &lt;!&ndash;                    <option value="温州">台州</option>&ndash;&gt;-->
-<!--                                                &lt;!&ndash;                    <option value="温州">绍兴</option>&ndash;&gt;-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        <div class="layui-input-inline">-->
-<!--                                            <select name="quiz3">-->
-<!--                                                <option value="">请选择事项</option>-->
-<!--                                                <option value="">事项1</option>-->
-<!--                                                <option value="">事项2</option>-->
-<!--                                                <option value="">事项3</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash;            <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>&ndash;&gt;-->
-<!--                                    </div>-->
-
-                                    <!--   script将点击事件与控件绑定起来-->
-<div class="layui-btn-container">
-    <input id="btn_getxz" type="button" class="layui-btn layui-btn-sm" value="开处方"
-           onclick="WeAdminShow('开处方','./doctor_add_record.html',600,550);">
-</div>
-                                </script>
+                                <div class="layui-inline">
+                                    <div class="layui-btn-container">
+                                        <input id="btn_getxz" type="button"class="layui-btn layui-btn-sm" value="开处方"onclick="WeAdminShow('开处方','./doctor_add_record.html',600,550);">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <div class="layui-btn-container">
+                                        <input id="endR" type="button" class="layui-btn layui-btn-sm" value="结束就诊"
+                                               onclick="EndR()">
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -449,8 +388,7 @@
             , title: '用户数据表'
             , totalRow: true
             , cols: [[
-                {type: 'checkbox', fixed: 'left'}   // 复选框
-                , {field: 'medName', title: '药品名称', width: 120, fixed: 'left'}
+                {field: 'medName', title: '药品名称', width: 120, fixed: 'left'}
                 , {field: 'doctorId', title: '医生编号', width: 90, edit: 'text'}
                 , {field: 'patientId', title: '患者编号', width: 90, edit: 'text'}
                 , {field: 'dosage', title: '用量', width: 100, edit: 'text'}
@@ -534,42 +472,26 @@
 
         })
     });
+    function EndR() {
+        //监听提交
+        $.ajax({//表单提交
+            type: "GET",   //提交的方法
+            url:"http://localhost:8082/history/endregistration",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType:"json",
+            contentType: "application/json",
+            async: false,
+            error: function(request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function(data) {
+                console.log(data.msg)
+            }
+
+        })
+    }
 </script>
-
-<script>
-
-    //监听提交
-    $.ajax({//表单提交
-        type: "POST",   //提交的方法
-        url: "http://localhost:8082/record/addRecord",
-        xhrFields: {
-            withCredentials: true,
-        },
-        dataType: "json",
-        contentType: "application/json",
-        async: false,
-        error: function (request) {  //失败的话
-            alert("Connection error");
-        },
-        success: function (data) {
-            console.log(data.data)
-            // form.val("test", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-            //     "medName": data.data.medName,
-            //     "doctorId": data.data.doctorId,
-            //     "patientId": data.data.patientId,
-            //     "dosage": data.data.dosage,
-            //     "units": data.data.units,
-            //     "frequency": data.data.frequency,
-            //     "days": data.data.days,
-            //     "usage": data.data.usage,
-            //     "medPrice": data.data.medPrice,
-            //     "recordDate": data.data.recordDate
-            // });
-        }
-
-    })
-</script>
-
-
 </body>
 </html>

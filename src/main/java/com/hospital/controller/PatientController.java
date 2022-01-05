@@ -45,7 +45,7 @@ public class PatientController {
 //        Integer id=(int)httpServletRequest.getSession().getAttribute("LOGIN_USER");
 //
 //        System.out.println("get"+id);
-//        System.out.println("sessionId"+httpServletRequest.getSession().getId());
+        System.out.println("sessionId"+httpServletRequest.getSession().getId());
         return json;
     }
 

@@ -16,7 +16,7 @@
     <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
     <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
     <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
-
+    <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
     <style>
         .layui-card {
             border: 1px solid #f2f2f2;
@@ -159,6 +159,16 @@
 
 </head>
 <body>
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">开检查单</a>
+			</span>
+    <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+        <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
+    </a>
+</div>
 <!-- 医生开处方 -->
 <div class="weadmin-nav">
 			<span class="layui-breadcrumb">
@@ -280,18 +290,25 @@
                 <div class="layui-form-item layui-form-text layui-col-md12">
                     <div class="layui-block">
                         <div class="weadmin-body ">
+                            <div class="layui-inline">
                             <div class="layui-btn-container">
                                 <input id="btn_getxz" type="button"class="layui-btn layui-btn-sm" value="新增检查项"onclick="WeAdminShow('新增检查项','./doctor_add_item.html',700,500);">
                             </div>
-
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-btn-container">
+                                    <input id="endR" type="button" class="layui-btn layui-btn-sm" value="结束就诊"
+                                           onclick="EndR()">
+                                </div>
+                            </div>
                             <!--<div class="weadmin-block" id="topline" name=""topline>-->
                                 <!--<button class="layui-btn" onclick=addcheck()>-->
                                     <!--<i class="layui-icon layui-icon-add-circle-fine"></i>新增检查-->
                                 <!--</button>-->
                             <!--</div>-->
-                            <div class="layui-form-item layui-col-md12">
-                            <table class="layui-hide" id="test" lay-filter="test"></table>
-                            </div>
+                            <!--<div class="layui-form-item layui-col-md12">-->
+                            <!--<table class="layui-hide" id="test" lay-filter="test"></table>-->
+                            <!--</div>-->
 
                         </div>
 
@@ -332,9 +349,12 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:8082/item/showallItem'
+            , url: 'http:/localhost:8082/item/showallItem'
             , title: '用户数据表'
-            , totalRow: true
+            , totalRow: true,
+                xhrFields: {
+                    withCredentials: true,
+                }
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}   // 复选框
                 // , {field: 'itemId', title: '检查编号', width: 120, fixed: 'left', unresize: false, sort: true}
@@ -399,45 +419,28 @@
             }
 
         })
+
     });
+    function EndR() {
+        //监听提交
+        $.ajax({//表单提交
+            type: "GET",   //提交的方法
+            url: "http://localhost:8082/history/endregistration",
+            xhrFields: {
+                withCredentials: true,
+            },
+            dataType: "json",
+            contentType: "application/json",
+            async: false,
+            error: function (request) {  //失败的话
+                alert("Connection error");
+            },
+            success: function (data) {
+                console.log(data.msg)
+            }
+
+        })
+    }
 </script>
-
-<script>
-
-    //监听提交
-    $.ajax({//表单提交
-        type: "POST",   //提交的方法
-        url: "http://localhost:8082/item/addcheckitem",
-        xhrFields: {
-            withCredentials: true,
-        },
-        dataType: "json",
-        contentType: "application/json",
-        async: false,
-        error: function (request) {  //失败的话
-            alert("Connection error");
-        },
-        success: function (data) {
-            console.log(data.data)
-            // form.val("examine", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-            //     "patientId": data.data.patientId,
-            //     "doctorId": data.data.doctorId,
-            //     "itemName": data.data.itemName,
-            //     "itemPrice": data.data.itemPrice,
-            //     "skinTestRes": data.data.skinTestRes,
-            //     "illnessSummary": data.data.illnessSummary,
-            //     "department": data.data.department,
-            //     "checkArea": data.data.checkArea,
-            //     "notice": data.data.notice,
-            //     "checkTime": data.data.checkTime,
-            //     "checkRes": data.data.checkRes,
-            //     "opinion": data.data.opinion,
-            //     "itemDate": data.data.itemDate
-            // });
-        }
-
-    })
-</script>
-
 </body>
 </html>

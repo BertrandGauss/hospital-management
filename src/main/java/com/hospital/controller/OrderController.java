@@ -34,7 +34,7 @@ public class OrderController {
     @RequestMapping(value = "/showallorder",method = {RequestMethod.GET})
     private JSONObject showallOrder(){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("LOGIN_USER");
-
+        System.out.println("预约"+httpServletRequest.getSession().getId());
         List<Order> orders = orderService.showallOrder(id);
 
         JSONObject json = new JSONObject();

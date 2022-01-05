@@ -133,8 +133,8 @@
             <label class="layui-form-label">检查时间</label>
             <div class="layui-input-inline" style="width:200px;">
                 <!--lay-verify="date"-->
-                <input type="text" name="checkTime" id="checkTime" class="layui-input layui-disabled"
-                       readonly>
+                <input type="text" name="checkTime" id="checkTime" class="layui-input "
+                       >
             </div>
         </div>
 
@@ -176,8 +176,8 @@
         }
 
         var currTime = new Date();
-        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
-        lay('#date').val(str2);
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate());
+        lay('#itemDate').val(str2);
     });
 </script>
 <script>
@@ -204,10 +204,15 @@
                 dataType:"json",
                 contentType: "application/json",
                 data: JSON.stringify({
+                    "itemName": data.itemName,
+                    "checkArea": data.checkArea,
+                    "skinTestRes": data.skinTestRes,
                     "department": data.department,
-                    "oType": data.oType,
-                    "oTime": data.oTime,
-                    "dName": data.dName
+                    "itemPrice": data.itemPrice,
+                    "illnessSummary": data.illnessSummary,
+                    "notice": data.notice,
+                    "opinion": data.opinion,
+                    "checkTime":data.checkTime
                 }),
 
                 async: false,
