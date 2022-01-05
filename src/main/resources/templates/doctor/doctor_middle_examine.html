@@ -504,11 +504,26 @@
             , totalRow: true
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}   // 复选框
-                , {field: 'itemId', title: '检查编号', width: 120, fixed: 'left', unresize: false, sort: true}
-                , {field: 'itemName', title: '检查名称', width: 120, edit: 'text'}
-                , {field: 'notice', title: '注意事项', width: 150, edit: 'text'}
-                , {field: 'price', title: '检查价格', width: 150, sort: true, totalRow: true,totalRowText: '合计'}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                // , {field: 'itemId', title: '检查编号', width: 120, fixed: 'left', unresize: false, sort: true}
+                // , {field: 'itemName', title: '检查名称', width: 120, edit: 'text'}
+                // , {field: 'notice', title: '注意事项', width: 150, edit: 'text'}
+                // , {field: 'price', title: '检查价格', width: 150, sort: true, totalRow: true,totalRowText: '合计'}
+                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                , {field: 'patientId', title: '患者编号', width: 90, fixed: 'left', unresize: false, sort: true}
+                , {field: 'doctorId', title: '医生编号', width: 90, fixed: 'left', unresize: false, sort: true}
+                , {field: 'itemName', title: '检查名称', width: 90, edit: 'text'}
+                , {field: 'itemPrice', title: '检查价格', width: 90, edit: 'text'}
+                , {field: `skinTestRes`, title: '皮试结果', width: 90, edit: 'text'}
+                , {field: 'illnessSummary', title: '病情摘要', width: 90, edit: 'text'}
+                , {field: 'department', title: '执行科室', width: 90, edit: 'text'}
+                , {field: 'checkArea', title: '检查部位', width: 90, edit: 'text'}
+                , {field: 'notice', title: '注意事项', width: 90, edit: 'text'}
+                , {field: 'checkTime', title: '检查时间', width: 90, edit: 'text'}
+                , {field: 'checkRes', title: '检查结果', width: 90, edit: 'text'}
+                , {field: 'opinion', title: '检查结果', width: 90, edit: 'text'}
+                , {field: 'itemDate', title: '开检查单时间', width: 90, edit: 'text'}
+                // , {field: 'itemDate', title: '开检查单时间', width: 150, sort: true, totalRow: true,totalRowText: '合计'}
+                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]]
             , page: true
         });
