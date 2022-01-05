@@ -113,7 +113,7 @@
                         success: function (result) {
                             if (result.code == "0") {
                                 layer.close(index);
-                                layui.table.reload("test",{page:{curr:1}});
+                                layui.table.reload("allItem",{page:{curr:1}});
                             }else{
                                 layer.msg("检查错误", {
                                     icon: 5

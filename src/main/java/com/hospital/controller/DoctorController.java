@@ -36,7 +36,7 @@ public class DoctorController {
         this.httpServletRequest.getSession().setAttribute("LOGIN",true);
         // 保存用户id在session
         this.httpServletRequest.getSession().setAttribute("USER", doctorService.selectId(doctor.getdPhone()));
-
+        System.out.println("登陆"+httpServletRequest.getSession().getId());
         return json;
     }
 
@@ -45,7 +45,6 @@ public class DoctorController {
     private JSONObject showDoctorInfo(){
         Integer id = (Integer) httpServletRequest.getSession().getAttribute("USER");
         Doctor doctorinfo = doctorService.showdoctorinfo(id);
-
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("data",doctorinfo);

@@ -113,6 +113,9 @@ public class ItemController {
     private JSONObject showALlItems(){
         Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
+        System.out.println("检查"+httpServletRequest.getSession().getId());
+        System.out.println("检查"+did);
+        System.out.println("检查2"+pid);
         List<Item> items = itemService.showAll(did,pid);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code",0);

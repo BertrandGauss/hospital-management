@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     // 挂号
     @RequestMapping(value = "/addregistration", method = {RequestMethod.POST})
@@ -30,5 +34,7 @@ public class RegistrationController {
         JSONObject json = registrationService.showregistration();
         return json;
     }
+
+
 
 }

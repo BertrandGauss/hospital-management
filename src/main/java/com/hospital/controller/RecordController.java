@@ -24,11 +24,11 @@ public class RecordController {
     private JSONObject addRecord(@RequestBody Record record){
         Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
+        System.out.println("添加医生ID"+did);
         Date date = new Date();
         record.setRecordDate(date);
         record.setDoctorId(did);
         record.setPatientId(pid);
-        System.out.println(pid);
         JSONObject json = recordService.addRecord(record);
         return json;
     }
@@ -126,7 +126,8 @@ public class RecordController {
     private JSONObject showAllRecord(){
         Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
         Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
-        List<Record> records = recordService.showAllRecord(pid,did );
+        System.out.println("处方"+httpServletRequest.getSession().getId());
+        List<Record> records = recordService.showAllRecord(pid,did);
         JSONObject json = new JSONObject();
         json.put("code",0);
         json.put("msg","医生开具的处方显示完成");

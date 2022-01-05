@@ -22,15 +22,13 @@
             <div class="layui-input-inline" style="width:200px;">
                 <select name="medName" id="medName" lay-verify="required">
                     <option value="">请选择药品</option>
-                    <option value="羚翘解毒丸">羚翘解毒丸</option>
-                    <option value="振源胶囊">振源胶囊</option>
-                    <option value="人参益母丸">人参益母丸</option>
-                    <option value="地奥心血康">地奥心血康</option>
+                    <option value="999感冒灵颗粒">999感冒灵颗粒</option>
+                    <option value="穿心莲内酯滴丸">穿心莲内酯滴丸</option>
+                    <option value="连花清瘟胶囊">连花清瘟胶囊</option>
+                    <option value="阿莫西林">阿莫西林</option>
                     <option value="启脾丸">启脾丸</option>
                     <option value="双黄连胶囊">双黄连胶囊</option>
                     <option value="板兰根">板兰根</option>
-                    <option value="红花油">红花油</option>
-                    <option value="天王补心丹">天王补心丹</option>
                 </select>
             </div>
         </div>
@@ -51,7 +49,7 @@
         <div>
             <label class="layui-form-label">单位</label>
             <div class="layui-input-inline" style="width:200px;">
-                <select id="units" name="units">
+                <select id="unit" name="unit">
                     <option value="">请选择单位</option>
                     <option value="盒">盒</option>
                     <option value="瓶">瓶</option>
@@ -67,7 +65,7 @@
             <label class="layui-form-label">频率</label>
             <div class="layui-input-inline" style="width:200px;">
                 <div class="layui-inline">
-                    <input class="layui-input" placeholder="频率" name="frequency" id="frequency"  />
+                    <input class="layui-input" placeholder="频率" name="fre" id="fre"  />
                 </div>
             </div>
         </div>
@@ -144,10 +142,63 @@
         }
 
         var currTime = new Date();
-        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
-        lay('#date').val(str2);
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate());
+        lay('#recordDate').val(str2);
     });
 </script>
+<script>
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            data = data.field;
+            console.log(data)
+            //发异步，把数据提交给php
 
+            // 获得frame索引
+            var index = parent.layer.getFrameIndex(window.name);
+
+            $.ajax({
+                type: "POST",   //提交的方法
+                url:"http://localhost:8082/record/addRecord",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType:"json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "medName": data.medName,
+                    "dosage": data.dosage,
+                    "units": data.unit,
+                    "frequency": data.fre,
+                    "days": data.days
+                }),
+
+                async: false,
+                error: function(request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    if (data.code==0){
+                        parent.layer.close(index);
+                        window.parent.location.reload();
+                    }
+                    else{
+                        layer.alert(data.msg)
+                    }
+                }
+
+            })
+
+            return false;
+        });
+
+    });
+
+
+</script>
 </body>
 </html>

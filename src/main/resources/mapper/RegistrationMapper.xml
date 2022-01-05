@@ -12,11 +12,11 @@
     </select>
 
     <select id="TodayRNumz" resultType="java.lang.String">
-        SELECT rNum FROM registration WHERE doctorId=#{doctorId}
+        SELECT rNum FROM registration WHERE doctorId=#{doctorId} AND isValid=1
     </select>
 
     <select id="TodayRNum" resultType="java.lang.String">
-        SELECT rNum FROM registration WHERE department=#{department}
+        SELECT rNum FROM registration WHERE department=#{department} AND isValid=1
     </select>
 
     <update id="updateValid">

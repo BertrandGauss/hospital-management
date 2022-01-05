@@ -49,10 +49,16 @@ public class HistoryController {
     @RequestMapping(value = "/showpatientinfo",method = {RequestMethod.GET})
     private JSONObject showPatientInfo(){
         Integer id=(Integer) httpServletRequest.getSession().getAttribute("USER");
-        System.out.println(id);
         Patient patientinfo = historyService.showpatientInfo(id);
+        Integer ID ;
         //把患者Id保存在session中
-        this.httpServletRequest.getSession().setAttribute("Patient", patientinfo.getPatientId());
+        if(patientinfo==null){
+            ID = 0;
+        }else{
+            ID = patientinfo.getPatientId();
+        }
+        this.httpServletRequest.getSession().setAttribute("Patient",ID);
+        System.out.println(httpServletRequest.getSession().getId()+"显示");
         JSONObject json = new JSONObject();
         json.put("data", patientinfo);
         json.put("code",0);
@@ -106,6 +112,18 @@ public class HistoryController {
         json.put("code",0);
         json.put("msg","成功获取历史病历");
         json.put("data",history);
+        return json;
+    }
+
+    //结束一个诊断
+    @RequestMapping(value = "/endregistration", method = {RequestMethod.GET})
+    private JSONObject endregistration(){
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
+        historyService.endregistration(did);
+        System.out.println(did+"结束");
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","结束一个病人的就诊");
         return json;
     }
 }
