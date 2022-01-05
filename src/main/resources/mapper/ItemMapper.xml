@@ -21,7 +21,7 @@
         WHERE havePay = 1  AND itemHaveDone=0;
     </select>
 
-    <select id="getIdate" >
+    <select id="getIdate"  resultType="java.sql.Date">
         SELECT itemDate
         FROM item
         WHERE patientId = #{patientId} AND itemName=#{itemName} AND havePay = 1 AND  medHaveDone = 1;
@@ -37,5 +37,11 @@
         SELECT *
         FROM item
         WHERE havePay = 0  AND itemHaveDone=0 AND patientId=#{patientId} AND doctorId=#{doctorId}
+    </select>
+
+    <select id="selectAll" resultType="com.hospital.entity.Item" >
+        SELECT *
+        FROM item
+        WHERE AND patientId=#{patientId} ;
     </select>
 </mapper>

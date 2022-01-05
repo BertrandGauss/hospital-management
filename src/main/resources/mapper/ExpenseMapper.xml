@@ -4,11 +4,11 @@
 <mapper namespace="com.hospital.mapper.ExpenseMapper">
 
     <select id="selectitemsbypatientId" resultType="com.hospital.entity.Item" >
-        SELECT * FROM item WHERE patientId = #{patientId} AND havePay=0
+        SELECT * FROM item WHERE patientId = #{patientId} AND itemHaveDone=0
     </select>
 
     <select id="selectmebypatientId" resultType="com.hospital.entity.Record" >
-        SELECT * FROM record WHERE patientId = #{patientId} AND havePay=0
+        SELECT * FROM record WHERE patientId = #{patientId} AND medHaveDone=0
     </select>
 
     <update id="payItems" parameterType="java.lang.Integer">

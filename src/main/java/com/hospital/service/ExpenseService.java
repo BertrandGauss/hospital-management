@@ -171,7 +171,7 @@ public class ExpenseService {
             String result;
             //发送请求并返回
             json.put("code",0);
-            json.put("msg","支付成功,开始配药");
+            json.put("msg","请支付"+totalPrice.toString()+"元");
             json.put("count",totalPrice);
             traceMapper.updateTrace(patientId,1);
             result = alipayClient.pageExecute(alipayRequest).getBody();
@@ -261,7 +261,7 @@ public class ExpenseService {
             //请求
             //发送请求并返回
             json.put("code",0);
-            json.put("msg","退费成功");
+            json.put("msg","可以退回"+prices.toString()+"元");
             json.put("count",prices);
             String result = alipayClient.pageExecute(alipayRequest).getBody();
             System.out.println("*********************\n返回结果为："+result);

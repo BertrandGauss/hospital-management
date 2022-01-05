@@ -28,4 +28,6 @@ public interface RecordMapper {
     Record getRecord(@Param("patientId") Integer patientId, @Param("medName") String medName );
 
     List<Record> selectnotmedbypIdandDid(@Param("patientId")Integer patientId,@Param("doctorId") Integer doctorId);
+
+    List<Record> selectAll( Integer patientId);
 }

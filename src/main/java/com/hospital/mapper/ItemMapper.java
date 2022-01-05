@@ -1,6 +1,7 @@
 package com.hospital.mapper;
 
 import com.hospital.entity.Item;
+import com.hospital.entity.Record;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -18,4 +19,6 @@ public interface ItemMapper {
     List<Item> selectitemsbyPidandDid(@Param("patientId")Integer patientId, @Param("doctorId") Integer doctorId);
 
     Date getIdate(@Param("patientId") Integer patientId, @Param("itemName") String itemName );
+
+    List<Item> selectAll(@Param("patientId") Integer patientId, @Param("itemName") String itemName );
 }
