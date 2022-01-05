@@ -12,6 +12,7 @@
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
     <![endif]-->
 </head>
 
@@ -36,7 +37,7 @@
             </fieldset>
             已有患者信息搜索：
             <div class="layui-inline">
-                <input class="layui-input" placeholder="请输入18位身份证号" name="start" id="identityNum"/>
+                <input class="layui-input" placeholder="请输入18位身份证号" name="identityNum" id="identityNum"/>
             </div>
             <button class="layui-btn" lay-submit="" lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>
@@ -54,8 +55,8 @@
     <!--    </div>-->
 
     <!--这里url改一下，根据实际后台接口-->
-    <table class="layui-table" lay-data="{ url:'http://localhost:8082/history/viewallhis', page:true, id:'allhistory'}"
-           lay-filter="allhistory">
+    <table class="layui-table" lay-data="{ url:'http://localhost:8082/history/viewallhis', page:true, id:'history'}"
+           lay-filter="history">
         <thead>
         <tr>
             <th lay-data="{field:'historyId'}">病历编号</th>
@@ -91,7 +92,7 @@
         var table = layui.table;
 
         //监听工具条
-        table.on('tool(allhistory)', function (obj) {
+        table.on('tool(history)', function (obj) {
             var data = obj.data;
             console.log(data.historyId)
             // 删除病历操作
@@ -113,12 +114,16 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)',function (data){(
-            table.reload('allRecord', {
+            alert(data),
+            console.log(data),
+            table.reload('history', {
                 url:"http://localhost:8082/history/viewallhisbypid",
                 method: 'POST',
-                contentType:'application/x-www-form-urlencoded'
+                contentType:'application/json'
                 , where: {
-                    "pIdentificationNum": data.field.pIdentificationNum
+                    "pIdentificationNum":data.field.identityNum
+
+
                 }, page: {
                     curr: 1 //重新从第 1 页开始
                 }
@@ -127,54 +132,6 @@
         )
             return false;
         })})
-</script>
-
-<script>
-    <!--根据查询结果更新数据表格-->
-    layui.use(['form', 'jquery', 'util', 'admin', 'layer'], function () {
-        var form = layui.form,
-            table = layui.table,
-            $ = layui.jquery,
-            util = layui.util,
-            admin = layui.admin,
-            layer = layui.layer;
-        form.on('submit(search)', function (data) {
-            data = data.field;
-            var json={
-                "pIdentificationNum":$("#pIdentificationNum").val()
-            }
-            $.ajax({
-                type: "POST",   //提交的方法
-                url: "http://localhost:8082//history/viewallhisbypid",
-                xhrFields: {
-                    withCredentials: true,
-                },
-                dataType: "json",
-                contentType:'application/x-www-form-urlencoded',
-                //url:"#",
-                data: json,
-                async: false,
-                error: function (request) {  //失败的话
-                    alert("Connection error");
-                },
-                success: function (data) {
-                    if (data.code == 0) {
-                        console.log(data.data)
-                        form.val("allhistory", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-                            "historyId": data.data.historyId,
-                            "pName": data.data.pName,
-                            "pIdentificationNum": data.data.pIdentificationNum,
-                            "diseaseDate": data.data.diseaseDate
-                        });
-                    } else {
-                        alert(data.msg);
-                    }
-                }
-            })
-
-            return false;
-        })
-    })
 </script>
 <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
 </body>

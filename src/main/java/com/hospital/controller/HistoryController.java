@@ -74,8 +74,9 @@ public class HistoryController {
 
     // 根据病人身份证号，查看历史病历
     @RequestMapping(value = "/viewallhisbypid",method = {RequestMethod.POST})
-    private JSONObject viewAllHisByPid(@RequestParam("pIdentificationNum") String pIdentificationNum){
-        List<History> history = historyService.showAllHisByPid(pIdentificationNum);
+    private JSONObject viewAllHisByPid(@RequestBody History his){
+        System.out.println(his.getpIdentificationNum());
+        List<History> history = historyService.showAllHisByPid(his.getpIdentificationNum());
         JSONObject json = new JSONObject();
         json.put("data", history);
         json.put("code",0);
