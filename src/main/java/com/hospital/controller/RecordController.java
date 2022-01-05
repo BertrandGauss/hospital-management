@@ -121,4 +121,17 @@ public class RecordController {
         json.put("count",records.size());
         return json;
     }
+
+    @RequestMapping(value = "/showShouldPay",method = {RequestMethod.GET})
+    private JSONObject showAllRecord(){
+        Integer did=(Integer) httpServletRequest.getSession().getAttribute("USER");//医生ID
+        Integer pid=(Integer) httpServletRequest.getSession().getAttribute("Patient");//患者ID
+        List<Record> records = recordService.showAllRecord(pid,did );
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","医生开具的处方显示完成");
+        json.put("data",records);
+        json.put("count",records.size());
+        return json;
+    }
 }

@@ -26,4 +26,6 @@ public interface RecordMapper {
     Date getRdate(@Param("patientId") Integer patientId, @Param("medName") String medName );
 
     Record getRecord(@Param("patientId") Integer patientId, @Param("medName") String medName );
+
+    List<Record> selectnotmedbypIdandDid(@Param("patientId")Integer patientId,@Param("doctorId") Integer doctorId);
 }

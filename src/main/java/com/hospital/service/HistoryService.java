@@ -83,6 +83,10 @@ public class HistoryService {
                 nNums.add(l);
             }
         }
+        if(vNums.size()==0 && nNums.size()==0){//如果没有人挂
+            Patient patient = new Patient();
+            return patient;
+        }
         //排序
         if(vNums!=null)
             Collections.sort(vNums);
@@ -113,9 +117,11 @@ public class HistoryService {
         }else {//普通的医生需要分诊，查看挂了号中第一个没有被科室其他医生看的病人
             //List
             List<Integer> allPID = doctorMapper.selectbydepartment(doctor.getdOffice());
-            List<String> allRNUM = null;
+            List<String> allRNUM = new LinkedList<>();
+            if(allPID.get(0)!=null){//如果有人挂
             for (int i = 0; i < allPID.size(); i++) {
                 allRNUM.add(registrationMapper.selectById(allPID.get(i)).getrNum());
+             }
             }
             for (int i = 0; i < rNums.size(); i++) {
                 if (i < vNums.size()) {
@@ -132,6 +138,7 @@ public class HistoryService {
                     }
                 }
             }
+
             patientId = registrationMapper.selectPatient(registration);
         }
         Patient patient;

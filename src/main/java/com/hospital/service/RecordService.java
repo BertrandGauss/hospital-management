@@ -190,4 +190,10 @@ public class RecordService {
         }
         return recipes;
     }
+
+    //显示所有医生开给某个患者的处方
+    public List<Record> showAllRecord(Integer patientId, Integer doctorId){
+        List<Record> records =recordMapper.selectnotmedbypIdandDid(patientId,doctorId);
+        return records;
+    }
 }
