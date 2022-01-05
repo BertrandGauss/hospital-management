@@ -370,18 +370,9 @@
 
                                     <!--   script将点击事件与控件绑定起来-->
                                     <div class="layui-btn-container">
-                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目
-                                        </button>
-                                        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开处方</button>
                                     </div>
                                 </script>
-                                <script type="text/html" id="barDemo">
-                                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                                </script>
-                                <!--            </div>-->
-                                <!--                </div>-->
                             </div>
 
                         </div>
@@ -389,95 +380,8 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item layui-form-text layui-col-md10">
-                    <label class="layui-form-label">诊断内容</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
-                    </div>
-                </div>
-
-
-                <!--        <div class="layui-form-item">-->
-
-                <!--            <label class="layui-form-label">验证身份证</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off"-->
-                <!--                       class="layui-input">-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <!--        <div class="layui-form-item">-->
-                <!--            <label class="layui-form-label">自定义验证</label>-->
-                <!--            <div class="layui-input-inline">-->
-                <!--                <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off"-->
-                <!--                       class="layui-input">-->
-                <!--            </div>-->
-                <!--            <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>-->
-                <!--        </div>-->
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">处方总计</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-                        </div>
-                        <!--                <div class="layui-form-mid">-</div>-->
-                        <!--                <div class="layui-input-inline" style="width: 100px;">-->
-                        <!--                    <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">-->
-                        <!--                </div>-->
-                    </div>
-                </div>
-
-
-                <!--        <div class="layui-form-item">-->
-                <!--            <label class="layui-form-label">复选框</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <input type="checkbox" name="like[write]" title="写作">-->
-                <!--                <input type="checkbox" name="like[read]" title="阅读" checked="">-->
-                <!--                <input type="checkbox" name="like[game]" title="游戏">-->
-                <!--            </div>-->
-                <!--        </div>-->
-
-                <!--        <div class="layui-form-item" pane="">-->
-                <!--            <label class="layui-form-label">原始复选框</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">-->
-                <!--                <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">-->
-                <!--                <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled="">-->
-                <!--            </div>-->
-                <!--        </div>-->
-
-                <!--        <div class="layui-form-item">-->
-                <!--            <label class="layui-form-label">开关-默认关</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <!--        <div class="layui-form-item">-->
-                <!--            <label class="layui-form-label">开关-默认开</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest"-->
-                <!--                       lay-text="ON|OFF">-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <!--        <div class="layui-form-item layui-form-text">-->
-                <!--            <label class="layui-form-label">普通文本域</label>-->
-                <!--            <div class="layui-input-block">-->
-                <!--                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>-->
-                <!--            </div>-->
-                <!--        </div>-->
-                <!--<div class="layui-form-item layui-form-text">
-                  <label class="layui-form-label">编辑器</label>
-                  <div class="layui-input-block">
-                    <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
-                  </div>
-                </div>-->
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
             </form>
+
             <!--            <br>-->
             <!--            <br>-->
 
@@ -751,7 +655,7 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:8082/list'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
+            , url: 'http://localhost:8082/record/showShouldPay'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
             , toolbar: '#toolbarDemo'
             , title: '用户数据表'
             , totalRow: true
@@ -766,12 +670,6 @@
                 , {field: 'usage', title: '用法', width: 100, edit: 'text'}
                 , {field: 'medPrice', title: '单价', width: 100, edit: 'text'}
                 , {field: 'recordDate', title: '开处方时间', width: 120, edit: 'text'}
-                // , {field: 'itemId', title: '药品编号', width: 120, fixed: 'left', unresize: false, sort: true}
-                // , {field: 'itemName', title: '药品名称', width: 120, edit: 'text'}
-                // , {field: 'notice', title: '注意事项', width: 150, edit: 'text'}
-                // , {field: 'price', title: '药品价格', width: 150, sort: true, totalRow: true, totalRowText: '合计'}
-                // , {field: 'remains', title: '药品库存', width: 150, sort: true, totalRow: true}
-                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
 
             ]]
             , page: true
