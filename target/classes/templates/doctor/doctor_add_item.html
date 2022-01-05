@@ -17,11 +17,10 @@
 <form class="layui-form"  lay-filter="startitem">
 
     <div class="layui-form-item">
-
-        <label class="layui-form-label">选择检查项目名称</label>
-        <div class="layui-input-inline">
+        <label class="layui-form-label">检查项目</label>
+        <div class="layui-input-inline" style="width:200px;">
             <select name="itemName" id="itemName" lay-verify="required">
-                <option value="">检查项目</option>
+                <option value="">请选择检查项目</option>
                 <option value="核磁共振">核磁共振</option>
                 <option value="CT">CT</option>
                 <option value="心电图">心电图</option>
@@ -32,18 +31,22 @@
             </select>
         </div>
 
-<!--        <div class="layui-input-inline">-->
-<!--            <div class="layui-inline">-->
-<!--                <input class="layui-input" placeholder="检查项目名称" name="itemName" id="itemName"  />-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="layui-input-inline">
-            <div class="layui-inline">
-                <input class="layui-input" placeholder="检查价格" name="itemPrice" id="itemPrice"  />
-            </div>
+
+        <label class="layui-form-label">检查部位</label>
+        <div class="layui-input-inline" style="width:200px;">
+            <select id="checkArea" name="checkArea">
+                <option value="">请选择检查部位</option>
+                <option value="头部">头部</option>
+                <option value="胃">胃</option>
+                <option value="腿">腿</option>
+                <option value="腹部">腹部</option>
+            </select>
         </div>
 
-        <div class="layui-input-inline">
+        <br>
+
+        <label class="layui-form-label">皮试结果</label>
+        <div class="layui-input-inline" style="width:200px;">
             <select id="skinTestRes" name="skinTestRes">
                 <option value="">请选择皮试结果</option>
                 <option value="正常">正常</option>
@@ -53,13 +56,10 @@
             </select>
         </div>
 
-        <div class="layui-input-inline">
-            <div class="layui-inline">
-                <input class="layui-input" placeholder="病情摘要" name="illnessSummary" id="illnessSummary"  />
-            </div>
-        </div>
+        <br>
 
-        <div class="layui-input-inline">
+        <label class="layui-form-label">执行科室</label>
+        <div class="layui-input-inline" style="width:200px;">
             <select name="department" id="department" lay-verify="required">
                 <option value="">执行科室</option>
                 <option value="外科">外科</option>
@@ -75,46 +75,74 @@
             </select>
         </div>
 
-        <div class="layui-input-inline">
-            <select id="checkArea" name="checkArea">
-                <option value="">请选择检查部位</option>
-                <option value="头部">头部</option>
-                <option value="胃">胃</option>
-                <option value="腿">腿</option>
-                <option value="腹部">腹部</option>
-            </select>
+        <br>
+
+<!--        <br>-->
+
+        <label class="layui-form-label">检查价格</label>
+        <div class="layui-input-inline" style="width:200px;">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="检查价格" name="itemPrice" id="itemPrice"  />
+            </div>
         </div>
 
-        <div class="layui-input-inline">
+
+<!--        <br>-->
+
+
+        <br>
+
+        <label class="layui-form-label">病情摘要</label>
+        <div class="layui-input-inline" style="width:200px;">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="病情摘要" name="illnessSummary" id="illnessSummary"  />
+            </div>
+        </div>
+
+        <br>
+
+
+        <label class="layui-form-label">注意事项</label>
+        <div class="layui-input-inline" style="width:200px;">
             <div class="layui-inline">
                 <input class="layui-input" placeholder="注意事项" name="notice" id="notice"  />
             </div>
         </div>
 
+        <br>
+
+        <label class="layui-form-label">总结意见</label>
+        <div class="layui-input-inline" style="width:200px;">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="总结意见" name="opinion" id="opinion"  />
+            </div>
+        </div>
+
+        <br>
+
+        <label class="layui-form-label">检查结果</label>
+        <div class="layui-input-inline" style="width:200px;">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="检查结果" name="checkRes" id="checkRes"  />
+            </div>
+        </div>
+
+        <br>
+
         <div class="layui-inline">
             <label class="layui-form-label">检查时间</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width:200px;">
                 <!--lay-verify="date"-->
                 <input type="text" name="checkTime" id="checkTime" class="layui-input layui-disabled"
                        readonly>
             </div>
         </div>
 
-        <div class="layui-input-inline">
-            <div class="layui-inline">
-                <input class="layui-input" placeholder="检查结果" name="checkRes" id="checkRes"  />
-            </div>
-        </div>
-
-        <div class="layui-input-inline">
-            <div class="layui-inline">
-                <input class="layui-input" placeholder="总结意见" name="opinion" id="opinion"  />
-            </div>
-        </div>
+        <br>
 
         <div class="layui-inline">
-            <label class="layui-form-label">开检查单时间</label>
-            <div class="layui-input-inline">
+            <label class="layui-form-label">开单时间</label>
+            <div class="layui-input-inline" style="width:200px;">
                 <!--lay-verify="date"-->
                 <input type="text" name="itemDate" id="itemDate" class="layui-input layui-disabled"
                        readonly>
@@ -138,6 +166,9 @@
 <script src="../../static/layui/layui.js" charset="utf-8"></script>
 
 <script>
+
+</script>
+<script>
     layui.use(['util', 'laydate', 'layer'], function () {
         // 记录当前时间并展示
         function getNow(s) {
@@ -148,6 +179,59 @@
         var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
         lay('#date').val(str2);
     });
+</script>
+<script>
+    layui.use(['form','layer','util'], function(){
+        var form = layui.form,
+            $ = layui.jquery,
+            util = layui.util,
+            layer = layui.layer;
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            data = data.field;
+            console.log(data)
+            //发异步，把数据提交给php
+
+            // 获得frame索引
+            var index = parent.layer.getFrameIndex(window.name);
+
+            $.ajax({
+                type: "POST",   //提交的方法
+                url:"http://localhost:8082/order/startorder",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType:"json",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "department": data.department,
+                    "oType": data.oType,
+                    "oTime": data.oTime,
+                    "dName": data.dName
+                }),
+
+                async: false,
+                error: function(request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function(data) {
+                    if (data.code==0){
+                        parent.layer.close(index);
+                        window.parent.location.reload();
+                    }
+                    else{
+                        layer.alert(data.msg)
+                    }
+                }
+
+            })
+
+            return false;
+        });
+
+    });
+
+
 </script>
 </body>
 </html>

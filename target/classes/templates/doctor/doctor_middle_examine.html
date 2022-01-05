@@ -6,12 +6,16 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../static/css/weadmin.css">
-    <link rel="stylesheet" href="../../static/layui-v2.6.8/layui/css/layui.css"
-          tppabs="https://www.layui.site/layui/dist/css/layui.css" media="all">
-
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="stylesheet" href="../../static/css/font.css" />
+    <link rel="stylesheet" href="../../static/css/weadmin.css" />
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
 
     <style>
         .layui-card {
@@ -156,7 +160,16 @@
 </head>
 <body>
 <!-- 医生开处方 -->
-
+<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="javascript:window.close(); ">首页</a> <a href="javascript:;">开检查</a>
+			</span>
+    <a class="layui-btn layui-btn-sm" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);"
+       title="刷新">
+        <i class="layui-icon layui-icon-refresh"></i>
+        <!-- <i class="layui-icon" style="line-height:30px">&#x1002;</i> -->
+    </a>
+</div>
 <div class="layuimini-container">
     <div class="layuimini-main">
         <div class="layui-col-md12">
@@ -174,14 +187,6 @@
                     <!--姓名-->
                     <div class="layui-inline">
                         <label class="layui-form-label">姓名</label>
-                        <!--                <div class="layui-input-inline">-->
-                        <!--                    <label>-->
-                        <!--                        <select name="modules" lay-verify="required" lay-search="" id="selectUsername"-->
-                        <!--                                lay-filter="selectUsername">-->
-                        <!--                            <option value="">直接选择或搜索选择</option>-->
-                        <!--                        </select>-->
-                        <!--                    </label>-->
-                        <!--                </div>-->
                         <div class="layui-input-inline">
                             <input type="text" name="pName" id="pName" readonly
                                    class="layui-input layui-disabled">
@@ -268,65 +273,24 @@
                 <!--        <div class="layui-card">-->
                 <!--            <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>-->
 
-                <form class="layui-form" action="" lay-filter="examine">
+
+            <form class="layui-form" action="" lay-filter="examine">
 
 
                 <div class="layui-form-item layui-form-text layui-col-md12">
                     <div class="layui-block">
                         <div class="weadmin-body ">
+                            <div class="layui-btn-container">
+                                <input id="btn_getxz" type="button"class="layui-btn layui-btn-sm" value="新增检查项"onclick="WeAdminShow('新增检查项','./doctor_add_item.html',700,500);">
+                            </div>
 
-<!--                            <div class="layui-btn-container">-->
-<!--                                <button class="layui-btn" onclick="WeAdminShow('新增检查项','./doctor_add_item.html',750,400);">-->
-<!--                                    <i class="layui-icon layui-icon-add-circle-fine"></i>新增检查项-->
-<!--                                </button>-->
-<!--                            </div>-->
-
+                            <!--<div class="weadmin-block" id="topline" name=""topline>-->
+                                <!--<button class="layui-btn" onclick=addcheck()>-->
+                                    <!--<i class="layui-icon layui-icon-add-circle-fine"></i>新增检查-->
+                                <!--</button>-->
+                            <!--</div>-->
                             <div class="layui-form-item layui-col-md12">
-                                <!--            <label class="layui-form-label">test</label>-->
-                                <!--            <div class="layui-input-inline">-->
-
-                                <table class="layui-hide" id="test" lay-filter="test"></table>
-
-                                <script type="text/html" id="toolbarDemo">
-
-                                    <!--                                    <div class="layui-form-item">-->
-                                    <!--                                        <label class="layui-form-label">操作</label>-->
-                                    <!--                                        <div class="layui-input-inline">-->
-                                    <!--                                            <select name="quiz1">-->
-                                    <!--                                                <option value="">请选择科室</option>-->
-                                    <!--                                                <option value="" selected="">科室1</option>-->
-                                    <!--                                                <option value="">科室2</option>-->
-                                    <!--                                                <option value="">科室3</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                        <div class="layui-input-inline">-->
-                                    <!--                                            <select name="quiz2">-->
-                                    <!--                                                <option value="">请选择处理事项</option>-->
-                                    <!--                                                <option value="">开药</option>-->
-                                    <!--                                                &lt;!&ndash;                    <option value="宁波" disabled="">检查</option>&ndash;&gt;-->
-                                    <!--                                                <option value="">检查</option>-->
-                                    <!--                                                &lt;!&ndash;                    <option value="温州">台州</option>&ndash;&gt;-->
-                                    <!--                                                &lt;!&ndash;                    <option value="温州">绍兴</option>&ndash;&gt;-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                        <div class="layui-input-inline">-->
-                                    <!--                                            <select name="quiz3">-->
-                                    <!--                                                <option value="">请选择事项</option>-->
-                                    <!--                                                <option value="">事项1</option>-->
-                                    <!--                                                <option value="">事项2</option>-->
-                                    <!--                                                <option value="">事项3</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                        &lt;!&ndash;            <div class="layui-form-mid layui-word-aux">此处只是演示联动排版，并未做联动交互</div>&ndash;&gt;-->
-                                    <!--                                    </div>-->
-
-                                    <!--   script将点击事件与控件绑定起来-->
-
-                                    <div class="layui-btn-container">
-                                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开检查单</button>
-                                    </div>
-
-                                </script>
+                            <table class="layui-hide" id="test" lay-filter="test"></table>
                             </div>
 
                         </div>
@@ -341,7 +305,7 @@
 </div>
 
 
-<script src="../../static/layui-v2.6.8/layui/layui.js" charset="utf-8"></script>
+
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <!--展示当前时间-->
 <script>
@@ -357,74 +321,6 @@
         lay('#date').val(str2);
     });
 </script>
-<script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
-
-        //日期
-        laydate.render({
-            elem: '#date1'
-        });
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function (value) {
-                if (value.length < 5) {
-                    return '标题至少得5个字符啊';
-                }
-            }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function () {
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                , "password": "123456"
-                , "interest": 1
-                , "like[write]": true //复选框选中状态
-                , "close": true //开关状态
-                , "sex": "女"
-                , "desc": "我爱 layui"
-            });
-        });
-
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function () {
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });
-
-    });
-</script>
 
 <!--表格监听-->
 <script>
@@ -436,8 +332,7 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'   // 绑定组件，之前已将table id命名为test
-            , url: 'http://localhost:8082/item/showallItem'/*tpa=https://www.layui.site/test/table/demo1.json*/ // 数据来源
-            , toolbar: '#toolbarDemo'
+            , url: 'http://localhost:8082/item/showallItem'
             , title: '用户数据表'
             , totalRow: true
             , cols: [[
@@ -460,44 +355,12 @@
                 , {field: 'checkRes', title: '检查结果', width: 90, edit: 'text'}
                 , {field: 'opinion', title: '检查结果', width: 90, edit: 'text'}
                 , {field: 'itemDate', title: '开检查单时间', width: 120, edit: 'text'}
-                // , {field: 'itemDate', title: '开检查单时间', width: 150, sort: true, totalRow: true,totalRowText: '合计'}
-                // , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+
             ]]
             , page: true
         });
 
-        //工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {    // 点击事件
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                    break;
-            }
-        });
 
-        //监听工具条，修改表格内容，在表格内，跟lay-filter绑定
-        table.on('tool(test)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'detail') {
-                layer.msg('ID：' + data.id + ' 的查看操作');
-            } else if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if (obj.event === 'edit') {
-                layer.alert('编辑行：<br>' + JSON.stringify(data))
-            }
-        });
 
 
     });
@@ -573,7 +436,6 @@
         // })
     });
 </script>
-
 
 </body>
 </html>
