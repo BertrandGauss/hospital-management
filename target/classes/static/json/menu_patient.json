@@ -11,18 +11,8 @@
 			"id": 2,
 			"name": "预约挂号",
 			"icon": "&#xe705;",
-			"url": "",
-			"children": [{
-				"id": 3,
-				"name": "预约",
-				"icon": "",
-				"url": "../../templates/patient/patient_yuyue.html"
-			}, {
-				"id": 4,
-				"name": "挂号",
-				"icon": "",
-				"url": "../../templates/patient/patient_guahao.html"
-			}]
+			"url": "../../templates/patient/patient_yuyue.html"
+
 		},
 		{
 			"id": 5,

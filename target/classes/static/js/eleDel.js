@@ -9,7 +9,8 @@
  * +----------------------------------------------------------------------
  */
 layui.extend({
-	admin: '{/}../../static/js/admin'
+	admin: '{/}../../static/js/admin',
+	menu:'{/}../../static/js/menu.js'
 });
 layui.use(['laydate', 'jquery', 'admin'], function() {
 	var laydate = layui.laydate,
@@ -23,6 +24,7 @@ layui.use(['laydate', 'jquery', 'admin'], function() {
 	laydate.render({
 		elem: '#end' //指定元素
 	});
+
 	/*用户-停用*/
 	window.member_stop = function (obj, id) {
 		layer.confirm('确认要停用吗？', function(index) {
