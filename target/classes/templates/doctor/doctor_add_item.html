@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css" tppabs="https://www.layui.site/layui/dist/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>新增检查项</legend>
+</fieldset>
+<form class="layui-form"  lay-filter="startitem">
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">选择检查项目名称</label>
+        <div class="layui-input-inline">
+            <select name="itemName" id="itemName" lay-verify="required">
+                <option value="">检查项目</option>
+                <option value="核磁共振">核磁共振</option>
+                <option value="CT">CT</option>
+                <option value="心电图">心电图</option>
+                <option value="B超">B超</option>
+                <option value="验血">验血</option>
+                <option value="胃镜">胃镜</option>
+                <option value="拍片子">拍片子</option>
+            </select>
+        </div>
+
+<!--        <div class="layui-input-inline">-->
+<!--            <div class="layui-inline">-->
+<!--                <input class="layui-input" placeholder="检查项目名称" name="itemName" id="itemName"  />-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="检查价格" name="itemPrice" id="itemPrice"  />
+            </div>
+        </div>
+
+        <div class="layui-input-inline">
+            <select id="skinTestRes" name="skinTestRes">
+                <option value="">请选择皮试结果</option>
+                <option value="正常">正常</option>
+                <option value="较正常">较正常</option>
+                <option value="较异常">较异常</option>
+                <option value="异常">异常</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="病情摘要" name="illnessSummary" id="illnessSummary"  />
+            </div>
+        </div>
+
+        <div class="layui-input-inline">
+            <select name="department" id="department" lay-verify="required">
+                <option value="">执行科室</option>
+                <option value="外科">外科</option>
+                <option value="内科">内科</option>
+                <option value="妇科">妇科</option>
+                <option value="儿科">儿科</option>
+                <option value="口腔科">口腔科</option>
+                <option value="五官科">五官科</option>
+                <option value="皮肤科">皮肤科</option>
+                <option value="放射科">放射科</option>
+                <option value="生化室">生化室</option>
+                <option value="化验室">化验室</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <select id="checkArea" name="checkArea">
+                <option value="">请选择检查部位</option>
+                <option value="头部">头部</option>
+                <option value="胃">胃</option>
+                <option value="腿">腿</option>
+                <option value="腹部">腹部</option>
+            </select>
+        </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="注意事项" name="notice" id="notice"  />
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">检查时间</label>
+            <div class="layui-input-inline">
+                <!--lay-verify="date"-->
+                <input type="text" name="checkTime" id="checkTime" class="layui-input layui-disabled"
+                       readonly>
+            </div>
+        </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="检查结果" name="checkRes" id="checkRes"  />
+            </div>
+        </div>
+
+        <div class="layui-input-inline">
+            <div class="layui-inline">
+                <input class="layui-input" placeholder="总结意见" name="opinion" id="opinion"  />
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">开检查单时间</label>
+            <div class="layui-input-inline">
+                <!--lay-verify="date"-->
+                <input type="text" name="itemDate" id="itemDate" class="layui-input layui-disabled"
+                       readonly>
+            </div>
+
+        </div>
+
+    <br>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn layui-col-md-offset5" lay-submit="" lay-filter="demo1">
+                确认预约
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    <br>
+    </div>
+</form>
+
+<script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use(['util', 'laydate', 'layer'], function () {
+        // 记录当前时间并展示
+        function getNow(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var currTime = new Date();
+        var str2 = currTime.getFullYear() + '-' + getNow(currTime.getMonth() + 1) + '-' + getNow(currTime.getDate()+1);
+        lay('#date').val(str2);
+    });
+</script>
+</body>
+</html>
