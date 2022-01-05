@@ -80,6 +80,31 @@ public class HistoryController {
         json.put("data", history);
         json.put("code",0);
         json.put("msg","成功获取历史病历");
+        json.put("count",history.size());
+        return json;
+    }
+
+    //根据查看所有病历
+    @RequestMapping(value = "/viewallhis",method = {RequestMethod.GET})
+    private JSONObject viewAll(){
+        List<History> histories = historyService.showAllHis();
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","成功获取所有历史病历");
+        json.put("count",histories.size());
+        json.put("data",histories);
+        return json;
+    }
+
+    //根据查看所有病历
+    @RequestMapping(value = "/viewonehis",method = {RequestMethod.POST})
+    private JSONObject viewonehis(@RequestBody History his){
+        System.out.println(his.getHistoryId());
+        History history = historyService.showHis(his.getHistoryId());
+        JSONObject json = new JSONObject();
+        json.put("code",0);
+        json.put("msg","成功获取历史病历");
+        json.put("data",history);
         return json;
     }
 }

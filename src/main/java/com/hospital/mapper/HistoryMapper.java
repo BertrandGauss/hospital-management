@@ -16,4 +16,8 @@ public interface HistoryMapper {
     void edit(History history); // 编辑病历
 
     List<History> showAllHisByPid(String pIdentificationNum); // 查看历史病历
+
+    List<History> showAllHis();
+
+    History selectById(Integer historyId);
 }

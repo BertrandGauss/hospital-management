@@ -157,4 +157,13 @@ public class HistoryService {
         return  patient;
     }
 
+    public List<History> showAllHis(){
+        List<History> histories = historyMapper.showAllHis();
+        return histories;
+    }
+
+    public History showHis(Integer historyId){
+        History history = historyMapper.selectById(historyId);
+        return history;
+    }
 }

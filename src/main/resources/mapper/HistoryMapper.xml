@@ -30,4 +30,15 @@
         FROM history
         WHERE pIdentificationNum = #{pIdentificationNum};
     </select>
+
+    <select id="showAllHis" resultType="com.hospital.entity.History">
+        SELECT *
+        FROM history
+    </select>
+
+    <select id="selectById" resultType="com.hospital.entity.History">
+        SELECT *
+        FROM history
+        WHERE historyId = #{historyId}
+    </select>
 </mapper>
