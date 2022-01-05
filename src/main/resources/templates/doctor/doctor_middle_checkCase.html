@@ -54,7 +54,7 @@
     <!--    </div>-->
 
     <!--这里url改一下，根据实际后台接口-->
-    <table class="layui-table" lay-data="{ url:'http://localhost:8082/', page:true, id:'allhistory'}"
+    <table class="layui-table" lay-data="{ url:'http://localhost:8082/history/viewallhisbypid', page:true, id:'allhistory'}"
            lay-filter="allhistory">
         <thead>
         <tr>
@@ -118,8 +118,7 @@
                     $.ajax({
                         //几个参数需要注意一下
                         type: "POST",//方法类型
-
-                        url: "http://localhost:8082/",//url
+                        url: "http://localhost:8082/history/viewallhisbypid",//url
                         xhrFields: {
                             withCredentials: true,
                         },
@@ -169,20 +168,54 @@
             admin = layui.admin,
             layer = layui.layer;
         form.on('submit(search)', function (data) {
-            (
-                table.reload('allhistory', {
-                    // url记得改一下
-                    url: "http://localhost:8082/",
-                    method: 'POST',
-                    contentType: 'application/json'
-                    , where: {
-                        "pIdentificationNum": data.field.identityNum,
-                    }, page: {
-                        curr: 1 //重新从第 1 页开始
-                    }
-                })
+            // (
+            //     table.reload('allhistory', {
+            //         // url记得改一下
+            //         url: "http://localhost:8082/history/viewallhisbypid",
+            //         method: 'POST',
+            //         contentType: 'application/json'
+            //         , where: {
+            //             "pIdentificationNum": data.field.identityNum,
+            //         }, page: {
+            //             curr: 1 //重新从第 1 页开始
+            //         }
+            //     })
+            //
+            // )
 
-            )
+            data = data.field;
+            var json={
+                "pIdentificationNum":$("#pIdentificationNum").val()
+            }
+            $.ajax({
+                type: "POST",   //提交的方法
+                url: "http://localhost:8082//history/viewallhisbypid",
+                xhrFields: {
+                    withCredentials: true,
+                },
+                dataType: "json",
+                contentType:'application/x-www-form-urlencoded',
+                //url:"#",
+                data: json,
+                async: false,
+                error: function (request) {  //失败的话
+                    alert("Connection error");
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        console.log(data.data)
+                        form.val("allhistory", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "historyId": data.data.historyId,
+                            "pName": data.data.pName,
+                            "pIdentificationNum": data.data.pIdentificationNum,
+                            "diseaseDate": data.data.diseaseDate
+                        });
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            })
+
             return false;
         })
     })
