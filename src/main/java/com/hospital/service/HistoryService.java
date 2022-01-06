@@ -67,6 +67,7 @@ public class HistoryService {
         if((doctor.getPatientId()==null||doctor.getPatientId()==-1) && rNums.size()>0){//还未就诊，开始叫号
             endregistration(doctorId);
         }
+        System.out.println("叫号"+doctor.getPatientId());
         Patient patient = historyMapper.getPatientinfo(doctor.getPatientId());
         return  patient;
     }
@@ -92,8 +93,10 @@ public class HistoryService {
     //结束当前就诊病人,开始叫下一号
     public void endregistration(Integer doctorId){
         Doctor doctor = doctorMapper.selectbyid(doctorId);
-        if(doctor.getPatientId()!=null)
+        if(doctor.getPatientId()!=null) {
+            System.out.println("失效"+doctor.getPatientId());
             registrationMapper.updateValid(doctor.getPatientId());
+        }
         List<String> rNums = new LinkedList<>();
 
         if(doctor.getdTitle().equals("专家"))
@@ -121,7 +124,7 @@ public class HistoryService {
         registration.setDepartment(doctor.getdOffice());
         Integer patientId = null;
 
-        if(vNums.size()!=0&&nNums.size()!=0) {
+        if(vNums.size()!=0||nNums.size()!=0) {
             if (doctor.getdTitle().equals("专家") && doctor.getPatientId() == null) {//专家号
                 if (vNums.size() > 0)
                     registration.setrNum("v" + String.format("%06d", vNums.get(0)));
@@ -133,7 +136,9 @@ public class HistoryService {
             } else if (doctor.getdTitle().equals("专家") && doctor.getPatientId() != null) {
                 String rNum = registrationMapper.selectPre(doctor.getPatientId());
                 System.out.println(nNums.get(0) + "排队号");
-                if (vNums.size() > 0 && !rNum.contains("v"))
+                if (vNums.size() > 0 && rNum==null)
+                    registration.setrNum("v" + String.format("%06d", vNums.get(0)));
+                else if (vNums.size() > 0 && !rNum.contains("v"))
                     registration.setrNum("v" + String.format("%06d", vNums.get(0)));
                 else
                     registration.setrNum(String.format("%06d", nNums.get(0)));

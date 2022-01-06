@@ -48,7 +48,7 @@
         <button class="layui-btn"  onclick="pay()">
             <i class="layui-icon layui-icon-add-circle-fine"></i>缴费
         </button>
-        <button class="layui-btn layui-btn-danger" onclick="deleteSome()">
+        <button class="layui-btn layui-btn-danger" onclick="refund()">
             <i class="layui-icon layui-icon-delete"></i>退费
         </button>
     </div>
@@ -151,7 +151,7 @@
                 alert("Connection error");
             },
             success: function (data) {
-                alert("请支付"+data.count);
+                alert(data.msg);
                 //支付宝支付
                 if(data.code==0){
                     // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错
@@ -184,15 +184,14 @@
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify({
-                "recipeName": recipeNames,
-                "pIdentificationNum": pIdentificationNums
+                "recipeName": recipeNames
             }),
             async: true,
             error: function (request) {  //失败的话
                 alert("Connection error");
             },
             success: function (data) {
-                alert("可以退回"+data.count);
+                alert(data.msg);
                 //支付宝退费
                 if(data.code==0){
                     // 添加之前先删除一下，如果单页面，页面不刷新，添加进去的内容会一直保留在页面中，二次调用form表单会出错

@@ -9,4 +9,6 @@ public interface TraceMapper {
     void updateTrace(@Param("patientId")Integer patientId,@Param("state") Integer state);
 
     Integer selectById(Integer patientId);
+
+    void delectTrace(Integer patientId);
 }

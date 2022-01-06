@@ -14,4 +14,8 @@
     <select id="selectById" resultType="java.lang.Integer" >
         SELECT `state` FROM trace WHERE patientId = #{patientId} AND isValid=1
     </select>
+
+    <delete id="delectTrace">
+        DELETE FROM trace WHERE patientId = #{patientId} AND isValid=1
+    </delete>
 </mapper>

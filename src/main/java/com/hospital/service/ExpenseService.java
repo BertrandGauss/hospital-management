@@ -263,6 +263,7 @@ public class ExpenseService {
             json.put("code",0);
             json.put("msg","可以退回"+prices.toString()+"元");
             json.put("count",prices);
+            traceMapper.delectTrace(patientId);
             String result = alipayClient.pageExecute(alipayRequest).getBody();
             System.out.println("*********************\n返回结果为："+result);
             json.put("data",result);
