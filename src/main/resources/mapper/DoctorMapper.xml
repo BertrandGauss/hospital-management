@@ -58,7 +58,7 @@
     <select id="selectbyName" resultType="java.lang.Integer" >
         SELECT doctorId
         FROM doctor
-        WHERE dOffice = #{department} AND dName=#{dName} AND dTitle = "专家";
+        WHERE dOffice = #{department} AND dName=#{dName} AND dTitle = "专家" AND isValid = 1;
     </select>
 
     <update id="updatepId" >

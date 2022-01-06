@@ -264,6 +264,8 @@ INSERT INTO `medicine` VALUES ('穿心莲内酯滴丸', '20');
 INSERT INTO `medicine` VALUES ('连花清瘟胶囊', '15');
 INSERT INTO `medicine` VALUES ('阿莫西林', '10');
 INSERT INTO `medicine` VALUES ('999感冒灵颗粒', '5');
+INSERT INTO `medicine` VALUES ('板兰根', '20');
+INSERT INTO `medicine` VALUES ('双黄连胶囊', '20');
 
 -- ----------------------------
 -- Table structure for Record
