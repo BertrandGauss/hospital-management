@@ -120,7 +120,7 @@
     layui.use('table', function() {
         var table = layui.table;
 
-        table.on('checkbox(allRecord)', function (obj) {
+        table.on('checkbox(allrecipe)', function (obj) {
             console.log(obj.data)
             var flag = 0;
             for (var i = 0; i < recipeNames.length; i++) {
@@ -175,6 +175,7 @@
     }
     function refund() {
         var $ = layui.jquery;
+        console.log(recipeNames)
         $.ajax({
             type: "POST",   //提交的方法
             url: "http://localhost:8082/expense/refund",

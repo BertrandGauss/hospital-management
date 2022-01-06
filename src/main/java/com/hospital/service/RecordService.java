@@ -32,7 +32,7 @@ public class RecordService {
             json.put("msg","药品库中不存在该药");
         }else if(remains<record.getDosage()){
             json.put("code",2);
-            json.put("msg","药品库中不存在该药");
+            json.put("msg","药品库中该药库存不足");
         }else{
             //添加处方记录，并更新药品库存
             recordMapper.add(record);
@@ -40,8 +40,10 @@ public class RecordService {
             //等待配药
             Trace trace = new Trace();
             trace.setPatientId(record.getPatientId());
-            if(traceMapper.selectById(record.getPatientId())==null)
+            if(traceMapper.selectById(record.getPatientId())==null) {
                 traceMapper.addTrace(trace);
+                System.out.println("开始追踪");
+            }
             else{
                 traceMapper.updateTrace(record.getPatientId(),0);
             }

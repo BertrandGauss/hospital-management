@@ -11,6 +11,14 @@
         SELECT * FROM record WHERE patientId = #{patientId} AND medHaveDone=0
     </select>
 
+    <select id="selectitemsPay" resultType="com.hospital.entity.Item" >
+        SELECT * FROM item WHERE patientId = #{patientId} AND havePay=0
+    </select>
+
+    <select id="selectmePay" resultType="com.hospital.entity.Record" >
+        SELECT * FROM record WHERE patientId = #{patientId} AND havePay=0
+    </select>
+
     <update id="payItems" parameterType="java.lang.Integer">
         UPDATE item
         SET havePay=1

@@ -33,8 +33,8 @@ public class ExpenseService {
     private ItemMapper itemMapper;
 
     public Double countExpense(Integer patientId){
-        List<Item> items = expenseMapper.selectitemsbypatientId(patientId);
-        List<Record> med = expenseMapper.selectmebypatientId(patientId);
+        List<Item> items = expenseMapper.selectitemsPay(patientId);
+        List<Record> med = expenseMapper.selectmePay(patientId);
         Double sumPrice =  0.0;
         for(int i=0; i<items.size(); i++){
             sumPrice  = sumPrice + items.get(i).getItemPrice() ;
@@ -122,12 +122,14 @@ public class ExpenseService {
             System.out.println(med.get(i).getDosage());
             recipe.setPrice(med.get(i).getMedPrice()*med.get(i).getDosage());
             Integer state = traceMapper.selectById(patientId);
+            if(state==null)
+                state = -1;
             if(state==3)
                 recipe.setState("等待退费");
             else if(med.get(i).getHavePay() == 0)
                 recipe.setState("未缴费");
             else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==0)
-                recipe.setState("等待配药");
+                recipe.setState("正在配药");
             else if(med.get(i).getHavePay() ==1 && med.get(i).getMedHaveDone()==1)
                 recipe.setState("配药完成");
             recipes.add(recipe);
@@ -202,12 +204,12 @@ public class ExpenseService {
                 json.put("msg","退费中存在未支付的物品");
                 return  json;
             }
-            else if(item.getItemHaveDone() ==1){
+            else if(item!=null && item.getItemHaveDone() ==1){
                 json.put("code",2);
                 json.put("msg","退费检查已做");
                 return  json;
             }
-            else if(record.getMedHaveDone() ==1){
+            else if(record!=null && record.getMedHaveDone() ==1){
                 json.put("code",3);
                 json.put("msg","退费药品未退回");
                 return  json;
