@@ -227,7 +227,7 @@ CREATE TABLE `Item` (
 	`itemDate` date,
 	primary key(`itemId`),
 	CONSTRAINT fk_patient_item_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
-  CONSTRAINT fk_doctor_item_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`)
+    CONSTRAINT fk_doctor_item_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`)
 );
 
 # INSERT INTO `Item` (patientId, doctorId, itemName, itemPrice, skinTestRes, illnessSummary, department, checkArea, notice, checkTime, checkRes, opinion)
@@ -283,11 +283,11 @@ CREATE TABLE `Record` (
 	`usage` varchar(32),
 	`medPrice` double,
 	`medHaveDone` int not null default 0,
-  `havePay` int not null default 0,
+    `havePay` int not null default 0,
 	`recordDate` date,
 	primary key(`recordId`),
 	CONSTRAINT fk_patient_record_pid FOREIGN KEY(`patientId`) REFERENCES `Patient`(`patientId`),
-  CONSTRAINT fk_doctor_record_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
+    CONSTRAINT fk_doctor_record_did FOREIGN KEY(`doctorId`) REFERENCES `Doctor`(`doctorId`),
 	CONSTRAINT fk_medicine_record_mid FOREIGN KEY(`medName`) REFERENCES `Medicine`(`medName`)
 );
 # INSERT INTO `Record` (medName, doctorId, patientId, dosage, units, frequency, days, `usage`, medPrice)
