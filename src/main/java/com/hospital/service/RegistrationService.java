@@ -37,6 +37,12 @@ public class RegistrationService {
             json.put("msg","有未完成的挂号");
             return json;
         }
+        if(id == null){
+            json.put("code",1);
+            json.put("msg","该用户未注册");
+            return json;
+
+        }
         Order order = orderMapper.haveOrder(id);
         LocalTime localTime = LocalTime.now();
         Time time =Time.valueOf( localTime.plusMinutes(30));
