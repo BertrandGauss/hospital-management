@@ -24,7 +24,7 @@
     <select id="getIdate"  resultType="java.sql.Date">
         SELECT itemDate
         FROM item
-        WHERE patientId = #{patientId} AND itemName=#{itemName} AND havePay = 1 AND  medHaveDone = 1;
+        WHERE patientId = #{patientId} AND itemName=#{itemName} AND havePay = 1 AND  itemHaveDone = 1;
     </select>
 
     <select id="selectitemsbyPid" resultType="com.hospital.entity.Item" >

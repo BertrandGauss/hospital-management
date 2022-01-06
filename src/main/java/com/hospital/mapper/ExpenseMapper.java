@@ -14,6 +14,10 @@ public interface ExpenseMapper {
 
     List<Record> selectmebypatientId(Integer patientId);
 
+    List<Item> selectitemsPay(Integer patientId);
+
+    List<Record> selectmePay(Integer patientId);
+
     List<Record> selectmedbydate(@Param("patientId") Integer patientId, @Param("startDate") Date startDate, @Param("endDate")Date endDate);
 
     List<Item> selectitembydate(@Param("patientId") Integer patientId, @Param("startDate") Date startDate, @Param("endDate")Date endDate);

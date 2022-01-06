@@ -320,8 +320,6 @@
         form.on('submit(demo1)', function(data){
             data = data.field;
             console.log(data)
-            alert($("#diseaseDate").val())
-            alert(data. drugAllergyHis)
             $.ajax({
                 type: "POST",   //提交的方法
                 url:"http://localhost:8082/history/editcasehis",
