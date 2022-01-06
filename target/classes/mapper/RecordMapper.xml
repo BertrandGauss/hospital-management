@@ -68,4 +68,10 @@
         FROM record
         WHERE havePay = 0 AND  medHaveDone=0 AND patientId=#{patientId} AND doctorId=#{doctorId};
     </select>
+
+    <select id="selectAll" resultType="com.hospital.entity.Record" >
+        SELECT *
+        FROM record
+        WHERE patientId=#{patientId} ;
+    </select>
 </mapper>
